@@ -1,0 +1,1502 @@
+{
+  "cooper.templates.group_x": {
+    "string": "X"
+  },
+  "fake_mp.modal.center_x": {
+    "string": "X"
+  },
+  "fake_mp.modal.center_y": {
+    "string": "Y"
+  },
+  "community.seller.currency_symbol": {
+    "string": "$"
+  },
+  "collaboration.branching_chunk.property_change_changed_value_denoter": {
+    "string": "→"
+  },
+  "collaboration.branching_node_treatments.value.empty_dash": {
+    "string": "–"
+  },
+  "collaboration.branching_node_treatments.property.x": {
+    "string": "X"
+  },
+  "collaboration.branching_node_treatments.property.y": {
+    "string": "Y"
+  },
+  "fullscreen.properties_panel.transform_panel.x": {
+    "string": "X"
+  },
+  "fullscreen.properties_panel.transform_panel.y": {
+    "string": "Y"
+  },
+  "properties_panel.effects.x": {
+    "string": "X"
+  },
+  "properties_panel.effects.y": {
+    "string": "Y"
+  },
+  "properties_panel.effects.b": {
+    "string": "B"
+  },
+  "properties_panel.effects.s": {
+    "string": "S"
+  },
+  "fullscreen.properties_panel.transform_panel.w": {
+    "string": "W"
+  },
+  "fullscreen.properties_panel.transform_panel.h": {
+    "string": "H"
+  },
+  "properties_panel.transform_modifiers.x": {
+    "string": "X"
+  },
+  "properties_panel.transform_modifiers.y": {
+    "string": "Y"
+  },
+  "comments.at_mention": {
+    "string": "@"
+  },
+  "properties_panel.effects.s_size": {
+    "string": "S"
+  },
+  "properties_panel.effects.r": {
+    "string": "R"
+  },
+  "properties_panel.effects.d": {
+    "string": "D"
+  },
+  "fullscreen.scrubbable.percent": {
+    "string": "%"
+  },
+  "inspect_panel.shadows.x": {
+    "string": "X"
+  },
+  "inspect_panel.shadows.y": {
+    "string": "Y"
+  },
+  "fullscreen.properties_panel.transform_panel.l": {
+    "string": "L"
+  },
+  "fullscreen.properties_panel.transform_panel.t": {
+    "string": "T"
+  },
+  "fullscreen.properties_panel.transform_panel.r": {
+    "string": "R"
+  },
+  "fullscreen.properties_panel.transform_panel.b": {
+    "string": "B"
+  },
+  "tooltips_plus_onboarding.command_key": {
+    "string": "⌘"
+  },
+  "viewer.footer.r": {
+    "string": "R"
+  },
+  "whiteboard.ai_modal.prompt_builder.period": {
+    "string": "."
+  },
+  "favorited_resources.plus": {
+    "string": "+"
+  },
+  "whiteboard.ai_modal.prompt_builder.trailing_ellipsis": {
+    "string": "…"
+  },
+  "fullscreen.properties_panel.grid_panel.r": {
+    "string": "R"
+  },
+  "fullscreen.properties_panel.grid_panel.c": {
+    "string": "C"
+  },
+  "proto.scroll_options.scroll_offset.y": {
+    "string": "Y"
+  },
+  "proto.scroll_options.scroll_offset.x": {
+    "string": "X"
+  },
+  "proto.device_panel.width": {
+    "string": "W"
+  },
+  "proto.device_panel.height": {
+    "string": "H"
+  },
+  "sites.panel.interactions_panel.x": {
+    "string": "X"
+  },
+  "sites.panel.interactions_panel.y": {
+    "string": "Y"
+  },
+  "dev_handoff.breadcrumbs.ellipsis": {
+    "string": "…"
+  },
+  "community.detail_view.bullet_point": {
+    "string": "•"
+  },
+  "domain_insights.unclaimed_users.no_name": {
+    "string": "-"
+  },
+  "resources_tab.libraries.no_subscriptions": {
+    "string": "—"
+  },
+  "add_unassigned_teams_modal.no_owner": {
+    "string": "—"
+  },
+  "breadcrumbs.private_workspace_ellipses": {
+    "string": "…"
+  },
+  "search.facets.creator": {
+    "string": "By"
+  },
+  "search.facets.in": {
+    "string": "进入"
+  },
+  "dev_handoff.alternative_units.pixel_unit": {
+    "string": "px"
+  },
+  "presets.tv": {
+    "string": "TV"
+  },
+  "fullscreen_actions.set-tool-shape-whiteboard-or": {
+    "string": "Or"
+  },
+  "fullscreen.properties_panel.export_settings_color_profile.p3": {
+    "string": "P3"
+  },
+  "community.publishing.id": {
+    "string": "ID"
+  },
+  "collaboration.branching_node_treatments.value.on": {
+    "string": "On"
+  },
+  "design_systems.instance_panel.ok": {
+    "string": "OK"
+  },
+  "design_systems.shared_fonts.import_complete_with_errors_ok": {
+    "string": "OK"
+  },
+  "design_systems.libraries_modal.on": {
+    "string": "On"
+  },
+  "fullscreen.properties_panel.color_contrast.aaStandard": {
+    "string": "AA"
+  },
+  "properties_panel.transform_modifiers.repeat.units_pixels": {
+    "string": "Px"
+  },
+  "ai.ok": {
+    "string": "Ok"
+  },
+  "fullscreen.toolbar.missing_fonts_modal.or": {
+    "string": "or"
+  },
+  "settings.account_settings.file_view_history_modal.enabled_label": {
+    "string": "On"
+  },
+  "autosave.unable_to_leave_document.ok_button": {
+    "string": "OK"
+  },
+  "community.profiles.or": {
+    "string": "OR"
+  },
+  "general.ok": {
+    "string": "Ok"
+  },
+  "view_restricted_file_modal.ok_button": {
+    "string": "OK"
+  },
+  "auth.generic-or": {
+    "string": "or"
+  },
+  "auth.two-factor-setup.ok": {
+    "string": "OK"
+  },
+  "dev_handoff.alternative_units.pt_unit": {
+    "string": "pt"
+  },
+  "presets.a_4": {
+    "string": "A4"
+  },
+  "presets.a_5": {
+    "string": "A5"
+  },
+  "presets.a_6": {
+    "string": "A6"
+  },
+  "whiteboard.shapes.or": {
+    "string": "Or"
+  },
+  "fullscreen.accessibility.node_movement_up": {
+    "string": "up"
+  },
+  "whiteboard.code_blocks.go": {
+    "string": "Go"
+  },
+  "community.cards.by": {
+    "string": "by"
+  },
+  "fullscreen.accessibility_dom.node_name_whiteboard-or": {
+    "string": "Or"
+  },
+  "fullscreen.toolbar.zoom_menu.pixel_preview_1x": {
+    "string": "1x"
+  },
+  "fullscreen.toolbar.zoom_menu.pixel_preview_2x": {
+    "string": "2x"
+  },
+  "whiteboard.clustering.plus_one_stamp_cluster": {
+    "string": "+1"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.up": {
+    "string": "Up"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.f6": {
+    "string": "F6"
+  },
+  "slides.properties_panel.object_animations.animation_phase.in": {
+    "string": "进入"
+  },
+  "whiteboard.ai_modal.or": {
+    "string": "or"
+  },
+  "proto.animation_panel.transition_direction.up": {
+    "string": "Up"
+  },
+  "proto.if": {
+    "string": "if"
+  },
+  "proto.action_conditional_title": {
+    "string": "If"
+  },
+  "sites.panel.interactions_panel.marquee_direction_up": {
+    "string": "Up"
+  },
+  "sites.panel.interactions_panel.to": {
+    "string": "To"
+  },
+  "admin_settings.ai.section_title": {
+    "string": "AI"
+  },
+  "billing_modals.seat_approval_overlay.cta": {
+    "string": "OK"
+  },
+  "resources_tab.libraries.on": {
+    "string": "On"
+  },
+  "org_settings.workspace_controls.public_link_controls_setting_allowed": {
+    "string": "On"
+  },
+  "sidebar.it": {
+    "string": "it"
+  },
+  "pro_cart.sidebar.no": {
+    "string": "No"
+  },
+  "fullscreen.arc_tool.arc": {
+    "string": "Arc"
+  },
+  "fullscreen.canvas.auto_layout_hug": {
+    "string": "Hug"
+  },
+  "fullscreen.canvas.paint_label_GIF": {
+    "string": "GIF"
+  },
+  "fullscreen.node_type.canvas_row": {
+    "string": "Row"
+  },
+  "user_notification.all": {
+    "string": "全部"
+  },
+  "user_notifications.new": {
+    "string": "New"
+  },
+  "plan_comparison.campfire.dev.name": {
+    "string": "Dev"
+  },
+  "general.bundle.developer": {
+    "string": "Dev"
+  },
+  "file_browser.file_move.tab_name_all": {
+    "string": "全部"
+  },
+  "resource_connection.onboarding.new": {
+    "string": "New"
+  },
+  "dev_handoff.codebase_suggestions.npm": {
+    "string": "NPM"
+  },
+  "dev_handoff.code.lang_ios": {
+    "string": "iOS"
+  },
+  "presets.styles.iphone_red": {
+    "string": "Red"
+  },
+  "presets.styles.apple_watch_red": {
+    "string": "Red"
+  },
+  "fullscreen.export.export_to_pdf": {
+    "string": "PDF"
+  },
+  "fullscreen_actions.copy-as-css": {
+    "string": "CSS"
+  },
+  "fullscreen_actions.copy-as-ios": {
+    "string": "iOS"
+  },
+  "fullscreen_actions.cut": {
+    "string": "剪切"
+  },
+  "dev_handoff.code.lang_css": {
+    "string": "CSS"
+  },
+  "dev_handoff.code.lang_android_xml": {
+    "string": "XML"
+  },
+  "fullscreen_actions.pan": {
+    "string": "Pan"
+  },
+  "fullscreen_actions.set-tool-cut": {
+    "string": "剪切"
+  },
+  "fullscreen_actions.set-tool-pen": {
+    "string": "Pen"
+  },
+  "community.buyer.buy": {
+    "string": "购买"
+  },
+  "team_creation_speed_bump.footer.upgrade_button.label": {
+    "string": "Pro"
+  },
+  "lab.ui3": {
+    "string": "UI3"
+  },
+  "community.buyer.jct": {
+    "string": "JCT"
+  },
+  "community.buyer.tbd": {
+    "string": "TBD"
+  },
+  "community.seller.usd": {
+    "string": "USD"
+  },
+  "community.buyer.you": {
+    "string": "you"
+  },
+  "general.fallback_org_name": {
+    "string": "Org"
+  },
+  "community.publishing.playground_file_add_button": {
+    "string": "Add"
+  },
+  "collaboration.branching_to_source.add": {
+    "string": "Add"
+  },
+  "collaboration.branching_chunk.tile_variants_and_affected_items_separator": {
+    "string": " · "
+  },
+  "collaboration.branching_node_treatments.value.autolayout.hug": {
+    "string": "Hug"
+  },
+  "collaboration.branching_node_treatments.value.autolayout.max": {
+    "string": "最大"
+  },
+  "collaboration.branching_node_treatments.value.autolayout.min": {
+    "string": "最小"
+  },
+  "collaboration.branching_node_treatments.value.node_type.jsx": {
+    "string": "JSX"
+  },
+  "collaboration.branching_node_treatments.value.blend_mode.hue": {
+    "string": "Hue"
+  },
+  "collaboration.branching_node_treatments.value.off": {
+    "string": "Off"
+  },
+  "collaboration.branching_node_treatments.value.layout_grid.min": {
+    "string": "最小"
+  },
+  "collaboration.branching_node_treatments.value.layout_grid.max": {
+    "string": "最大"
+  },
+  "design_systems.libraries_modal.all": {
+    "string": "全部"
+  },
+  "design_systems.libraries_modal.n_a": {
+    "string": "N/A"
+  },
+  "design_systems.libraries_modal.off": {
+    "string": "Off"
+  },
+  "fullscreen.accessibility.chit_gif": {
+    "string": "GIF"
+  },
+  "inspect_panel.properties.top": {
+    "string": "顶部"
+  },
+  "inspect_panel.properties.border.top": {
+    "string": "顶部"
+  },
+  "inspect_panel.properties.padding.top": {
+    "string": "顶部"
+  },
+  "inspect_panel.properties.gap": {
+    "string": "间距"
+  },
+  "fullscreen.properties_panel.add": {
+    "string": "Add"
+  },
+  "fullscreen.properties_panel.color_contrast.aaaStandard": {
+    "string": "AAA"
+  },
+  "fullscreen.color_controls.hue": {
+    "string": "Hue"
+  },
+  "variables.binding_ui.variable_dakota_tab_name": {
+    "string": "CMS"
+  },
+  "fullscreen.draggable_list.add": {
+    "string": "Add"
+  },
+  "properties_panel.effects.blur.end_blur": {
+    "string": "End"
+  },
+  "properties_panel.effects.noise.type.duo": {
+    "string": "Duo"
+  },
+  "fullscreen.properties_panel.export_settings_quality.low": {
+    "string": "低"
+  },
+  "fullscreen.properties_panel.font_picker.new_font_badge": {
+    "string": "New"
+  },
+  "fullscreen.grids_panel.grid_settings.top": {
+    "string": "顶部"
+  },
+  "fullscreen.properties_panel.stroke_settings.gap": {
+    "string": "间距"
+  },
+  "properties_panel.transform_modifiers.repeat.spacing": {
+    "string": "间距"
+  },
+  "fullscreen_actions.plugin_parameters.tab": {
+    "string": "Tab"
+  },
+  "variables.edit_modal.platforms.web": {
+    "string": "Web"
+  },
+  "variables.edit_modal.platforms.ios": {
+    "string": "iOS"
+  },
+  "variables.type.map": {
+    "string": "地图"
+  },
+  "variables.authoring_modal.filters.all": {
+    "string": "全部"
+  },
+  "settings.account_settings.file_view_history.off": {
+    "string": "Off"
+  },
+  "settings.account_settings.file_view_history_modal.disabled_label": {
+    "string": "Off"
+  },
+  "comments.you": {
+    "string": "You"
+  },
+  "file_browser.draft_move_modal.destination_description_badge_edu": {
+    "string": "Edu"
+  },
+  "file_browser.draft_move_modal.destination_description_badge_pro": {
+    "string": "Pro"
+  },
+  "file_browser.draft_move_modal.destination_description_badge_org": {
+    "string": "Org"
+  },
+  "whiteboard.embeds.insert_embed_modal.add": {
+    "string": "Add"
+  },
+  "payments_modal.add": {
+    "string": "add"
+  },
+  "file_access_row.expiration.set": {
+    "string": "设置"
+  },
+  "collaboration.branching.fit": {
+    "string": "Fit"
+  },
+  "tile.sort_filter.sort_direction_a_to_z": {
+    "string": "A-Z"
+  },
+  "tile.sort_filter.sort_direction_z_to_a": {
+    "string": "Z-A"
+  },
+  "dakota.table_view.header.default_title": {
+    "string": "CMS"
+  },
+  "dev_handoff.assets.gif": {
+    "string": "GIF"
+  },
+  "inspect_panel.properties.hug": {
+    "string": "Hug"
+  },
+  "dev_handoff.alternative_units.rem_unit": {
+    "string": "rem"
+  },
+  "org_admin_survey.n_a": {
+    "string": "N/A"
+  },
+  "fullscreen.properties_panel.color_picker.blend_mode_select.hue": {
+    "string": "Hue"
+  },
+  "fullscreen.properties_panel.gif": {
+    "string": "GIF"
+  },
+  "fullscreen.properties_panel.image_scale.fit": {
+    "string": "Fit"
+  },
+  "fullscreen.properties_panel.constraints.top": {
+    "string": "顶部"
+  },
+  "proto.action_update_media_set": {
+    "string": "设置"
+  },
+  "proto.interaction.type.key": {
+    "string": "按键"
+  },
+  "proto.interaction.type.tap": {
+    "string": "Tap"
+  },
+  "fullscreen.properties_panel.blend_mode.hue": {
+    "string": "Hue"
+  },
+  "plan_invoices.payment_method.card.jcb": {
+    "string": "JCB"
+  },
+  "plan_invoices.payment_method.ach_debit.unknown": {
+    "string": "ACH"
+  },
+  "plan_invoices.empty_details": {
+    "string": "– –"
+  },
+  "whiteboard.code_blocks.css": {
+    "string": "CSS"
+  },
+  "whiteboard.code_blocks.c": {
+    "string": "C++"
+  },
+  "whiteboard.code_blocks.sql": {
+    "string": "SQL"
+  },
+  "whiteboard.code_blocks.theme.duotone_sea": {
+    "string": "Sea"
+  },
+  "whiteboard.colors.red": {
+    "string": "Red"
+  },
+  "fullscreen_actions.new": {
+    "string": "New"
+  },
+  "fullscreen_actions.tab": {
+    "string": "Tab"
+  },
+  "collaboration.feedback.all_filter_text": {
+    "string": "全部"
+  },
+  "fullscreen.pages_panel.page_dropdown_new": {
+    "string": "New"
+  },
+  "fullscreen.properties_panel.borders.all": {
+    "string": "全部"
+  },
+  "fullscreen.properties_panel.borders.top": {
+    "string": "顶部"
+  },
+  "fullscreen.color_controls.red": {
+    "string": "Red"
+  },
+  "fullscreen.properties_panel.constraints_panel.select.top": {
+    "string": "顶部"
+  },
+  "proto.expression_builder_entry.placeholder_ui3_lhs": {
+    "string": "..."
+  },
+  "fullscreen.properties_panel.transform_panel.i_os": {
+    "string": "iOS"
+  },
+  "properties.label.arc": {
+    "string": "Arc"
+  },
+  "sites.panel.position_panel.top": {
+    "string": "顶部"
+  },
+  "fullscreen.properties_panel.constraints_resizing_panel.hug": {
+    "string": "Hug"
+  },
+  "qa.extensions.run": {
+    "string": "Run"
+  },
+  "whiteboard.ai_modal.hint_tab": {
+    "string": "tab"
+  },
+  "variables.scopes.gap": {
+    "string": "间距"
+  },
+  "universal_insert.run": {
+    "string": "Run"
+  },
+  "universal_insert.add": {
+    "string": "Add"
+  },
+  "google_device_try_file_modal.onboarding_disclaimer_tos": {
+    "string": "TOS"
+  },
+  "figjam_try.onboarding_disclaimer_tos": {
+    "string": "TOS"
+  },
+  "whiteboard.open_sessions.onboarding_disclaimer_tos": {
+    "string": "TOS"
+  },
+  "community.profiles.new": {
+    "string": "NEW"
+  },
+  "multi_select_list.filter_default": {
+    "string": "全部"
+  },
+  "help_widget.menu.figjam_try_faq": {
+    "string": "FAQ"
+  },
+  "help_widget.menu.discover_more_features.pro": {
+    "string": "Pro"
+  },
+  "fullscreen.properties_panel.section_autoLayout.label_gap": {
+    "string": "间距"
+  },
+  "sites.lint.interactions.and": {
+    "string": "and"
+  },
+  "sites.panel.link_panel.cms_header": {
+    "string": "CMS"
+  },
+  "figmake.toolbar.publish_modal.url_header": {
+    "string": "URL"
+  },
+  "whiteboard.ai_modal.pill.keyword.org": {
+    "string": "org"
+  },
+  "whiteboard.ai_modal.usecase.1:1": {
+    "string": "1:1"
+  },
+  "whiteboard.ai_modal.suggestion.1:1": {
+    "string": "1:1"
+  },
+  "whiteboard.ai_modal.suggestion_v2.1:1": {
+    "string": "1:1"
+  },
+  "whiteboard.ai_modal.prompt_builder.add": {
+    "string": "Add"
+  },
+  "whiteboard.community_prompt.suggestion.1:1": {
+    "string": "1:1"
+  },
+  "whiteboard.clustering.dot_stamp_cluster": {
+    "string": "Dot"
+  },
+  "whiteboard.inline_menu.ai_quick_actions_onboarding_badge_2": {
+    "string": "New"
+  },
+  "whiteboard.shapes_sidebar.shapes.web": {
+    "string": "Web"
+  },
+  "seat_selection_in_nux.dev": {
+    "string": "Dev"
+  },
+  "new_user_experience.user_onboarding_signals.disclaimer.old_enough_to_consent.v2.tos": {
+    "string": "TOS"
+  },
+  "new_user_experience.choose_plan_selected.pro": {
+    "string": "Pro"
+  },
+  "fig_feed.gif": {
+    "string": "GIF"
+  },
+  "favorited_resources.ellipses": {
+    "string": "···"
+  },
+  "onboarding.workspace_step.tip": {
+    "string": "Tip"
+  },
+  "navbar.navbar.org": {
+    "string": "Org"
+  },
+  "navbar.navbar.edu": {
+    "string": "Edu"
+  },
+  "navbar.navbar.pro": {
+    "string": "Pro"
+  },
+  "slides.templates.banner.republish.you": {
+    "string": "You"
+  },
+  "rcs.figjam_onboarding.cmd": {
+    "string": "cmd"
+  },
+  "rcs.figjam_onboarding.plus_or_minus": {
+    "string": "+/-"
+  },
+  "canvas_search.filter.all": {
+    "string": "全部"
+  },
+  "dev_handoff.workflows.overview.tab_all": {
+    "string": "全部"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.alt": {
+    "string": "Alt"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.esc": {
+    "string": "Esc"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.end": {
+    "string": "End"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.tab": {
+    "string": "Tab"
+  },
+  "whiteboard.keyboard_shortcuts.key_label.win": {
+    "string": "Win"
+  },
+  "whiteboard.keyboard_shortcuts.and": {
+    "string": "and"
+  },
+  "qa.all": {
+    "string": "全部"
+  },
+  "qa.filter.all": {
+    "string": "全部"
+  },
+  "assistant.chat.send_message": {
+    "string": "Ask"
+  },
+  "slides.properties_panel.object_animations.animation_phase.out": {
+    "string": "退出"
+  },
+  "slides.flapp.embed.add_button_label": {
+    "string": "Add"
+  },
+  "community.plugins.new": {
+    "string": "New"
+  },
+  "whiteboard.inserts.all": {
+    "string": "全部"
+  },
+  "fullscreen.pages_panel.dakota_tab": {
+    "string": "CMS"
+  },
+  "whiteboard.inserts.plugin_run_cta": {
+    "string": "Run"
+  },
+  "whiteboard.inserts.add_widget": {
+    "string": "Add"
+  },
+  "whiteboard.shape_keywords.and": {
+    "string": "And"
+  },
+  "dakota.properties_panel.dakota_panel.tab_title": {
+    "string": "CMS"
+  },
+  "slides.properties_panel.shadow_style_light": {
+    "string": "低"
+  },
+  "dev_handoff.inspect_panel.new_plugin": {
+    "string": "New"
+  },
+  "proto.key": {
+    "string": "按键"
+  },
+  "proto.frame_preset_panel.fit": {
+    "string": "Fit"
+  },
+  "sites.side_rail.cms": {
+    "string": "CMS"
+  },
+  "sites.panel.accessibility_tag_label": {
+    "string": "Tag"
+  },
+  "sites.panel.html_widget.generic.url_label": {
+    "string": "URL"
+  },
+  "dev_handoff.configuration_wizard.code_language_step.option_ios": {
+    "string": "iOS"
+  },
+  "community.plugins.pin": {
+    "string": "Pin"
+  },
+  "cooper.templates.add": {
+    "string": "Add"
+  },
+  "cooper.templates.use_case.ads": {
+    "string": "Ads"
+  },
+  "community.comments.all": {
+    "string": "全部"
+  },
+  "community.view_bar.all": {
+    "string": "全部"
+  },
+  "community.badge.new": {
+    "string": "New"
+  },
+  "admin_dashboard.requests.from_all": {
+    "string": "全部"
+  },
+  "admin_dashboard.requests.all_users": {
+    "string": "全部"
+  },
+  "activity_log.event.library_setting_off": {
+    "string": "off"
+  },
+  "people_table_filters.billing_filters.seat_type_options.dev": {
+    "string": "Dev"
+  },
+  "members_table.badge_new": {
+    "string": "New"
+  },
+  "activity_log.filter.all": {
+    "string": "全部"
+  },
+  "activity_log.table.all": {
+    "string": "全部"
+  },
+  "domain_management.add_domain_modal.confirm_button": {
+    "string": "Add"
+  },
+  "allowlist_plugins_modals.add_plugin.add_button": {
+    "string": "Add"
+  },
+  "allowlist_widgets_modals.add_widget.add_button": {
+    "string": "Add"
+  },
+  "resources_tab.libraries.subscription.off": {
+    "string": "Off"
+  },
+  "org_settings.workspace_controls.public_link_controls_setting_banned": {
+    "string": "Off"
+  },
+  "org_settings.sso.idp": {
+    "string": "IdP"
+  },
+  "settings_tab.pinned_plugins_add": {
+    "string": "Add"
+  },
+  "settings_tab.dev_mode_setting_set": {
+    "string": "设置"
+  },
+  "team_view.member_edit_access_modal.all_projects": {
+    "string": "全部"
+  },
+  "team_view.member_edit_access_modal.all_files": {
+    "string": "全部"
+  },
+  "file_browser.mobile_prompt.app_action": {
+    "string": "Get"
+  },
+  "org_self_serve.review_step.tax": {
+    "string": "Tax"
+  },
+  "checkout.purchase_summary.tax": {
+    "string": "Tax"
+  },
+  "pro_cart.review.tax": {
+    "string": "Tax"
+  },
+  "pro_cart.sidebar.yes": {
+    "string": "Yes"
+  },
+  "fullscreen.canvas.auto_layout_fill": {
+    "string": "填充"
+  },
+  "fullscreen.default_node_name.poll": {
+    "string": "Poll"
+  },
+  "fullscreen.node_transition_behavior.back": {
+    "string": "返回"
+  },
+  "fullscreen.node_transition_behavior.swap": {
+    "string": "Swap"
+  },
+  "fullscreen.node_type.line": {
+    "string": "线条"
+  },
+  "fullscreen.node_type.page": {
+    "string": "页面"
+  },
+  "fullscreen.node_type.responsive_set": {
+    "string": "页面"
+  },
+  "fullscreen.node_type.star": {
+    "string": "星形"
+  },
+  "fullscreen.node_type.text": {
+    "string": "文本"
+  },
+  "fullscreen.stack_behavior.auto": {
+    "string": "Auto"
+  },
+  "whiteboard.starter_kit.flowchart.file": {
+    "string": "文件"
+  },
+  "whiteboard.starter_kit.make_something.team_chart.card_name": {
+    "string": "名称"
+  },
+  "quick_reply.more": {
+    "string": "More"
+  },
+  "user_notifications.done": {
+    "string": "Done"
+  },
+  "whiteboard.color_palettes.modal.name": {
+    "string": "名称"
+  },
+  "whiteboard.color_palettes.modal.save_palette": {
+    "string": "保存"
+  },
+  "plan_comparison.campfire.full.name": {
+    "string": "Full"
+  },
+  "general.beta": {
+    "string": "Beta"
+  },
+  "checkout.free": {
+    "string": "免费"
+  },
+  "general.bundle.expert": {
+    "string": "Full"
+  },
+  "checkout.view": {
+    "string": "查看"
+  },
+  "modify_plan_user_seat_modal.button.back": {
+    "string": "返回"
+  },
+  "resource_connection.next": {
+    "string": "下一步"
+  },
+  "general.fallback_team_name": {
+    "string": "Team"
+  },
+  "asset_transfers.destination_type.team": {
+    "string": "team"
+  },
+  "asset_transfers.request_modal.next": {
+    "string": "下一步"
+  },
+  "asset_transfers.request_modal.send": {
+    "string": "Send"
+  },
+  "asset_transfers.request_modal.back": {
+    "string": "返回"
+  },
+  "resource_connection.request_modal.back": {
+    "string": "返回"
+  },
+  "resource_connection.request_modal.next": {
+    "string": "下一步"
+  },
+  "resource_connection.request_modal.send": {
+    "string": "Send"
+  },
+  "file_browser.file_move.move": {
+    "string": "移动"
+  },
+  "file_browser.file_move.done": {
+    "string": "Done"
+  },
+  "search.sort_option.name": {
+    "string": "名称"
+  },
+  "general.open": {
+    "string": "打开"
+  },
+  "search.facets.resource": {
+    "string": "类型"
+  },
+  "search.facets.sites": {
+    "string": "Site"
+  },
+  "search.facets.buzz_files": {
+    "string": "Buzz"
+  },
+  "search.facets.make_files": {
+    "string": "制作"
+  },
+  "search.facets.buzz": {
+    "string": "Buzz"
+  },
+  "search.facets.make": {
+    "string": "制作"
+  },
+  "file_browser.folder_list_view.header_name_column": {
+    "string": "名称"
+  },
+  "file_browser.folder_settings_modal.name": {
+    "string": "名称"
+  },
+  "resource_connection.host": {
+    "string": "Host"
+  },
+  "tile.dropdown.open": {
+    "string": "打开"
+  },
+  "file_browser.file_list_view.header_name_column": {
+    "string": "名称"
+  },
+  "community.resource_tiles.paid": {
+    "string": "付费"
+  },
+  "community.resource_tiles.free": {
+    "string": "免费"
+  },
+  "community.publishing.team_author": {
+    "string": "Team"
+  },
+  "community.general.name": {
+    "string": "名称"
+  },
+  "community.publishing.tags": {
+    "string": "Tags"
+  },
+  "cooper.toolbar.export_modal.size": {
+    "string": "大小"
+  },
+  "dakota.new_collection_modal.name": {
+    "string": "名称"
+  },
+  "dakota.new_collection_modal.next": {
+    "string": "下一步"
+  },
+  "dakota.collection_field_editor.create_dropdown.link": {
+    "string": "链接"
+  },
+  "dakota.collection_field_editor.property.name": {
+    "string": "名称"
+  },
+  "dakota.collection_field_editor.back": {
+    "string": "返回"
+  },
+  "dakota.collection_field_editor.done": {
+    "string": "Done"
+  },
+  "dev_handoff.codebase_suggestions.component_url": {
+    "string": "URL:"
+  },
+  "inspect_panel.code.code": {
+    "string": "代码"
+  },
+  "dev_handoff.layer_properties_list": {
+    "string": "List"
+  },
+  "dev_handoff.alternative_units.dimension_unit": {
+    "string": "Unit"
+  },
+  "collaboration.branching_force.merge_from_source_merge_conflict_radio_option_main": {
+    "string": "main"
+  },
+  "general.undo": {
+    "string": "Undo"
+  },
+  "visual_bell.show_frame_grids_hide_button": {
+    "string": "隐藏"
+  },
+  "presets.styles.iphone_pink": {
+    "string": "Pink"
+  },
+  "presets.styles.iphone_teal": {
+    "string": "Teal"
+  },
+  "presets.styles.iphone_blue": {
+    "string": "Blue"
+  },
+  "presets.styles.iphone_gold": {
+    "string": "Gold"
+  },
+  "presets.styles.android_grey": {
+    "string": "Grey"
+  },
+  "presets.styles.ipad_gold": {
+    "string": "Gold"
+  },
+  "presets.styles.apple_watch_blue": {
+    "string": "Blue"
+  },
+  "fullscreen.export.export_to_pptx": {
+    "string": "PPTX"
+  },
+  "fullscreen_actions.find": {
+    "string": "Find"
+  },
+  "comments.copy_attachment": {
+    "string": "复制"
+  },
+  "fullscreen_actions.copy": {
+    "string": "复制"
+  },
+  "fullscreen_actions.edit": {
+    "string": "编辑"
+  },
+  "fullscreen_actions.file-menu": {
+    "string": "文件"
+  },
+  "fullscreen.plugins.stop": {
+    "string": "停止"
+  },
+  "lab.menu.labs": {
+    "string": "Labs"
+  },
+  "fullscreen_actions.leave_edit_mode": {
+    "string": "Done"
+  },
+  "fullscreen_actions.add_transform-modifier-skew": {
+    "string": "倾斜"
+  },
+  "fullscreen_actions.open-link": {
+    "string": "打开"
+  },
+  "fullscreen_actions.redo": {
+    "string": "Redo"
+  },
+  "fullscreen_actions.set-tool-code-component": {
+    "string": "制作"
+  },
+  "fullscreen_actions.set-tool-connector-straight": {
+    "string": "线条"
+  },
+  "fullscreen_actions.set-tool-default": {
+    "string": "移动"
+  },
+  "fullscreen_actions.set-tool-line": {
+    "string": "线条"
+  },
+  "fullscreen_actions.set-tool-star": {
+    "string": "星形"
+  },
+  "fullscreen_actions.set-tool-shape-whiteboard-eng-file": {
+    "string": "文件"
+  },
+  "fullscreen_actions.set-tool-shape-whiteboard-star": {
+    "string": "星形"
+  },
+  "fullscreen_actions.set-tool-shape-whiteboard-plus": {
+    "string": "Plus"
+  },
+  "fullscreen_actions.set-tool-type": {
+    "string": "文本"
+  },
+  "fullscreen_actions.text_style_title": {
+    "string": "Huge"
+  },
+  "fullscreen_actions.text-menu": {
+    "string": "文本"
+  },
+  "fullscreen_actions.text-case-menu": {
+    "string": "Case"
+  },
+  "fullscreen_actions.theme.dark": {
+    "string": "Dark"
+  },
+  "fullscreen_actions.toggle-bold": {
+    "string": "加粗"
+  },
+  "fullscreen_actions.undo": {
+    "string": "Undo"
+  },
+  "fullscreen_actions.view-menu": {
+    "string": "查看"
+  },
+  "slides.properties_panel.color_picker.edit_template_color": {
+    "string": "编辑"
+  },
+  "file_info_row.file": {
+    "string": "file"
+  },
+  "fullscreen.properties_panel.export_settings_color_profile.srgb": {
+    "string": "sRGB"
+  },
+  "fullscreen.filename_view.color_management.color_profile_srgb": {
+    "string": "sRGB"
+  },
+  "collaboration.branching.undo_delete": {
+    "string": "Undo"
+  },
+  "bindings.undo": {
+    "string": "Undo"
+  },
+  "hyperlink.page": {
+    "string": "页面"
+  },
+  "first_draft.link_component.link_button": {
+    "string": "链接"
+  },
+  "whiteboard.ai_summary.copy_button_text": {
+    "string": "复制"
+  },
+  "whiteboard.ai_summary.copy_link_button_text": {
+    "string": "链接"
+  },
+  "whiteboard.embeds.view_button": {
+    "string": "查看"
+  },
+  "multiplayer_limit.done_button": {
+    "string": "Done"
+  },
+  "activity_log.resource.file": {
+    "string": "file"
+  },
+  "fullscreen.auto": {
+    "string": "Auto"
+  },
+  "general.editor.seat_rename": {
+    "string": "Full"
+  },
+  "general.edit": {
+    "string": "编辑"
+  },
+  "general.done": {
+    "string": "Done"
+  },
+  "general.fallback_user_name": {
+    "string": "用户"
+  },
+  "general.save": {
+    "string": "保存"
+  },
+  "general.back": {
+    "string": "返回"
+  },
+  "general.next": {
+    "string": "下一步"
+  },
+  "community.publishing.file": {
+    "string": "文件"
+  },
+  "community.publishing.here": {
+    "string": "here"
+  },
+  "community.seller.why_link": {
+    "string": "为什么？"
+  },
+  "community.publishing.icon": {
+    "string": "Icon"
+  },
+  "community.undo": {
+    "string": "Undo"
+  },
+  "community.publishing.copy": {
+    "string": "复制"
+  },
+  "design_systems.component_properties.name": {
+    "string": "名称"
+  },
+  "variables.create_modal.name_label": {
+    "string": "名称"
+  },
+  "rcs.rcs_shared.done": {
+    "string": "Done"
+  },
+  "rcs.rcs_shared.next": {
+    "string": "下一步"
+  },
+  "comments.edit_alt_text": {
+    "string": "编辑"
+  },
+  "collaboration.branching_to_source.save": {
+    "string": "保存"
+  },
+  "variables.values.boolean.true": {
+    "string": "True"
+  },
+  "collaboration.branching_from_source.main": {
+    "string": "Main"
+  },
+  "collaboration.branching_from_source.next": {
+    "string": "下一步"
+  },
+  "variables.authoring_modal.table.name_header": {
+    "string": "名称"
+  },
+  "collaboration.branching.open": {
+    "string": "打开"
+  },
+  "collaboration.branching.undo_archive": {
+    "string": "Undo"
+  },
+  "collaboration.branching_node_treatments.value.true": {
+    "string": "true"
+  },
+  "collaboration.branching_node_treatments.value.autolayout.fill": {
+    "string": "填充"
+  },
+  "collaboration.branching_node_treatments.value.autolayout.none": {
+    "string": "None"
+  },
+  "collaboration.branching_node_treatments.value.max_lines.auto": {
+    "string": "Auto"
+  },
+  "collaboration.branching_node_treatments.property.size": {
+    "string": "大小"
+  },
+  "collaboration.branching_node_treatments.value.node_type.none": {
+    "string": "None"
+  },
+  "collaboration.branching_node_treatments.value.node_type.star": {
+    "string": "星形"
+  },
+  "collaboration.branching_node_treatments.value.node_type.line": {
+    "string": "线条"
+  },
+  "collaboration.branching_node_treatments.value.node_type.text": {
+    "string": "文本"
+  },
+  "collaboration.branching_node_treatments.value.node_type.responsive_set": {
+    "string": "页面"
+  },
+  "collaboration.branching_node_treatments.property.node_name": {
+    "string": "名称"
+  },
+  "collaboration.branching_node_treatments.property.type": {
+    "string": "类型"
+  },
+  "collaboration.branching_node_treatments.property.mask": {
+    "string": "遮罩"
+  },
+  "collaboration.branching_node_treatments.property.fill": {
+    "string": "填充"
+  },
+  "collaboration.branching_node_treatments.property.blur": {
+    "string": "模糊"
+  },
+  "collaboration.branching_node_treatments.property.style_name": {
+    "string": "名称"
+  },
+  "collaboration.branching_node_treatments.property.font": {
+    "string": "字体"
+  },
+  "emoji_mart.skins_6": {
+    "string": "Dark"
+  },
+  "comments.save": {
+    "string": "保存"
+  },
+  "whiteboard.figjam_export.grid": {
+    "string": "Grid"
+  },
+  "whiteboard.figjam_export.no_background": {
+    "string": "None"
+  },
+  "design_systems.libraries_modal.none": {
+    "string": "None"
+  },
+  "design_systems.libraries_modal.year": {
+    "string": "Year"
+  },
+  "design_systems.libraries_modal.type": {
+    "string": "类型"
+  },
+  "design_systems.libraries_modal.team": {
+    "string": "Team"
+  },
+  "design_systems.libraries_modal.back": {
+    "string": "返回"
+  },
+  "design_systems.instance_panel.oops": {
+    "string": "Oops"
+  },
+  "design_systems.shared_fonts.okay": {
+    "string": "Okay"
+  },
+  "resources_tab.shared_fonts_table.font": {
+    "string": "字体"
+  },
+  "design_systems.shared_fonts.error_table_header_file": {
+    "string": "文件"
+  },
+  "design_systems.shared_fonts.font": {
+    "string": "字体"
+  },
+  "design_systems.publishing_modal.back": {
+    "string": "返回"
+  },
+  "inspect_panel.interactions.should_open_in_new_tab": {
+    "string": "打开"
+  },
+  "inspect_panel.interactions.mass": {
+    "string": "Mass"
+  },
+  "inspect_panel.property.text": {
+    "string": "文本"
+  },
+  "inspect_panel.properties.left": {
+    "string": "左侧"
+  },
+  "inspect_panel.properties.border.left": {
+    "string": "左侧"
+  },
+  "inspect_panel.properties.padding.left": {
+    "string": "左侧"
+  },
+  "fullscreen.properties_panel.stop": {
+    "string": "停止"
+  },
+  "fullscreen.properties_panel.play": {
+    "string": "播放"
+  },
+  "properties_panel.effects.blur": {
+    "string": "模糊"
+  },
+  "fullscreen.properties_panel.effects.blur": {
+    "string": "模糊"
+  },
+  "properties_panel.effects.blur.type": {
+    "string": "类型"
+  },
+  "properties_panel.effects.texture.noise_size": {
+    "string": "大小"
+  },
+  "properties_panel.effects.noise.type.mono": {
+    "string": "Mono"
+  },
+  "fullscreen.properties_panel.export_settings_quality.high": {
+    "string": "高"
+  },
+  "fullscreen.grid_panel.grid": {
+    "string": "Grid"
+  },
+  "fullscreen.grid_panel.rows_formatter": {
+    "string": "Rows"
+  },
+  "fullscreen.grids_panel.grid_settings.size": {
+    "string": "大小"
+  },
+  "fullscreen.grids_panel.grid_settings.type": {
+    "string": "类型"
+  },
+  "fullscreen.grids_panel.grid_settings.auto": {
+    "string": "Auto"
+  },
+  "fullscreen.grids_panel.grid_settings.left": {
+    "string": "左侧"
+  },
+  "design_systems.instance_swap_picker.grid": {
+    "string": "Grid"
+  },
+  "design_systems.instance_swap_picker.list": {
+    "string": "List"
+  },
+  "fullscreen.properties_panel.stroke_settings.join": {
+    "string": "Join"
+  },
+  "fullscreen.properties_panel.stroke_settings.none": {
+    "string": "None"
+  },
+  "fullscreen.properties_panel.section_stroke.dropdown_startEndPoint.value_line": {
+    "string": "线条"
+  },
+  "fullscreen.properties_panel.stroke_settings.dash": {
+    "string": "Dash"
+  }
+}
