@@ -24,3 +24,9 @@
 ### 计划
 - 下载日文词条对比 未进行
 - 汉化教程编写 未进行
+
+
+### 对比工具使用方法
+```
+python tools/compare_keys.py --zh-file ./lang/zh/zh.json --en-file ./lang/zh/en.json --log compare_result.log 
+```
