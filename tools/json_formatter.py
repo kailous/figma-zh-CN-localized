@@ -4,6 +4,7 @@
 import json
 import os
 import sys
+import argparse
 
 def format_json_file(file_path, output_path):
     """
@@ -66,23 +67,41 @@ def format_json_file(file_path, output_path):
     return True
 
 def main():
-    # 设置文件路径
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    en_dir = os.path.join(project_root, 'lang', 'en')
+    # 创建参数解析器
+    parser = argparse.ArgumentParser(description='格式化JSON文件并按string属性长度排序')
+    parser.add_argument('-i', '--input', help='输入JSON文件路径')
+    parser.add_argument('-o', '--output', help='输出JSON文件路径')
+    args = parser.parse_args()
     
-    json_file = None
-    for file in os.listdir(en_dir):
-        if file.endswith('.json'):
-            json_file = os.path.join(en_dir, file)
-            break
-    
-    if not json_file:
-        print("错误: 在lang/en目录下未找到JSON文件")
-        sys.exit(1)
-    
-    # 设置输出文件路径
-    output_file = os.path.join(en_dir, 'sorted_en.json')
+    # 如果没有提供输入文件参数，使用默认行为
+    if not args.input:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(script_dir)
+        en_dir = os.path.join(project_root, 'lang', 'en')
+        
+        json_file = None
+        for file in os.listdir(en_dir):
+            if file.endswith('.json'):
+                json_file = os.path.join(en_dir, file)
+                break
+        
+        if not json_file:
+            print("错误: 在lang/en目录下未找到JSON文件")
+            sys.exit(1)
+            
+        # 如果没有提供输出文件参数，使用默认输出路径
+        output_file = args.output if args.output else os.path.join(en_dir, 'sorted_en.json')
+    else:
+        # 使用用户提供的输入文件
+        json_file = args.input
+        
+        # 如果没有提供输出文件参数，在输入文件旁边创建一个sorted_前缀的文件
+        if not args.output:
+            input_dir = os.path.dirname(json_file)
+            input_filename = os.path.basename(json_file)
+            output_file = os.path.join(input_dir, f"sorted_{input_filename}")
+        else:
+            output_file = args.output
     
     # 处理文件
     success = format_json_file(json_file, output_file)
