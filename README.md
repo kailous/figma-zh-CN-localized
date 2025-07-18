@@ -1,4 +1,4 @@
-<img width="918" height="675" alt="image" src="https://github.com/user-attachments/assets/66e66a78-c025-476f-bd87-c00338b0cb57" />![image](help/Surge/00.png)
+![image](help/Surge/00.png)
 # figma-zh-CN-localized
 ## Figma 原生汉化项目
 
