@@ -5,54 +5,92 @@ import argparse
 import traceback
 from tqdm import tqdm
 
-def get_nested_keys(data, prefix=''):
+def get_string_keys(data, prefix=''):
     keys = set()
     if isinstance(data, dict):
         for key, value in data.items():
             full_key = f"{prefix}.{key}" if prefix else key
-            keys.add(full_key)
-            if isinstance(value, (dict, list)):
-                keys.update(get_nested_keys(value, full_key))
+            if key == "string" and isinstance(value, str):
+                keys.add(full_key)
+            elif isinstance(value, dict):
+                keys.update(get_string_keys(value, full_key))
+            elif isinstance(value, list):
+                for i, item in enumerate(value):
+                    keys.update(get_string_keys(item, f"{full_key}[{i}]"))
     elif isinstance(data, list):
         for i, item in enumerate(data):
-            keys.update(get_nested_keys(item, f"{prefix}[{i}]"))
+            keys.update(get_string_keys(item, f"{prefix}[{i}]"))
     return keys
 
 def get_json_keys(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
-        return get_nested_keys(data), data
+        return data
     except json.JSONDecodeError:
         print(f"错误: 文件 {file_path} 不是有效的JSON格式", file=sys.stderr)
-        return set(), {}
+        return {}
     except FileNotFoundError:
         print(f"错误: 文件 {file_path} 不存在", file=sys.stderr)
-        return set(), {}
+        return {}
 
-def extract_nested_diff(en_data, zh_data):
+def extract_string_diff(en_data, zh_data):
     result = {}
-    for key in en_data:
-        if key not in zh_data:
-            result[key] = en_data[key]
-        elif isinstance(en_data[key], dict) and isinstance(zh_data.get(key), dict):
-            nested_diff = extract_nested_diff(en_data[key], zh_data[key])
-            if nested_diff:
-                result[key] = nested_diff
-    return result
+
+    def recurse(en_node, zh_node):
+        if isinstance(en_node, dict):
+            temp = {}
+            for k, v in en_node.items():
+                zh_sub = zh_node.get(k) if isinstance(zh_node, dict) else None
+                child = recurse(v, zh_sub)
+                if child:
+                    temp[k] = child
+            return temp if temp else None
+        else:
+            return en_node if isinstance(en_node, str) and zh_node != en_node else None
+
+    diff = recurse(en_data, zh_data)
+    return diff if diff else {}
 
 def count_keys(data):
     if isinstance(data, dict):
-        return sum(count_keys(v) for v in data.values()) + len(data)
+        return sum(count_keys(v) for v in data.values()) + (1 if 'string' in data and isinstance(data['string'], str) else 0)
     return 0
 
-def extract_english_only(en_data, zh_data, output_file):
-    result = extract_nested_diff(en_data, zh_data)
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-    return count_keys(result)
+def get_common_structure_only(base_data, keys_to_keep):
+    def recurse(node, prefix=''):
+        if isinstance(node, dict):
+            result = {}
+            for k, v in node.items():
+                full_key = f"{prefix}.{k}" if prefix else k
+                sub_result = recurse(v, full_key)
+                if sub_result:
+                    result[k] = sub_result
+            return result if result else None
+        elif isinstance(node, str):
+            return node if prefix in keys_to_keep else None
+        return None
+    return recurse(base_data)
 
-def compare_keys(zh_dir, en_dir, log_file, extract_file=None):
+def get_removed_structure(base_data, keys_to_remove):
+    def recurse(node, prefix=''):
+        if isinstance(node, dict):
+            result = {}
+            for k, v in node.items():
+                full_key = f"{prefix}.{k}" if prefix else k
+                if isinstance(v, (dict, list)):
+                    sub_result = recurse(v, full_key)
+                    if sub_result:
+                        result[k] = sub_result
+                elif full_key not in keys_to_remove:
+                    result[k] = v
+            return result if result else None
+        elif isinstance(node, str):
+            return None if prefix in keys_to_remove else node
+        return node
+    return recurse(base_data)
+
+def compare_keys(zh_dir, en_dir, log_file, extract=False):
     try:
         zh_files = os.listdir(zh_dir)
         en_files = os.listdir(en_dir)
@@ -61,7 +99,6 @@ def compare_keys(zh_dir, en_dir, log_file, extract_file=None):
         return
 
     total_files = len(set(zh_files).union(en_files))
-    total_english_only_keys = 0
 
     with open(log_file, 'w', encoding='utf-8') as log:
         log.write("=== JSON键比较报告 ===\n")
@@ -73,8 +110,11 @@ def compare_keys(zh_dir, en_dir, log_file, extract_file=None):
                     zh_path = os.path.join(zh_dir, zh_file)
                     en_path = os.path.join(en_dir, zh_file)
 
-                    zh_keys, zh_data = get_json_keys(zh_path)
-                    en_keys, en_data = get_json_keys(en_path)
+                    zh_data = get_json_keys(zh_path)
+                    en_data = get_json_keys(en_path)
+
+                    zh_keys = get_string_keys(zh_data)
+                    en_keys = get_string_keys(en_data)
 
                     diff_keys = zh_keys.symmetric_difference(en_keys)
                     if diff_keys:
@@ -88,13 +128,23 @@ def compare_keys(zh_dir, en_dir, log_file, extract_file=None):
                             log.write(f'  - {key}\n')
                         log.write("---------------\n")
 
-                        if extract_file:
-                            base_extract_path = os.path.splitext(extract_file)[0]
-                            file_base_name = os.path.splitext(zh_file)[0]
-                            file_extract_path = f"{base_extract_path}_{file_base_name}.json"
-                            keys_count = extract_english_only(en_data, zh_data, file_extract_path)
-                            total_english_only_keys += keys_count
-                            print(f"已提取 {keys_count} 个英文独有键值到 {file_extract_path}")
+                        if extract:
+                            file_base = os.path.splitext(zh_file)[0]
+                            en_only = en_keys - zh_keys
+                            zh_only = zh_keys - en_keys
+
+                            en_struct = get_common_structure_only(en_data, en_only)
+                            zh_struct = get_removed_structure(zh_data, zh_only)
+
+                            en_out = f"{file_base}_en-new.json"
+                            zh_out = f"{file_base}_zh-new.json"
+
+                            with open(en_out, 'w', encoding='utf-8') as f:
+                                json.dump(en_struct, f, ensure_ascii=False, indent=2)
+                            with open(zh_out, 'w', encoding='utf-8') as f:
+                                json.dump(zh_struct, f, ensure_ascii=False, indent=2)
+
+                            print(f"已生成: {en_out}, {zh_out}")
                 else:
                     log.write(f'[缺失文件] 英文目录缺少文件: {zh_file}\n\n')
                 pbar.update(1)
@@ -102,34 +152,16 @@ def compare_keys(zh_dir, en_dir, log_file, extract_file=None):
             for en_file in en_files:
                 if en_file not in zh_files:
                     log.write(f'[缺失文件] 中文目录缺少文件: {en_file}\n\n')
-
-                    if extract_file:
-                        en_path = os.path.join(en_dir, en_file)
-                        try:
-                            with open(en_path, 'r', encoding='utf-8') as f:
-                                en_data = json.load(f)
-
-                            base_extract_path = os.path.splitext(extract_file)[0]
-                            file_base_name = os.path.splitext(en_file)[0]
-                            file_extract_path = f"{base_extract_path}_{file_base_name}.json"
-
-                            with open(file_extract_path, 'w', encoding='utf-8') as f:
-                                json.dump(en_data, f, ensure_ascii=False, indent=2)
-                            print(f"已提取缺失文件 {en_file} 的所有内容到 {file_extract_path}")
-                        except Exception:
-                            print(f"提取文件 {en_file} 时出错:\n{traceback.format_exc()}")
                 pbar.update(1)
 
         log.write("=== 比较完成 ===\n")
-        if extract_file and total_english_only_keys > 0:
-            log.write(f"\n总共提取了 {total_english_only_keys} 个英文独有的键值对\n")
 
-    if extract_file:
-        print(f"比较完成，总共提取了 {total_english_only_keys} 个英文独有的键值对")
+def compare_single_files(zh_file, en_file, log_file, extract=False):
+    zh_data = get_json_keys(zh_file)
+    en_data = get_json_keys(en_file)
 
-def compare_single_files(zh_file, en_file, log_file, extract_file=None):
-    zh_keys, zh_data = get_json_keys(zh_file)
-    en_keys, en_data = get_json_keys(en_file)
+    zh_keys = get_string_keys(zh_data)
+    en_keys = get_string_keys(en_data)
 
     with open(log_file, 'w', encoding='utf-8') as log:
         log.write("=== 单文件JSON键比较报告 ===\n\n")
@@ -146,24 +178,39 @@ def compare_single_files(zh_file, en_file, log_file, extract_file=None):
             for key in sorted(en_keys - zh_keys):
                 log.write(f'  - {key}\n')
             log.write("---------------\n")
-
-            if extract_file:
-                keys_count = extract_english_only(en_data, zh_data, extract_file)
-                log.write(f"\n已提取 {keys_count} 个英文独有的键值对到 {extract_file}\n")
-                print(f"已提取 {keys_count} 个英文独有键值到 {extract_file}")
         else:
             log.write('两个文件的键完全一致\n')
         log.write("\n=== 比较完成 ===\n")
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='比较中英文JSON文件的键')
+    if extract:
+        base_zh = os.path.splitext(os.path.basename(zh_file))[0]
+        base_en = os.path.splitext(os.path.basename(en_file))[0]
 
+        en_only = en_keys - zh_keys
+        zh_only = zh_keys - en_keys
+
+        en_struct = get_common_structure_only(en_data, en_only)
+        zh_struct = get_removed_structure(zh_data, zh_only)
+
+        en_out = f"{base_en}_en-new.json"
+        zh_out = f"{base_zh}_zh-new.json"
+
+        with open(en_out, 'w', encoding='utf-8') as f:
+            json.dump(en_struct, f, ensure_ascii=False, indent=2)
+        with open(zh_out, 'w', encoding='utf-8') as f:
+            json.dump(zh_struct, f, ensure_ascii=False, indent=2)
+
+        print(f"已生成英文独有内容文件: {en_out}")
+        print(f"已生成去除中文独有内容的文件: {zh_out}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='比较中英文JSON文件的翻译字段')
     parser.add_argument('--zh-dir', type=str, help='中文JSON文件目录')
     parser.add_argument('--en-dir', type=str, help='英文JSON文件目录')
     parser.add_argument('--zh-file', type=str, help='单个中文JSON文件路径')
     parser.add_argument('--en-file', type=str, help='单个英文JSON文件路径')
     parser.add_argument('--log', type=str, help='日志文件路径')
-    parser.add_argument('--extract', type=str, help='提取英文独有键值的输出JSON文件路径')
+    parser.add_argument('--extract', action='store_true', help='是否提取英文独有字段并清理中文')
 
     args = parser.parse_args()
 
@@ -179,7 +226,7 @@ if __name__ == "__main__":
     else:
         parser.print_help()
         print("\n使用示例:")
-        print("1. 比较两个目录:")
-        print("   python compare_keys.py --zh-dir /path/to/zh/dir --en-dir /path/to/en/dir --log output.txt --extract english_only.json")
-        print("\n2. 比较两个文件:")
-        print("   python compare_keys.py --zh-file /path/to/zh/file.json --en-file /path/to/en/file.json --log output.txt --extract english_only.json")
+        print("1. 比较目录并提取差异:")
+        print("   python compare_keys.py --zh-dir ./zh --en-dir ./en --log out.log --extract")
+        print("2. 比较单文件并生成提取结果:")
+        print("   python compare_keys.py --zh-file zh.json --en-file en.json --log out.log --extract")
