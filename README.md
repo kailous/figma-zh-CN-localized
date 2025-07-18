@@ -1,4 +1,4 @@
-![image](help/Surge/00.png)
+<img width="918" height="675" alt="image" src="https://github.com/user-attachments/assets/66e66a78-c025-476f-bd87-c00338b0cb57" />![image](help/Surge/00.png)
 # figma-zh-CN-localized
 ## Figma 原生汉化项目
 
@@ -16,7 +16,7 @@
 #### 替换规则：
 - 类型: http 307
 - 正则表达式: ```https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app(?:_beta)?-[a-f0-9]+\.min\.en\.json(?:\.br)?```
-- 替换地址: ```https://raw.githubusercontent.com/kailous/figma-zh-CN-localized/refs/heads/main/lang/zh/zh.json ```
+- 替换地址: ```https://raw.githubusercontent.com/kailous/figma-zh-CN-localized/refs/heads/main/lang/zh.json```
 
 #### 注意事项
 - 拦截和重定向的工具可以选择任意你喜欢的工具，只要能够拦截并重定向请求即可。
