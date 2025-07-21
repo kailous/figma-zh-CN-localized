@@ -205,12 +205,12 @@ def compare_single_files(zh_file, en_file, log_file, extract=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='比较中英文JSON文件的翻译字段')
-    parser.add_argument('--zh-dir', type=str, help='中文JSON文件目录')
-    parser.add_argument('--en-dir', type=str, help='英文JSON文件目录')
-    parser.add_argument('--zh-file', type=str, help='单个中文JSON文件路径')
-    parser.add_argument('--en-file', type=str, help='单个英文JSON文件路径')
-    parser.add_argument('--log', type=str, help='日志文件路径')
-    parser.add_argument('--extract', action='store_true', help='是否提取英文独有字段并清理中文')
+    parser.add_argument('-ZH', '--zh-dir', type=str, help='中文JSON文件目录')
+    parser.add_argument('-EN', '--en-dir', type=str, help='英文JSON文件目录')
+    parser.add_argument('-zh', '--zh-file', type=str, help='单个中文JSON文件路径')
+    parser.add_argument('-en', '--en-file', type=str, help='单个英文JSON文件路径')
+    parser.add_argument('-l', '--log', type=str, help='日志文件路径')
+    parser.add_argument('-ex', '--extract', action='store_true', help='是否提取英文独有字段并清理中文')
 
     args = parser.parse_args()
 

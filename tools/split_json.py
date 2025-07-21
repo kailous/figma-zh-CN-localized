@@ -79,9 +79,9 @@ def copy_split_folder_to_zh(source_dir):
 
 def main():
     parser = argparse.ArgumentParser(description='将JSON文件拆分为多个小文件')
-    parser.add_argument('--input', help='输入的JSON文件路径，如 ./lang/en/sorted_en.json')
-    parser.add_argument('--output', help='拆分后的输出目录，如 ./lang/en/split')
-    parser.add_argument('--items', type=int, default=500, help='每个文件包含的键值对数量（默认：500）')
+    parser.add_argument('-i', '--input', help='输入的JSON文件路径，如 ./lang/en/sorted_en.json')
+    parser.add_argument('-o', '--output', help='拆分后的输出目录，如 ./lang/en/split')
+    parser.add_argument('-s', '--items', type=int, default=500, help='每个文件包含的键值对数量（默认：500）')
     args = parser.parse_args()
 
     if not args.input or not args.output:

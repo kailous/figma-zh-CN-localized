@@ -69,8 +69,8 @@ def merge_json_files(input_dir, output_file):
 
 def main():
     parser = argparse.ArgumentParser(description="合并多个JSON文件")
-    parser.add_argument('--input', required=False, help="输入目录路径 (如: ./lang/zh/split)")
-    parser.add_argument('--output', required=False, help="输出文件路径 (如: ./lang/zh/zh.json)")
+    parser.add_argument('-i', '--input', required=False, help="输入目录路径 (如: ./lang/zh/split)")
+    parser.add_argument('-o', '--output', required=False, help="输出文件路径 (如: ./lang/zh/zh.json)")
     args = parser.parse_args()
 
     if not args.input or not args.output:
