@@ -8,9 +8,7 @@ force_lang: true
 url_patterns:
   - "https://.*figma\\.com/.*(i18n|locale|locales?).*\\.json(\\?.*)?$"
 
-# 如果必须走现有代理（比如 Clash/Surge）
-# 留空或删除则直连
-upstream_proxy: "http://127.0.0.1:7890"
-
-# mitm 监听端口
 listen_port: 8888
+upstream_http: 127.0.0.1:8234     # 或者
+upstream_socks5: 127.0.0.1:8235   # 二选一或都写上，脚本会探测可用的
+upstream_check_timeout_sec: 5     # 也可以再调大，例如 8
