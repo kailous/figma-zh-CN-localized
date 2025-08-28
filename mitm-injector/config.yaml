@@ -1,0 +1,16 @@
+# 本地语言包文件
+lang_file: "dist/zh-CN.json"
+
+# 是否强制浏览器请求中文
+force_lang: true
+
+# 需要替换的 URL 正则
+url_patterns:
+  - "https://.*figma\\.com/.*(i18n|locale|locales?).*\\.json(\\?.*)?$"
+
+# 如果必须走现有代理（比如 Clash/Surge）
+# 留空或删除则直连
+upstream_proxy: "http://127.0.0.1:7890"
+
+# mitm 监听端口
+listen_port: 8888
