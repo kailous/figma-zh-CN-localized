@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Figma 中文语言包替换
-// @namespace    https://github.com/kailous/figma-zh-CN-localized
+// @namespace    https://kailous.github.io/figma-zh-CN-localized/UserScript/figma-zh-CN-localized.js
 // @version      1.0
 // @description  自动将 Figma Web 的英文语言包替换为中文
 // @author       kailous
