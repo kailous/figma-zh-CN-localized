@@ -1,8 +1,14 @@
 function FindProxyForURL(url, host) {
-  // 只把语言包这个 URL 交给本机 mitmproxy
-  if (shExpMatch(url, "https://www.figma.com/webpack-artifacts/assets/figma_app-*.min.en.json*")) {
-    return "PROXY 127.0.0.1:8888";
+  var MITM   = "PROXY 127.0.0.1:8888";
+  var SURGEH = "PROXY 127.0.0.1:8234";
+  var SURGES = "SOCKS5 127.0.0.1:8235";
+
+  // 只拦截语言包
+  var re = /^https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app-[a-f0-9]{16}\.min\.en\.json\.br$/;
+  if (re.test(url)) {
+    return MITM + "; " + SURGEH + "; " + SURGES + "; DIRECT";
   }
-  // 其它全部走你原来的代理（示例：本机 7890）
-  return "PROXY 127.0.0.1:8234";
+
+  // 其它全部走 Surge（先 HTTP 再 SOCKS5，再直连）
+  return SURGEH + "; " + SURGES + "; DIRECT";
 }
