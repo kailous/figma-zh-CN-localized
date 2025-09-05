@@ -31,6 +31,7 @@ try:
     print(f"export UPSTREAM_SOCKS5='{cfg.get('upstream_socks5', '')}'")
     print(f"export CHECK_TIMEOUT={cfg.get('upstream_check_timeout_sec', 5)}")
     print(f"export UPSTREAM_PROXY={cfg.get('upstream_proxy', 'false')}")
+    print(f"export FIRST_START={cfg.get('first_start', False)}")
 
     # 修复 remote_url：二级 key
     lp = cfg.get('language_pack', {}) or {}

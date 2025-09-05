@@ -2,6 +2,8 @@
 
 # 版本号
 version: "1.0.0"
+# 第一次启动需要设置为 true
+first_start: "true"
 
 # 汉化包设置
 language_pack:

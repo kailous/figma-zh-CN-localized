@@ -25,8 +25,8 @@ git clone https://github.com/lipeng2018/figma-zh-CN-localized.git # 或者直接
 cd figma-zh-CN-localized/mitm-injector # 进入项目目录
 
 # 给所有的脚本添加可执行权限
-chmod +x ./*.sh
-chmod +x ./lib/*.sh
+find . -type f -name "*.sh" -exec chmod +x {} \;
+ls -l *.sh
 ```
 
 1. 找到 mitm-injector/config.yaml 文件
