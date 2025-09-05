@@ -1,5 +1,5 @@
-# 本地语言包文件
-lang_file: "dist/zh-CN.json"
+# 远程语言包文件（GitHub Pages）
+lang_file: "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
 
 # 是否强制浏览器请求中文
 force_lang: true
@@ -9,6 +9,6 @@ url_patterns:
   - "https://.*figma\\.com/.*(i18n|locale|locales?).*\\.json(\\?.*)?$"
 
 listen_port: 8888
-upstream_http: 127.0.0.1:8234     # 或者
-upstream_socks5: 127.0.0.1:8235   # 二选一或都写上，脚本会探测可用的
+upstream_http: 127.0.0.1:6152     # 或者
+upstream_socks5: 127.0.0.1:6153   # 二选一或都写上，脚本会探测可用的
 upstream_check_timeout_sec: 5     # 也可以再调大，例如 8
