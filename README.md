@@ -13,11 +13,17 @@
 ### 使用方法说明
 需要使用网络工具拦截并重定向语言包请求，才能实现汉化。
 目前汉化正在进行中，暂时不提供具体的使用方法，敬请期待。
-#### 替换规则：
+#### 替换规则 最推荐 Surge：
 - 类型: http 307
 - 正则表达式: ```https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app(?:_beta)?-[a-f0-9]+\.min\.en\.json(?:\.br)?```
 - 替换地址: ```https://kailous.github.io/figma-zh-CN-localized/lang/zh.json```
 
+#### 自制工具 mitm-injector
+mitm-injector 是一个基于 Python 的 MITM 注入工具，它可以拦截并重定向网络请求。
+你可以使用它来实现对 Figma 语言包的重定向，从而实现汉化。
+这是我自己写的一个工具，你可以在 [mitm-injector](mitm-injector/README.md) 中找到它的使用方法。
+mitm-injector 支持 Surge、Shadowrocket、Clash 等代理软件作为上游代理，你可以根据自己的需求选择使用。
+mitm-injector 支持在 macOS 操作系统上运行。没有 Win 设备，所以没法调试。实际上这个是跨屏太的，有win设备的小伙伴愿意折腾的话，可以尝试让AI转换一下sh脚本。
 #### 注意事项
 - 拦截和重定向的工具可以选择任意你喜欢的工具，只要能够拦截并重定向请求即可。
 - 你需要自己签名证书，否则会被浏览器拦截。
