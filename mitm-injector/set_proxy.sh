@@ -174,22 +174,27 @@ check_proxy_status() {
     fi
 }
 
-# 通过参数判断执行哪个函数
-case "$1" in
-    "mitm")
+# 通过--action参数判断执行哪个函数
+set -u 
+arg="${1:-}"
+case "$arg" in
+    "--start")
         set_mitm_proxy # 设定系统代理为 MitM
         ;;
-    "upstream")
-        restore_upstream_proxy # 设定系统代理为 Upstream
+    "--stop")
+        # 判断是否开启了上游代理
+        if [ "$UPSTREAM_PROXY" = "true" ]; then
+            restore_upstream_proxy # 设定系统代理为 Upstream
+        else
+            remove_proxy # 移除系统代理
+        fi
         ;;
-    "remove")
-        remove_proxy # 移除系统代理
-        ;;
-    "check")
+    "--check")
         check_proxy_status # 检查系统代理状态
         ;;
+    # 其他参数或空参数
     *)
-        log_error "用法: $0 {mitm|upstream|remove|check}"
+        log_error "没有操作参数: $0 --action {start|stop|check}"
         exit 1
         ;;
 esac

@@ -23,7 +23,12 @@ web_admin_open: "false"
 # 代理监听端口
 listen_port: 8888
 
-# 上游代理 (如果你的网络需要另一个代理才能访问 Figma)
+# 上游代理 
+# 如果有另外的代理服务器那么你需要启用上游代理，
+# 让 mitm-injector 的代理服务将语言包无关的流量转发到你原本的代理上。
+upstream_proxy: "true" # 是否启用上游代理 如果没有上游代理可以设置为 false
+
+# 如果你没有上游代理请注释这两行
 upstream_http: 127.0.0.1:6152
 upstream_socks5: 127.0.0.1:6153
 
