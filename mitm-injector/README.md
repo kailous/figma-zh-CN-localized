@@ -1,6 +1,6 @@
 # MITM 注入器
 
-基于 mitmproxy 的 Figma 语言包拦截和替换工具，适合开发者和高级用户使用。
+基于 mitmproxy 的 Figma 语言包拦截和替换工具，没有高级代理工具的可以用这个汉化你的 Figma。
 
 ## ✨ 功能特性
 
@@ -14,54 +14,74 @@
 - Python 3.8+
 - 网络访问权限
 - 管理员权限（安装证书）
+- 目前仅限 macOS 系统
 
 ### 安装和运行
 
+#### 第一步 克隆项目&修改配置
 ```bash
 # 克隆项目
-git clone https://github.com/your-username/figma-zh-CN-localized.git
-cd figma-zh-CN-localized
+git clone https://github.com/lipeng2018/figma-zh-CN-localized.git # 或者直接下载项目压缩包解压
+cd figma-zh-CN-localized/mitm-injector # 进入项目目录
 
-# 运行注入器（自动创建虚拟环境）
-bash mitm-injector/run.sh
+# 给所有的脚本添加可执行权限
+chmod +x ./*.sh
+chmod +x ./lib/*.sh
 ```
 
-### 配置步骤
-
-1. **安装证书**
-   - 访问 <http://mitm.it>
-   - 下载对应平台的证书
-   - 安装并设为信任
-
-2. **设置代理**
-   - HTTP/HTTPS 代理：`127.0.0.1:8888`
-   - 或使用系统代理设置
-
-3. **验证效果**
-   - 打开 <https://app.figma.com>
-   - 检查界面是否显示中文
-
-## ⚙️ 配置说明
-
-### config.yaml
+1. 找到 mitm-injector/config.yaml 文件
+2. 修改 upstream_http 和 upstream_socks5 为你当前使用的代理工具的端口
+3. 如果你不使用代理工具，请在这两行前面加 “# 注释”
 
 ```yaml
-
 # 上游代理设置
 upstream_http: 127.0.0.1:8234 # 改为你现有代理工具的 HTTP 代理端口
 upstream_socks5: 127.0.0.1:8235 # 改为你现有代理工具的 SOCKS 代理端口
-
 ```
-## 🛠️ 高级用法
 
-### 开发模式
+#### 第二步 运行主程序 & 应用代理
 
-启用详细日志：
-
+1. 在终端输入命令
 ```bash
-# 在 injector.py 中修改日志级别
-ctx.log.info("[figma-localize] Development mode enabled")
+# 运行注入器（自动创建虚拟环境）
+cd figma-zh-CN-localized/mitm-injector # 进入项目目录
+bash ./run.sh
 ```
+2. 等待注入器启动完成后，进入代理设置，在macOS系统设置 > Wi-Fi > 详细信息 > 代理
+   将 HTTP 代理和 HTTPS & SOCKS 代理都设置为 127.0.0.1:8888
+   我也给你提供了一个脚本，你可以直接运行这个脚本，它会自动帮你设置代理，以下是脚本的说明。
+```bash
+# 应用代理
+sudo bash ./set_proxy.sh mitm
+
+# 恢复上游代理
+sudo bash ./set_proxy.sh upstream
+
+# 移除代理
+sudo bash ./set_proxy.sh remove
+
+# 检查代理状态
+sudo bash ./set_proxy.sh check
+
+```
+#### 第三部 安装证书
+
+1. 第一次使用需要安装证书
+   - 访问 <http://mitm.it>
+   - 下载对应平台的证书
+   - 安装并设为信任
+   - 或者使用脚本安装证书，安装过程中需要输入电脑密码和验证指纹，仅做鉴权，可以放心输入。
+```bash
+# 安装证书
+bash ./install_mitm_ca.sh
+```
+
+#### 第四部 验证效果
+
+1. 打开 Figma 应用
+2. 检查界面是否显示中文
+3. 检查控制台是否没有错误日志
+4. 如果不生效，请清理一下缓存。
 
 ### 自定义语言包
 
@@ -77,34 +97,25 @@ ctx.log.info("[figma-localize] Development mode enabled")
 - 拦截统计
 - 错误日志
 
-```log
-[figma-localize] Starting mitm-injector on port 8888
-[figma-localize] Loaded 1 redirect rules
-[figma-localize] Total requests: 42, Redirected: 5
-```
-
 ## 🔧 故障排除
 
 ### 常见问题
 
 **Q: 看不到中文界面**
 - 清除浏览器缓存
-- 检查代理设置
+- 检查代理设置 config.yaml 上游代理的端口号和地址是否设置正确
 - 确认证书已信任
 - 查看控制台日志
 
 **Q: 证书错误**
-- 重新安装证书
+- 手动重新安装证书
 - 确保证书在信任列表中
 - 重启浏览器
 
-**Q: 端口被占用**
-- 修改 `config.yaml` 中的 `listen_port`
-- 或停止占用端口的程序
+**Q: 证书网站无法访问**
+- 检查代理设置 需要先连接上注入器的代理
+- 重启浏览器
 
-**Q: 代理冲突**
-- 检查其他代理软件
-- 配置上游代理设置
 
 ## 🤝 贡献指南
 

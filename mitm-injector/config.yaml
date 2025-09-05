@@ -1,4 +1,8 @@
 # ================== 主要配置 (Main Configuration) ==================
+
+# 版本号
+version: "1.0.0"
+
 # 汉化包设置
 language_pack:
   # 优先使用本地文件 (适合开发者调试)
@@ -10,6 +14,10 @@ language_pack:
   # 这是主要的在线汉化文件地址, 通常无需修改
   remote_url: "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
 
+# 后台管理界面设置
+web_admin_host: 127.0.0.1
+web_admin_port: 8081
+web_admin_open: "false"
 
 # ================== 代理设置 (Proxy Settings) ==================
 # 代理监听端口
@@ -29,4 +37,4 @@ interception_rule:
   host: "www.figma.com"
 
 # 是否强制浏览器请求中文 (建议保持 true)
-force_lang: true
+# force_lang: true
