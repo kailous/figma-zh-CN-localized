@@ -1,14 +1,32 @@
-# 远程语言包文件（GitHub Pages）
-lang_file: "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
+# ================== 主要配置 (Main Configuration) ==================
+# 汉化包设置
+language_pack:
+  # 优先使用本地文件 (适合开发者调试)
+  # 填写你电脑上的 zh.json 文件路径, 例如: D:\figma\zh.json
+  # 如果留空, 则会使用下面的远程 URL
+  local_path: ""
 
-# 是否强制浏览器请求中文
-force_lang: true
+  # 远程 URL (普通用户使用)
+  # 这是主要的在线汉化文件地址, 通常无需修改
+  remote_url: "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
 
-# 需要替换的 URL 正则
-url_patterns:
-  - "https://.*figma\\.com/.*(i18n|locale|locales?).*\\.json(\\?.*)?$"
 
+# ================== 代理设置 (Proxy Settings) ==================
+# 代理监听端口
 listen_port: 8888
-upstream_http: 127.0.0.1:6152     # 或者
-upstream_socks5: 127.0.0.1:6153   # 二选一或都写上，脚本会探测可用的
-upstream_check_timeout_sec: 5     # 也可以再调大，例如 8
+
+# 上游代理 (如果你的网络需要另一个代理才能访问 Figma)
+upstream_http: 127.0.0.1:6152
+upstream_socks5: 127.0.0.1:6153
+
+
+# ================== 高级设置 (Advanced Settings) ==================
+# !! 警告: 普通用户请勿修改此部分 !!
+
+# 需要拦截的 Figma 语言包请求规则 (正则表达式)
+interception_rule:
+  pattern: "^/webpack-artifacts/assets/figma_app-[a-f0-9]{16}\\.min\\.en\\.json(\\.br)?$"
+  host: "www.figma.com"
+
+# 是否强制浏览器请求中文 (建议保持 true)
+force_lang: true

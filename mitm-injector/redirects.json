@@ -1,7 +1,0 @@
-[
-  {
-    "pattern": "^/webpack-artifacts/assets/figma_app-[a-f0-9]{16}\\.min\\.en\\.json(\\.br)?$",
-    "host": "www.figma.com",
-    "redirect": "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
-  }
-]

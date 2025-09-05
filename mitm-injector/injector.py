@@ -1,4 +1,4 @@
-# injector.py
+# injector.py (修改后的版本)
 import os
 import re
 import json
@@ -9,7 +9,7 @@ from pathlib import Path
 from mitmproxy import http
 from typing import List, Tuple, Optional, Pattern
 
-# 设置日志
+# 日志设置 (保持不变)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s'
@@ -18,13 +18,15 @@ logger = logging.getLogger(__name__)
 
 
 class Config:
+    """
+    用于加载和解析新的统一 config.yaml 文件。
+    """
     def __init__(self):
-        self.redirects_file = Path(__file__).parent / "redirects.json"
         self.config_file = Path(__file__).parent / "config.yaml"
-        self.lang_file = ""
-        self.force_lang = False
-        self.url_patterns = []
+        self.language_pack = {}
         self.listen_port = 8888
+        self.interception_rule = {}
+        self.force_lang = False
         self.load_config()
 
     def load_config(self):
@@ -33,156 +35,121 @@ class Config:
                 with open(self.config_file, "r", encoding="utf-8") as f:
                     config = yaml.safe_load(f) or {}
                 
-                self.lang_file = config.get("lang_file", "")
-                self.force_lang = config.get("force_lang", False)
-                self.url_patterns = config.get("url_patterns", [])
+                # 读取新的配置结构
+                self.language_pack = config.get("language_pack", {})
                 self.listen_port = config.get("listen_port", 8888)
+                self.interception_rule = config.get("interception_rule", {})
+                self.force_lang = config.get("force_lang", False)
                 
-                logger.info(f"[figma-localize] Loaded config from {self.config_file}")
+                logger.info(f"[figma-localize] Loaded unified config from {self.config_file}")
         except Exception as e:
             logger.error(f"[figma-localize] Failed to load config: {e}")
 
 
-class Redirector:
-    def __init__(self):
-        self.config = Config()
-        self.rules: List[Tuple[Pattern[str], Optional[str], str]] = []
-        self.stats = {
-            "total_requests": 0,
-            "redirected_requests": 0,
-            "last_reload": 0
-        }
-        self.load_rules()
+class LocalizationHandler:
+    """
+    合并了 Redirector 和 LocalLanguageServer 的功能。
+    根据配置决定是重定向到远程URL还是直接提供本地文件。
+    """
+    def __init__(self, config: Config):
+        self.config = config
+        self.rule_pattern = None
+        self.rule_host = None
+        self.load_rule()
 
-    def load_rules(self):
-        try:
-            with open(self.config.redirects_file, "r", encoding="utf-8") as f:
-                raw = json.load(f)
-            
-            self.rules.clear()
-            for r in raw:
-                pat = re.compile(r["pattern"], re.I)
-                host = r.get("host")
-                url = r["redirect"]
-                self.rules.append((pat, host, url))
-            
-            self.stats["last_reload"] = time.time()
-            logger.info(f"[figma-localize] Loaded {len(self.rules)} redirect rules")
-            
-        except FileNotFoundError:
-            logger.error(f"[figma-localize] Config file not found: {self.config.redirects_file}")
-        except json.JSONDecodeError as e:
-            logger.error(f"[figma-localize] Invalid JSON in config file: {e}")
-        except Exception as e:
-            logger.error(f"[figma-localize] Failed to load rules: {e}")
+    def load_rule(self):
+        rule = self.config.interception_rule
+        if rule and "pattern" in rule:
+            try:
+                self.rule_pattern = re.compile(rule["pattern"], re.I)
+                self.rule_host = rule.get("host")
+                logger.info(f"[figma-localize] Loaded interception rule for host: {self.rule_host}")
+            except Exception as e:
+                logger.error(f"[figma-localize] Failed to compile rule pattern: {e}")
 
     def request(self, flow: http.HTTPFlow):
-        self.stats["total_requests"] += 1
-        
+        # 如果规则没有被正确加载，则直接跳过
+        if not self.rule_pattern:
+            return
+
         req = flow.request
         
-        for pat, host, target in self.rules:
-            if self.should_redirect(req, pat, host):
-                self.stats["redirected_requests"] += 1
-                logger.info(f"[figma-localize] Redirecting: {req.url} -> {target}")
-                
-                flow.response = http.Response.make(
-                    307,
-                    b"",
-                    {
-                        "Location": target,
-                        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-                        "Content-Length": "0",
-                        "Connection": "close",
-                    },
-                )
-                return
+        # 1. 检查请求是否匹配规则
+        if self.should_intercept(req):
+            logger.info(f"[figma-localize] Intercepted Figma language request: {req.url}")
+            
+            # 2. 检查本地文件路径配置
+            local_path_str = self.config.language_pack.get("local_path", "")
+            if local_path_str:
+                local_path = Path(local_path_str)
+                if local_path.exists() and local_path.is_file():
+                    # 3. 如果本地文件有效，则直接提供文件内容
+                    self.serve_local_file(flow, local_path)
+                    return
 
-    def should_redirect(self, req: http.Request, pat: Pattern[str], host: Optional[str]) -> bool:
-        if host and req.host != host and not req.host.endswith("." + host):
+            # 4. 如果本地文件无效或未配置，则重定向到远程URL
+            remote_url = self.config.language_pack.get("remote_url")
+            if remote_url:
+                self.redirect_to_remote(flow, remote_url)
+            else:
+                logger.warning("[figma-localize] No valid local_path or remote_url found in config.")
+
+
+    def should_intercept(self, req: http.Request) -> bool:
+        if self.rule_host and req.host != self.rule_host and not req.host.endswith("." + self.rule_host):
             return False
-        
-        if not pat.match(req.path):
+        if not self.rule_pattern.match(req.path):
             return False
-        
         return True
 
-    def get_stats(self) -> dict:
-        uptime = time.time() - self.stats["last_reload"]
-        return {
-            **self.stats,
-            "uptime_seconds": uptime,
-            "rules_count": len(self.rules)
-        }
+    def serve_local_file(self, flow: http.HTTPFlow, file_path: Path):
+        try:
+            with open(file_path, "rb") as f:
+                content = f.read()
+            logger.info(f"[figma-localize] Serving local language file: {file_path}")
+            flow.response = http.Response.make(
+                200,
+                content,
+                {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Cache-Control": "no-store, no-cache, must-revalidate",
+                    "Access-Control-Allow-Origin": "*",
+                },
+            )
+        except Exception as e:
+            logger.error(f"[figma-localize] Failed to serve local file {file_path}: {e}")
 
+    def redirect_to_remote(self, flow: http.HTTPFlow, target_url: str):
+        logger.info(f"[figma-localize] Redirecting to remote URL: {target_url}")
+        flow.response = http.Response.make(
+            307,
+            b"",
+            {
+                "Location": target_url,
+                "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+            },
+        )
 
+# ForceLanguageHeader 类保持不变
 class ForceLanguageHeader:
     def __init__(self, config: Config):
         self.config = config
 
     def request(self, flow: http.HTTPFlow):
         if self.config.force_lang and flow.request.host.endswith("figma.com"):
-            if "Accept-Language" not in flow.request.headers:
-                flow.request.headers["Accept-Language"] = "zh-CN,zh;q=0.9,en;q=0.8"
-            else:
-                lang_header = flow.request.headers["Accept-Language"]
-                if "zh-CN" not in lang_header:
-                    flow.request.headers["Accept-Language"] = "zh-CN,zh;q=0.9," + lang_header
+            lang_header = flow.request.headers.get("Accept-Language", "")
+            if "zh-CN" not in lang_header:
+                flow.request.headers["Accept-Language"] = "zh-CN,zh;q=0.9," + lang_header
 
 
-class LocalLanguageServer:
-    def __init__(self, config: Config):
-        self.config = config
-
-    def request(self, flow: http.HTTPFlow):
-        if not self.config.lang_file:
-            return
-            
-        lang_path = Path(self.config.lang_file)
-        if not lang_path.exists():
-            return
-            
-        req = flow.request
-        for pattern in self.config.url_patterns:
-            if re.search(pattern, req.url, re.I):
-                try:
-                    with open(lang_path, "r", encoding="utf-8") as f:
-                        content = f.read().encode("utf-8")
-                    
-                    logger.info(f"[figma-localize] Serving local language file: {req.url}")
-                    flow.response = http.Response.make(
-                        200,
-                        content,
-                        {
-                            "Content-Type": "application/json; charset=utf-8",
-                            "Cache-Control": "no-store, no-cache, must-revalidate",
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Length": str(len(content)),
-                        },
-                    )
-                    return
-                except Exception as e:
-                    logger.error(f"[figma-localize] Failed to serve local language file: {e}")
+# 实例化新的类
+config = Config()
+localization_handler = LocalizationHandler(config)
+force_lang_handler = ForceLanguageHeader(config)
 
 
-redirector = Redirector()
-config = redirector.config
-force_lang = ForceLanguageHeader(config)
-local_server = LocalLanguageServer(config)
-
-
-def print_stats():
-    stats = redirector.get_stats()
-    logger.info(f"[figma-localize] Stats: {stats}")
-
-
-def load(ctx):
-    logger.info("[figma-localize] Figma Chinese Localization addon loaded")
-    logger.info(f"[figma-localize] Config: lang_file={config.lang_file}, force_lang={config.force_lang}")
-
-
+# 更新 mitmproxy 的 addons 列表
 addons = [
-    redirector,
-    force_lang,
-    local_server,
+    localization_handler,
+    force_lang_handler,
 ]
