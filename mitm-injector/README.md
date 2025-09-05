@@ -50,6 +50,7 @@ bash ./run.sh
 2. 等待注入器启动完成后，进入代理设置，在macOS系统设置 > Wi-Fi > 详细信息 > 代理
    将 HTTP 代理和 HTTPS & SOCKS 代理都设置为 127.0.0.1:8888
    我也给你提供了一个脚本，你可以直接运行这个脚本，它会自动帮你设置代理，以下是脚本的说明。
+
 ```bash
 # 应用代理
 sudo bash ./set_proxy.sh mitm
@@ -62,7 +63,6 @@ sudo bash ./set_proxy.sh remove
 
 # 检查代理状态
 sudo bash ./set_proxy.sh check
-
 ```
 #### 第三部 安装证书
 
