@@ -53,16 +53,13 @@ bash ./run.sh
 
 ```bash
 # 应用代理
-sudo bash ./set_proxy.sh mitm
-
-# 恢复上游代理
-sudo bash ./set_proxy.sh upstream
+sudo bash ./set_proxy.sh --start
 
 # 移除代理
-sudo bash ./set_proxy.sh remove
+sudo bash ./set_proxy.sh --stop
 
 # 检查代理状态
-sudo bash ./set_proxy.sh check
+sudo bash ./set_proxy.sh --check
 ```
 #### 第三部 安装证书
 
