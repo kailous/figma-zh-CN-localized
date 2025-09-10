@@ -29,7 +29,7 @@ python3 tools/format_json.py -i lang/input.json -o lang/output.json
 - -o, --output 输出目录路径
 - -s, --size 每个小文件的键值对数量
 ```
-python3 tools/split_json.py -i lang/input.json -o lang/output_dir -s 1000
+python3 tools/split_json.py -i lang/en+.json -o lang/output_dir -s 100
 ```
 
 ### merge_json.py <br> 合并多个拆分后的 JSON 文件
@@ -38,7 +38,7 @@ python3 tools/split_json.py -i lang/input.json -o lang/output_dir -s 1000
 - -i, --input 输入目录路径
 - -o, --output 输出 JSON 文件路径
 ```
-python3 tools/merge_json.py -i lang/output_dir -o lang/merged.json
+python3 tools/merge_json.py -i lang/zh/split -o lang/zh/merged.json
 ```
 
 ### 对比工具使用方法
