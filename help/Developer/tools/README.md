@@ -9,8 +9,14 @@
 - -en, --en-file 英文 JSON 文件路径(文件)
 - -l, --log 对比结果日志文件路径
 - -ex, --extract 提取对比结果到根目录
+- --filter-zh-unique 过滤中文 JSON 中唯一的键值对
 ```
-python3 tools/compare_keys.py --zh-dir lang/zh --en-dir lang/en --log compare_result.log --extract
+python3 tools/compare_keys.py \
+--zh-file lang/zh.json \
+--en-file lang/en.json \
+--extract \
+--log lang/ex.log \
+--filter-zh-unique \
 ```
 
 ### format_json.py <br> 格式化并按 string 长度排序
