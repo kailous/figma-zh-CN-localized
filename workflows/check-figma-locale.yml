@@ -1,0 +1,30 @@
+name: check-figma-locale
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "*/30 * * * *"   # 每 30 分钟执行一次（UTC）
+
+permissions:
+  contents: write   # 允许 push 提交
+  issues: write     # 允许创建 Issue
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gh (if missing)
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            type -p apt-get && sudo apt-get update && sudo apt-get install -y gh || true
+          fi
+
+      - name: Run checker
+        run: |
+          chmod +x .github/workflows/check_figma_en_asset.sh
+          ./.github/workflows/check_figma_en_asset.sh
