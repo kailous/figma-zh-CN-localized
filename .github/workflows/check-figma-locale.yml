@@ -1,0 +1,40 @@
+name: check-figma-locale
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ main ]           # 换成你的默认分支名
+    paths:
+      - ".github/workflows/**"   # 改动工作流时也跑
+      - "README.md"              # 也可以随便改个文件触发一次
+  schedule:
+    - cron: "*/30 * * * *"       # 每 30 分钟（UTC）
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gh (if missing)
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y gh
+          fi
+
+      - name: Run checker
+        env:
+          # 让 gh 使用 GitHub 提供的 token
+          GH_TOKEN: ${{ github.token }}
+          # 如需覆盖扫描页面可在这里设：
+          # PAGES: "https://www.figma.com/ https://www.figma.com/login"
+        run: |
+          chmod +x .github/workflows/check_figma_en_asset.sh
+          ./.github/workflows/check_figma_en_asset.sh
