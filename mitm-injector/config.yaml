@@ -40,8 +40,17 @@ upstream_socks5: 127.0.0.1:6153
 
 # 需要拦截的 Figma 语言包请求规则 (正则表达式)
 interception_rule:
-  pattern: "^/webpack-artifacts/assets/figma_app-[a-f0-9]{16}\\.min\\.en\\.json(\\.br)?$"
-  host: "www.figma.com"
+  - pattern: "^/webpack-artifacts/assets/figma_app-[a-f0-9]{16}\\.min\\.en\\.json(\\.br)?$"
+    host: "www.figma.com"
+    replace_url: "https://kailous.github.io/figma-zh-CN-localized/lang/zh.json"
+
+  - pattern: "^/webpack-artifacts/assets/auth_iframe-[a-f0-9]+\\.min\\.en\\.json(\\.br)?$"
+    host: "www.figma.com"
+    replace_url: "https://kailous.github.io/figma-zh-CN-localized/lang/auth_iframe-zh.json"
+
+  - pattern: "^/webpack-artifacts/assets/community-[a-f0-9]+\\.min\\.en\\.json(\\.br)?$"
+    host: "www.figma.com"
+    replace_url: "https://kailous.github.io/figma-zh-CN-localized/lang/community-zh.json"
 
 # 是否强制浏览器请求中文 (建议保持 true)
 # force_lang: true
