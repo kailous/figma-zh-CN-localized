@@ -1,2 +1,0 @@
-mitmproxy>=10.0
-PyYAML>=6.0
