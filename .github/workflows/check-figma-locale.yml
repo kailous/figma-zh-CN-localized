@@ -24,13 +24,19 @@ jobs:
         uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Ensure gh is available
+      - name: Ensure required CLI tools
+        shell: bash
         run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            sudo apt-get update && sudo apt-get install -y gh
+          set -euo pipefail
+          missing=()
+          command -v gh >/dev/null 2>&1 || missing+=(gh)
+          command -v brotli >/dev/null 2>&1 || missing+=(brotli)
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            sudo apt-get update
+            sudo apt-get install -y "${missing[@]}"
           fi
 
-      - name: Detect latest en asset
+      - name: Detect latest locale assets
         id: detect
         shell: bash
         run: |
@@ -43,31 +49,140 @@ jobs:
             PAGES="https://www.figma.com/ https://www.figma.com/login https://www.figma.com/ja/"
           fi
 
-          tmp_matches="$(mktemp)"
-          trap 'rm -f "$tmp_matches"' EXIT
+          tmp_dir="$(mktemp -d)"
+          trap 'rm -rf "$tmp_dir"' EXIT
 
+          combined="$tmp_dir/all.html"
+          : > "$combined"
           for u in ${PAGES}; do
             log "Fetch: $u"
-            curl -fsSL "$u" | tr -d '\n' | grep -oE "$REGEX" || true
-          done | awk 'NF' | sort -u | tail -n1 > "$tmp_matches"
+            curl -fsSL "$u" | tr -d '\n' >> "$combined"
+            echo >> "$combined"
+          done
 
-          if [[ ! -s "$tmp_matches" ]]; then
-            log "No matches found."
-            echo "found=" >> "$GITHUB_OUTPUT"
+          declare -A PATTERNS
+          PATTERNS[figma_app]="${REGEX}"
+          PATTERNS[auth_iframe]='https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/auth_iframe-[a-f0-9]+\.min\.en\.json(\.br)?'
+          PATTERNS[community]='https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/community-[a-f0-9]+\.min\.en\.json(\.br)?'
+
+          declare -A FOUND
+          for key in "${!PATTERNS[@]}"; do
+            match_file="$tmp_dir/${key}.txt"
+            grep -oE "${PATTERNS[$key]}" "$combined" | awk 'NF' | sort -u | tail -n1 > "$match_file" || true
+            if [[ -s "$match_file" ]]; then
+              value="$(cat "$match_file")"
+              FOUND[$key]="$value"
+              log "Latest ${key}: $value"
+              echo "${key}=$value" >> "$GITHUB_OUTPUT"
+            else
+              log "Latest ${key}: <not found>"
+              echo "${key}=" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+          latest_found="${FOUND[figma_app]:-}"
+          echo "found=${latest_found}" >> "$GITHUB_OUTPUT"
+
+          if [[ -z "$latest_found" ]]; then
+            log "No matches found for figma_app."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          latest_found="$(cat "$tmp_matches")"
-          log "Latest: $latest_found"
-
-          echo "found=$latest_found" >> "$GITHUB_OUTPUT"
-
-          # 比对
           if [[ -n "${PREVIOUS_URL:-}" && "$latest_found" == "$PREVIOUS_URL" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true"  >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Download latest locale files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          download_and_extract() {
+            local name="$1"
+            local url="$2"
+            local dest="$3"
+
+            if [[ -z "$url" ]]; then
+              echo "[$name] skip: URL not detected"
+              return 0
+            fi
+
+            echo "[$name] downloading $url"
+            local tmp
+            tmp="$(mktemp)"
+            if ! curl -fsSL "$url" -o "$tmp"; then
+              echo "::error::Failed to download $name from $url"
+              return 1
+            fi
+
+            mkdir -p "$(dirname "$dest")"
+
+            if [[ "$url" == *.br ]]; then
+              local decompressed
+              decompressed="$(mktemp)"
+              brotli -d "$tmp" -o "$decompressed"
+              mv "$decompressed" "$dest"
+              rm -f "$tmp"
+            else
+              mv "$tmp" "$dest"
+            fi
+          }
+
+          download_and_extract figma_app "${{ steps.detect.outputs.figma_app }}" "lang/en.json"
+          download_and_extract auth_iframe "${{ steps.detect.outputs.auth_iframe }}" "lang/auth_iframe-en.json"
+          download_and_extract community "${{ steps.detect.outputs.community }}" "lang/community-en.json"
+
+      - name: Rebuild formatted locale artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -f lang/en.json ]]; then
+            python3 tools/format_json.py -i lang/en.json -o lang/en+.json
+          fi
+
+          format_in_place() {
+            local path="$1"
+            if [[ ! -f "$path" ]]; then
+              return
+            fi
+            local tmp
+            tmp="$(mktemp)"
+            python3 tools/format_json.py -i "$path" -o "$tmp"
+            mv "$tmp" "$path"
+          }
+
+          format_in_place lang/auth_iframe-en.json
+          format_in_place lang/community-en.json
+
+      - name: Commit updated locale files
+        shell: bash
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          git status --short
+
+          if git diff --quiet -- lang/en.json lang/en+.json lang/auth_iframe-en.json lang/community-en.json; then
+            echo "No locale changes detected."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add lang/en.json lang/en+.json lang/auth_iframe-en.json lang/community-en.json
+
+          git commit -m "chore: update figma locale assets"
+
+          # 避免竞争条件
+          branch="${TARGET_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
+          git pull --rebase origin "$branch"
+          git push origin "HEAD:$branch"
 
       - name: Update repo variable LATEST_URL (when changed)
         if: steps.detect.outputs.changed == 'true' && steps.detect.outputs.found != ''
