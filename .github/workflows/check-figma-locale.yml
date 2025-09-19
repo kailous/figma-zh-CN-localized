@@ -20,11 +20,11 @@ jobs:
       # 如需自定义扫描页面，可在仓库“环境变量 Variables”里设置 PAGES，否则用下面默认
       PAGES: ${{ vars.PAGES }}
     steps:
-      - name: Checkout
+      - name: 检出仓库
         uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Ensure required CLI tools
+      - name: 安装必要的命令行工具
         shell: bash
         run: |
           set -euo pipefail
@@ -36,7 +36,7 @@ jobs:
             sudo apt-get install -y "${missing[@]}"
           fi
 
-      - name: Detect latest locale assets
+      - name: 检测最新语言包链接
         id: detect
         shell: bash
         run: |
@@ -55,7 +55,7 @@ jobs:
           combined="$tmp_dir/all.html"
           : > "$combined"
           for u in ${PAGES}; do
-            log "Fetch: $u"
+            log "抓取页面: $u"
             curl -fsSL "$u" | tr -d '\n' >> "$combined"
             echo >> "$combined"
           done
@@ -72,10 +72,10 @@ jobs:
             if [[ -s "$match_file" ]]; then
               value="$(cat "$match_file")"
               FOUND[$key]="$value"
-              log "Latest ${key}: $value"
+              log "${key} 最新地址: $value"
               echo "${key}=$value" >> "$GITHUB_OUTPUT"
             else
-              log "Latest ${key}: <not found>"
+              log "${key} 未找到匹配链接"
               echo "${key}=" >> "$GITHUB_OUTPUT"
             fi
           done
@@ -84,7 +84,7 @@ jobs:
           echo "found=${latest_found}" >> "$GITHUB_OUTPUT"
 
           if [[ -z "$latest_found" ]]; then
-            log "No matches found for figma_app."
+            log "未找到 figma_app 对应的链接"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -95,7 +95,7 @@ jobs:
             echo "changed=true"  >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Download latest locale files
+      - name: 下载最新语言包文件
         shell: bash
         run: |
           set -euo pipefail
@@ -106,15 +106,15 @@ jobs:
             local dest="$3"
 
             if [[ -z "$url" ]]; then
-              echo "[$name] skip: URL not detected"
+              echo "[$name] 跳过：未检测到链接"
               return 0
             fi
 
-            echo "[$name] downloading $url"
+            echo "[$name] 下载中: $url"
             local tmp
             tmp="$(mktemp)"
             if ! curl -fsSL "$url" -o "$tmp"; then
-              echo "::error::Failed to download $name from $url"
+              echo "::error::下载 $name ($url) 失败"
               return 1
             fi
 
@@ -135,7 +135,7 @@ jobs:
           download_and_extract auth_iframe "${{ steps.detect.outputs.auth_iframe }}" "lang/auth_iframe-en.json"
           download_and_extract community "${{ steps.detect.outputs.community }}" "lang/community-en.json"
 
-      - name: Rebuild formatted locale artifacts
+      - name: 重建格式化语言包
         shell: bash
         run: |
           set -euo pipefail
@@ -158,7 +158,7 @@ jobs:
           format_in_place lang/auth_iframe-en.json
           format_in_place lang/community-en.json
 
-      - name: Commit updated locale files
+      - name: 提交语言包更新
         shell: bash
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
@@ -168,7 +168,7 @@ jobs:
           git status --short
 
           if git diff --quiet -- lang/en_latest.json lang/en_latest+.json lang/auth_iframe-en.json lang/community-en.json; then
-            echo "No locale changes detected."
+            echo "没有检测到语言包变化"
             exit 0
           fi
 
@@ -184,7 +184,7 @@ jobs:
           git pull --rebase origin "$branch"
           git push origin "HEAD:$branch"
 
-      - name: Update repo variable LATEST_URL (when changed)
+      - name: 更新仓库变量 LATEST_URL（仅在变化时）
         if: steps.detect.outputs.changed == 'true' && steps.detect.outputs.found != ''
         shell: bash
         env:
@@ -192,7 +192,7 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -z "${PAT_TOKEN:-}" ]]; then
-            echo "::warning::VARS_TOKEN not set; cannot update repository variable."
+            echo "::warning::未设置 VARS_TOKEN，无法更新仓库变量"
             exit 0
           fi
 
@@ -200,7 +200,7 @@ jobs:
           var_name="LATEST_URL"
           new_value="${{ steps.detect.outputs.found }}"
 
-          echo "Updating repo variable ${var_name} to:"
+          echo "正在更新仓库变量 ${var_name}："
           echo "$new_value"
 
           # 变量是否存在？先 GET 再决定 PATCH 还是 PUT（两者都能更新，这里使用 PATCH）
@@ -211,35 +211,35 @@ jobs:
             "https://api.github.com/repos/${owner_repo}/actions/variables/${var_name}" \
             -d "$(jq -nc --arg v "$new_value" '{ value: $v }')"
 
-          echo "Updated."
+          echo "变量已更新"
 
-      - name: Notify by creating an Issue (when changed)
+      - name: 语言包更新时创建 Issue 通知
         if: steps.detect.outputs.changed == 'true' && steps.detect.outputs.found != ''
         env:
           GH_TOKEN: ${{ github.token }}   # 默认 token，够发 Issue
         shell: bash
         run: |
           set -euo pipefail
-          title="Figma en locale asset updated"
+          title="Figma 英文语言包已更新"
           body=$(printf '%s\n' \
-            'Detected a new Figma English locale asset.' \
+            '检测到新的 Figma 英文语言包链接。' \
             '' \
-            '**URL**' \
+            '**最新链接**' \
             '```' \
             "${{ steps.detect.outputs.found }}" \
             '```' \
             '' \
-            '**Previous**' \
+            '**上一版链接**' \
             '```' \
             "${PREVIOUS_URL}" \
             '```' \
             '' \
-            '**Time**' \
+            '**检测时间**' \
             "$(date -u +"%Y-%m-%d %H:%M:%S UTC")" \
             '' \
-            '_This issue is auto-generated by **check-figma-locale**._' \
+            '_本 Issue 由 **check-figma-locale** 工作流自动创建。_' \
           )
           gh api --method POST -H "Accept: application/vnd.github+json" \
             "/repos/${GITHUB_REPOSITORY}/issues" \
             -f title="$title" -f body="$body" >/dev/null
-          echo "Issue created."
+          echo "已创建 Issue 通知"
