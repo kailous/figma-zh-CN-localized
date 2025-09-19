@@ -131,7 +131,7 @@ jobs:
             fi
           }
 
-          download_and_extract figma_app "${{ steps.detect.outputs.figma_app }}" "lang/en.json"
+          download_and_extract figma_app "${{ steps.detect.outputs.figma_app }}" "lang/en_latest.json"
           download_and_extract auth_iframe "${{ steps.detect.outputs.auth_iframe }}" "lang/auth_iframe-en.json"
           download_and_extract community "${{ steps.detect.outputs.community }}" "lang/community-en.json"
 
@@ -140,8 +140,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [[ -f lang/en.json ]]; then
-            python3 tools/format_json.py -i lang/en.json -o lang/en+.json
+          if [[ -f lang/en_latest.json ]]; then
+            python3 tools/format_json.py -i lang/en_latest.json -o lang/en_latest+.json
           fi
 
           format_in_place() {
@@ -167,7 +167,7 @@ jobs:
 
           git status --short
 
-          if git diff --quiet -- lang/en.json lang/en+.json lang/auth_iframe-en.json lang/community-en.json; then
+          if git diff --quiet -- lang/en_latest.json lang/en_latest+.json lang/auth_iframe-en.json lang/community-en.json; then
             echo "No locale changes detected."
             exit 0
           fi
@@ -175,7 +175,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add lang/en.json lang/en+.json lang/auth_iframe-en.json lang/community-en.json
+          git add lang/en_latest.json lang/en_latest+.json lang/auth_iframe-en.json lang/community-en.json
 
           git commit -m "chore: update figma locale assets"
 
