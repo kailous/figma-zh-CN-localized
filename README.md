@@ -39,3 +39,8 @@ Figcn 目前仅支持在 ARM 架构的 macOS 系统上运行。没有 Win 设备
 ## 加入我们
 如果你有兴趣参与到这个项目中，可以联系我，我会提供具体的汉化工作流程。
 相关的工作流程请参考 [工作流程](help/Developer/README.md)。
+常用脚本说明：
+- `python3 tools/split_json.py <lang.json> [每文件条目数]` 会把词条拆分到根目录 `split_dir`；
+- `python3 tools/format_json.py <文件或目录>` 会原地重排条目，便于投递给 AI；
+- `python3 tools/compare_keys.py --zh-file ... --en-file ...` 会在根目录生成差异日志并把结果写入 `temp_dir`；
+- `python3 tools/merge_json.py` 默认把 `split_dir` 中的拆分文件合并到 `temp_dir/merged_*.json`。

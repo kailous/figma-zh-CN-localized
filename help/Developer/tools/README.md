@@ -52,5 +52,6 @@ python3 tools/compare_keys.py --zh-file ./lang/zh/zh.json --en-file ./lang/zh/en
 
 ### 格式化工具使用方法
 ```
-python3 tools/json_formatter.py -i lang/input.json -o lang/output.json
+python3 tools/format_json.py lang/zh.json
+python3 tools/format_json.py lang/
 ```
