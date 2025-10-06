@@ -4,7 +4,7 @@
 # @description: 将JSON文件按照指定的键值对数量拆分成多个文件
 # @author: kailous
 # @date: 2024-08-20
-# @help: python3 tools/split_json.py path/to/input.json 500
+# @help: python3 tools/split_json.py 100
 
 import json
 import os
