@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Figma 中文语言包替换
 // @namespace    https://kailous.github.io/figma-zh-CN-localized/UserScript/figma-zh-CN-localized.js
-// @version      1.0
+// @version      1.2
 // @description  自动将 Figma Web 的英文语言包替换为中文
 // @author       kailous
 // @match        https://www.figma.com/*
@@ -19,7 +19,7 @@
     window.fetch = async function(resource, init) {
         try {
             if (typeof resource === "string" &&
-                /https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app-[a-f0-9]{16}\.min\.en\.json\.br/.test(resource)) {
+                /https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app(?:_beta|__rspack)?-[a-f0-9]+\.min\.en\.json(?:\.br)?/.test(resource)) {
                 console.log("[Figma-UserScript] 拦截到英文语言包请求，替换为中文 →", zhLangUrl);
                 return originalFetch(zhLangUrl, init);
             }
@@ -34,7 +34,7 @@
     XMLHttpRequest.prototype.open = function(method, url, ...args) {
         try {
             if (typeof url === "string" &&
-                /https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app-[a-f0-9]{16}\.min\.en\.json\.br/.test(url)) {
+                /https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app(?:_beta|__rspack)?-[a-f0-9]+\.min\.en\.json(?:\.br)?/.test(url)) {
                 console.log("[Figma-UserScript] XHR 拦截到英文语言包请求，替换为中文 →", zhLangUrl);
                 arguments[1] = zhLangUrl;
             }
