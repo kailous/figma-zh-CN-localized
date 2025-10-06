@@ -18,10 +18,11 @@ python3 tools/compare_keys.py \
 ### format_json.py <br> 格式化并按 string 长度排序
 用于将 JSON 文件格式化，并按照其中 string 字段的长度升序排序输出。为了方便丢给 chatgpt 进行逐行翻译。
 参数说明
-- -i, --input 输入 JSON 文件路径
-- -o, --output 输出 JSON 文件路径
+- JSON 文件路径或目录路径（位置参数）
+会直接覆盖原文件；如果传入目录，则对该目录下所有 `.json` 文件执行格式化。
 ```
-python3 tools/format_json.py -i lang/input.json -o lang/output.json
+python3 tools/format_json.py lang/zh.json
+python3 tools/format_json.py lang/
 ```
 
 ### split_json.py <br> 拆分大型 JSON 文件为多个小文件

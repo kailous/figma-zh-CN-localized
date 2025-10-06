@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# @name: format_json.py
+# @description: 格式化JSON文件，使每个键值对占用单独的一行
+# @author: kailous
+# @date: 2024-08-20
+# @help: python3 tools/format_json.py lang/zh.json
 
 import json
 import os
 import sys
 import argparse
 
-def format_json_file(file_path, output_path):
+def format_json_file(file_path):
     """
     格式化JSON文件，使每个键值对占用单独的一行
     并按照'string'属性的长度进行排序
@@ -35,11 +40,11 @@ def format_json_file(file_path, output_path):
             formatted_json += ',\n' if i < len(items) - 1 else '\n'
         formatted_json += '}'
 
-        # 写入文件
-        with open(output_path, 'w', encoding='utf-8') as f:
+        # 写入文件（覆盖原文件）
+        with open(file_path, 'w', encoding='utf-8') as f:
             f.write(formatted_json)
 
-        print(f"✅ 排序并格式化完成，结果已保存到: {output_path}")
+        print(f"✅ 排序并格式化完成: {file_path}")
         return True
 
     except json.JSONDecodeError:
@@ -49,29 +54,43 @@ def format_json_file(file_path, output_path):
         print(f"❌ 处理文件时出错: {str(e)}")
         return False
 
+def format_directory(directory_path):
+    total_json = 0
+    success_count = 0
+    for entry in sorted(os.listdir(directory_path)):
+        full_path = os.path.join(directory_path, entry)
+        if os.path.isfile(full_path) and entry.lower().endswith('.json'):
+            total_json += 1
+            if format_json_file(full_path):
+                success_count += 1
+    if total_json == 0:
+        print(f"⚠️ 目录中未找到JSON文件: {directory_path}")
+        return False
+    if success_count == total_json:
+        print(f"✨ 共格式化 {success_count} 个JSON文件")
+        return True
+    print(f"⚠️ 共找到 {total_json} 个JSON文件，其中 {success_count} 个格式化成功")
+    return False
+
 def main():
-    parser = argparse.ArgumentParser(description='格式化并按string长度排序JSON文件')
-    parser.add_argument('-i', '--input', help='输入文件路径')
-    parser.add_argument('-o', '--output', help='输出JSON文件路径')
+    parser = argparse.ArgumentParser(description='格式化并按string长度排序JSON文件（支持文件或目录）')
+    parser.add_argument('path', help='JSON文件路径或包含JSON文件的目录')
     args = parser.parse_args()
 
-    if not args.input:
-        print("❗请使用 -i 指定输入文件路径")
-        print("示例: python3 format_json.py -i ./lang/en/en.json -o ./lang/en/sorted_en.json")
+    target_path = args.path
+
+    if not os.path.exists(target_path):
+        print(f"❌ 输入路径不存在: {target_path}")
         sys.exit(1)
 
-    if not os.path.exists(args.input):
-        print(f"❌ 输入文件不存在: {args.input}")
-        sys.exit(1)
-
-    if not args.output:
-        input_dir = os.path.dirname(args.input)
-        input_filename = os.path.basename(args.input)
-        output_path = os.path.join(input_dir, f"sorted_{input_filename}")
+    if os.path.isfile(target_path):
+        success = format_json_file(target_path)
+    elif os.path.isdir(target_path):
+        success = format_directory(target_path)
     else:
-        output_path = args.output
+        print(f"❌ 不支持的路径类型: {target_path}")
+        success = False
 
-    success = format_json_file(args.input, output_path)
     if not success:
         sys.exit(1)
 
