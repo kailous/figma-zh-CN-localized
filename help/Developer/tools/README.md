@@ -7,15 +7,12 @@
 - -EN, --en-dir 英文 JSON 文件路径(目录)
 - -zh, --zh-file 中文 JSON 文件路径(文件)
 - -en, --en-file 英文 JSON 文件路径(文件)
-- -ex, --extract 提取对比结果到根目录
-- --filter-zh-unique 过滤中文 JSON 中唯一的键值对
-日志会自动写入项目根目录下的 `compare_keys_directory.log` 或 `compare_keys_single.log`；提取/过滤生成的 JSON 默认写入根目录的 `temp_dir`，可通过 `--out-dir` 自定义目录。
+- -o, --out-dir 结果输出目录（可选）
+日志会自动写入项目根目录下的 `compare_keys_directory.log` 或 `compare_keys_single.log`。同时会生成 `_en-new.json`、`_zh-new.json` 以及（如有需要）`_zh-filtered.json`，默认写入根目录的 `temp_dir`，可通过 `--out-dir` 自定义目录。
 ```
 python3 tools/compare_keys.py \
 --zh-file lang/zh.json \
---en-file org_dir/en.json \
---extract \
---filter-zh-unique \
+--en-file org_dir/en.json
 ```
 
 ### format_json.py <br> 格式化并按 string 长度排序
@@ -48,7 +45,7 @@ python3 tools/merge_json.py -i lang/zh/split -o lang/zh/merged.json
 
 ### 对比工具使用方法
 ```
-python3 tools/compare_keys.py --zh-file ./lang/zh/zh.json --en-file ./lang/zh/en.json --filter-zh-unique
+python3 tools/compare_keys.py --zh-file ./lang/zh/zh.json --en-file ./lang/zh/en.json
 ```
 
 ### 格式化工具使用方法

@@ -4,6 +4,7 @@
 # @description: 比较两个JSON文件的键值对，提取不同的字符串键值对
 # @author: kailous
 # @date: 2024-08-20
+# @help: python3 tools/compare_keys.py --zh-file lang/zh.json --en-file org_dir/en.json
 
 import os
 import json
@@ -112,7 +113,7 @@ def filter_zh_unique_keys(zh_data, en_data):
     filtered = get_removed_structure(zh_data, zh_only)
     return filtered if filtered is not None else {}
 
-def compare_keys(zh_dir, en_dir, extract=False, filter_zh_unique=False, out_dir=None):
+def compare_keys(zh_dir, en_dir, out_dir=None):
     try:
         zh_files = os.listdir(zh_dir)
         en_files = os.listdir(en_dir)
@@ -121,6 +122,7 @@ def compare_keys(zh_dir, en_dir, extract=False, filter_zh_unique=False, out_dir=
         return
 
     total_files = len(set(zh_files).union(en_files))
+    target_dir = out_dir or DEFAULT_OUTPUT_DIR
 
     log_path = os.path.join(PROJECT_ROOT, 'compare_keys_directory.log')
     with open(log_path, 'w', encoding='utf-8') as log:
@@ -151,40 +153,34 @@ def compare_keys(zh_dir, en_dir, extract=False, filter_zh_unique=False, out_dir=
                             log.write(f'  - {key}\n')
                         log.write("---------------\n")
 
-                        zh_struct = None
-                        # 原有提取逻辑
-                        target_dir = out_dir or DEFAULT_OUTPUT_DIR
-                        if extract:
-                            os.makedirs(target_dir, exist_ok=True)
-                            file_base = os.path.splitext(zh_file)[0]
-                            en_only = en_keys - zh_keys
-                            zh_only = zh_keys - en_keys
+                        os.makedirs(target_dir, exist_ok=True)
+                        file_base = os.path.splitext(zh_file)[0]
+                        en_only = en_keys - zh_keys
+                        zh_only = zh_keys - en_keys
 
-                            en_struct = get_common_structure_only(en_data, en_only)
-                            zh_struct = get_removed_structure(zh_data, zh_only)
+                        en_struct = get_common_structure_only(en_data, en_only)
+                        zh_struct = get_removed_structure(zh_data, zh_only)
 
-                            en_out = os.path.join(target_dir, f"{file_base}_en-new.json")
-                            zh_out = os.path.join(target_dir, f"{file_base}_zh-new.json")
+                        en_out = os.path.join(target_dir, f"{file_base}_en-new.json")
+                        zh_out = os.path.join(target_dir, f"{file_base}_zh-new.json")
 
-                            with open(en_out, 'w', encoding='utf-8') as f:
-                                json.dump(en_struct, f, ensure_ascii=False, indent=2)
-                            with open(zh_out, 'w', encoding='utf-8') as f:
-                                json.dump(zh_struct, f, ensure_ascii=False, indent=2)
+                        with open(en_out, 'w', encoding='utf-8') as f:
+                            json.dump(en_struct, f, ensure_ascii=False, indent=2)
+                        with open(zh_out, 'w', encoding='utf-8') as f:
+                            json.dump(zh_struct, f, ensure_ascii=False, indent=2)
 
-                            print(f"已生成: {en_out}, {zh_out}")
+                        print(f"已生成: {en_out}, {zh_out}")
 
-                        # 新增：过滤中文独有键
-                        if filter_zh_unique:
-                            os.makedirs(target_dir, exist_ok=True)
-                            file_base = os.path.splitext(zh_file)[0]
-                            filtered = filter_zh_unique_keys(zh_data, en_data)
-                            if extract and filtered == zh_struct:
-                                print("过滤结果与 *_zh-new.json 内容一致，已跳过重复输出")
-                            else:
-                                zh_filtered_out = os.path.join(target_dir, f"{file_base}_zh-filtered.json")
-                                with open(zh_filtered_out, 'w', encoding='utf-8') as f:
-                                    json.dump(filtered, f, ensure_ascii=False, indent=2)
-                                print(f"已生成过滤后的中文文件（移除中文独有键）: {zh_filtered_out}")
+                        filtered = filter_zh_unique_keys(zh_data, en_data)
+                        if filtered == zh_data:
+                            print(f"文件 {zh_file} 没有中文独有键，已跳过过滤输出")
+                        elif filtered == zh_struct:
+                            print(f"文件 {zh_file} 的过滤结果与 {zh_out} 内容一致，已跳过重复输出")
+                        else:
+                            zh_filtered_out = os.path.join(target_dir, f"{file_base}_zh-filtered.json")
+                            with open(zh_filtered_out, 'w', encoding='utf-8') as f:
+                                json.dump(filtered, f, ensure_ascii=False, indent=2)
+                            print(f"已生成过滤后的中文文件（移除中文独有键）: {zh_filtered_out}")
                 else:
                     log.write(f'[缺失文件] 英文目录缺少文件: {zh_file}\n\n')
                 pbar.update(1)
@@ -197,7 +193,7 @@ def compare_keys(zh_dir, en_dir, extract=False, filter_zh_unique=False, out_dir=
         log.write("=== 比较完成 ===\n")
     print(f"日志输出: {log_path}")
 
-def compare_single_files(zh_file, en_file, extract=False, filter_zh_unique=False, out_dir=None):
+def compare_single_files(zh_file, en_file, out_dir=None):
     zh_data = get_json_keys(zh_file)
     en_data = get_json_keys(en_file)
 
@@ -226,15 +222,16 @@ def compare_single_files(zh_file, en_file, extract=False, filter_zh_unique=False
     print(f"日志输出: {log_path}")
 
     target_dir = out_dir or DEFAULT_OUTPUT_DIR
+    base_zh = os.path.splitext(os.path.basename(zh_file))[0]
+    base_en = os.path.splitext(os.path.basename(en_file))[0]
     zh_struct = None
-    # 原有提取逻辑
-    if extract:
-        os.makedirs(target_dir, exist_ok=True)
-        base_zh = os.path.splitext(os.path.basename(zh_file))[0]
-        base_en = os.path.splitext(os.path.basename(en_file))[0]
+    zh_out = None
 
-        en_only = en_keys - zh_keys
-        zh_only = zh_keys - en_keys
+    en_only = en_keys - zh_keys
+    zh_only = zh_keys - en_keys
+
+    if diff_keys:
+        os.makedirs(target_dir, exist_ok=True)
 
         en_struct = get_common_structure_only(en_data, en_only)
         zh_struct = get_removed_structure(zh_data, zh_only)
@@ -250,18 +247,17 @@ def compare_single_files(zh_file, en_file, extract=False, filter_zh_unique=False
         print(f"已生成英文独有内容文件: {en_out}")
         print(f"已生成去除中文独有内容的文件: {zh_out}")
 
-    # 新增：过滤中文独有键
-    if filter_zh_unique:
+    filtered = filter_zh_unique_keys(zh_data, en_data)
+    if filtered == zh_data:
+        print("没有中文独有键，已跳过过滤输出")
+    elif zh_struct is not None and filtered == zh_struct:
+        print(f"过滤结果与 {zh_out} 内容一致，已跳过重复输出")
+    else:
         os.makedirs(target_dir, exist_ok=True)
-        base_zh = os.path.splitext(os.path.basename(zh_file))[0]
-        filtered = filter_zh_unique_keys(zh_data, en_data)
-        if extract and filtered == zh_struct:
-            print("过滤结果与 *_zh-new.json 内容一致，已跳过重复输出")
-        else:
-            zh_filtered_out = os.path.join(target_dir, f"{base_zh}_zh-filtered.json")
-            with open(zh_filtered_out, 'w', encoding='utf-8') as f:
-                json.dump(filtered, f, ensure_ascii=False, indent=2)
-            print(f"已生成过滤后的中文文件（移除中文独有键）: {zh_filtered_out}")
+        zh_filtered_out = os.path.join(target_dir, f"{base_zh}_zh-filtered.json")
+        with open(zh_filtered_out, 'w', encoding='utf-8') as f:
+            json.dump(filtered, f, ensure_ascii=False, indent=2)
+        print(f"已生成过滤后的中文文件（移除中文独有键）: {zh_filtered_out}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='比较中英文JSON文件的翻译字段')
@@ -269,8 +265,6 @@ if __name__ == "__main__":
     parser.add_argument('-EN', '--en-dir', type=str, help='英文JSON文件目录')
     parser.add_argument('-zh', '--zh-file', type=str, help='单个中文JSON文件路径')
     parser.add_argument('-en', '--en-file', type=str, help='单个英文JSON文件路径')
-    parser.add_argument('-ex', '--extract', action='store_true', help='是否提取英文独有字段并清理中文')
-    parser.add_argument('-fz', '--filter-zh-unique', action='store_true', help='过滤掉中文语言包独有的键并输出 *_zh-filtered.json')
     parser.add_argument('-o', '--out-dir', type=str, help='输出目录（可选）')
 
     args = parser.parse_args()
@@ -279,17 +273,15 @@ if __name__ == "__main__":
         parser.error("不能同时使用文件比较和目录比较参数")
 
     if args.zh_file and args.en_file:
-        compare_single_files(args.zh_file, args.en_file, args.extract, args.filter_zh_unique, args.out_dir)
+        compare_single_files(args.zh_file, args.en_file, args.out_dir)
     elif args.zh_dir and args.en_dir:
-        compare_keys(args.zh_dir, args.en_dir, args.extract, args.filter_zh_unique, args.out_dir)
+        compare_keys(args.zh_dir, args.en_dir, args.out_dir)
     else:
         parser.print_help()
         print("\n使用示例:")
-        print("1. 比较目录并提取差异：")
-        print("   python compare_keys.py --zh-dir ./zh --en-dir ./en --extract")
-        print("2. 比较单文件并生成提取结果：")
-        print("   python compare_keys.py --zh-file zh.json --en-file en.json --extract")
-        print("3. 仅过滤中文独有键（单文件）：")
-        print("   python compare_keys.py --zh-file zh.json --en-file en.json --filter-zh-unique")
-        print("4. 仅过滤中文独有键（目录，对应文件成对存在时生效）：")
-        print("   python compare_keys.py --zh-dir ./zh --en-dir ./en --filter-zh-unique --out-dir ./out")
+        print("1. 比较目录：")
+        print("   python3 tools/compare_keys.py --zh-dir ./zh --en-dir ./en")
+        print("2. 比较单文件：")
+        print("   python3 tools/compare_keys.py --zh-file zh.json --en-file en.json")
+        print("3. 指定输出目录：")
+        print("   python3 tools/compare_keys.py --zh-dir ./zh --en-dir ./en --out-dir ./out")
