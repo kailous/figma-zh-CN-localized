@@ -38,9 +38,10 @@ python3 tools/split_json.py lang/en.json 100
 ### merge_json.py <br> 合并多个拆分后的 JSON 文件
 用于将多个拆分后的 JSON 文件合并为一个大型 JSON 文件。
 参数说明
-- -i, --input 输入目录路径
-- -o, --output 输出 JSON 文件路径
+- -i, --input 输入目录路径（可选，默认使用项目根目录的 `split_dir`）
+- -o, --output 输出 JSON 文件路径（可选，默认写入项目根目录的 `temp_dir/merged*.json`。若拆分文件名形如 `split_en_*.json` 会自动生成 `merged_en.json`，`split_zh_*` 则生成 `merged_zh.json`）
 ```
+python3 tools/merge_json.py
 python3 tools/merge_json.py -i lang/zh/split -o lang/zh/merged.json
 ```
 

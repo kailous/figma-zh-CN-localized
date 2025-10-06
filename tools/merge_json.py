@@ -1,13 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# @name: merge_json.py
+# @description: 合并拆分的JSON文件为一个文件
+# @author: kailous
+# @date: 2024-08-20
+# @help: python3 tools/merge_json.py
 
 import json
 import os
 import sys
 import glob
 import argparse
+import re
 
-def merge_json_files(input_dir, output_file):
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_INPUT_DIR = os.path.join(PROJECT_ROOT, 'split_dir')
+DEFAULT_OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'temp_dir')
+DEFAULT_OUTPUT_FILE = os.path.join(DEFAULT_OUTPUT_DIR, 'merged.json')
+
+def collect_json_files(input_dir):
+    patterns = [
+        os.path.join(input_dir, "split_*.json"),
+        os.path.join(input_dir, "part_*.json"),
+    ]
+    files = []
+    for pattern in patterns:
+        files.extend(glob.glob(pattern))
+    return sorted(set(files))
+
+def infer_output_path(json_files):
+    split_pattern = re.compile(r'split_(.+?)_(\d+)\.json$', re.IGNORECASE)
+    for file_path in json_files:
+        match = split_pattern.search(os.path.basename(file_path))
+        if match:
+            lang_token = match.group(1)
+            safe_token = lang_token.replace(os.sep, '_').replace('..', '')
+            return os.path.join(DEFAULT_OUTPUT_DIR, f'merged_{safe_token}.json')
+    return DEFAULT_OUTPUT_FILE
+
+def merge_json_files(input_dir, output_file, json_files=None):
     """
     将多个JSON文件合并为一个文件
     
@@ -20,10 +51,11 @@ def merge_json_files(input_dir, output_file):
             print(f"错误: 输入目录不存在: {input_dir}")
             return False
 
-        json_files = sorted(glob.glob(os.path.join(input_dir, "part_*.json")))
+        if json_files is None:
+            json_files = collect_json_files(input_dir)
 
         if not json_files:
-            print(f"错误: 在 {input_dir} 中未找到 part_*.json 文件")
+            print(f"错误: 在 {input_dir} 中未找到可合并的 JSON 文件")
             return False
 
         print(f"找到 {len(json_files)} 个JSON文件，开始合并...")
@@ -42,7 +74,7 @@ def merge_json_files(input_dir, output_file):
 
         output_dir = os.path.dirname(output_file)
         if output_dir and not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+            os.makedirs(output_dir, exist_ok=True)
             print(f"创建输出目录: {output_dir}")
 
         formatted_json = '{\n'
@@ -69,16 +101,30 @@ def merge_json_files(input_dir, output_file):
 
 def main():
     parser = argparse.ArgumentParser(description="合并多个JSON文件")
-    parser.add_argument('-i', '--input', required=False, help="输入目录路径 (如: ./lang/zh/split)")
-    parser.add_argument('-o', '--output', required=False, help="输出文件路径 (如: ./lang/zh/zh.json)")
+    parser.add_argument('-i', '--input', help="输入目录路径 (默认: 项目根目录下的 split_dir)")
+    parser.add_argument('-o', '--output', help="输出文件路径 (默认: 项目根目录下的 temp_dir/merged.json)")
     args = parser.parse_args()
 
-    if not args.input or not args.output:
-        print("❗用法: python3 merge_json.py --input 输入目录 --output 输出文件路径")
-        print("示例: python3 merge_json.py --input ./lang/zh/split --output ./lang/zh/zh.json")
+    input_dir = args.input or DEFAULT_INPUT_DIR
+
+    if not args.input:
+        print(f"ℹ️ 未指定输入目录，使用默认路径: {input_dir}")
+
+    json_files = collect_json_files(input_dir)
+    if not json_files:
+        if not os.path.exists(input_dir):
+            print(f"错误: 输入目录不存在: {input_dir}")
+        else:
+            print(f"错误: 在 {input_dir} 中未找到可合并的 JSON 文件")
         sys.exit(1)
 
-    success = merge_json_files(args.input, args.output)
+    if args.output:
+        output_file = args.output
+    else:
+        output_file = infer_output_path(json_files)
+        print(f"ℹ️ 未指定输出文件，使用默认路径: {output_file}")
+
+    success = merge_json_files(input_dir, output_file, json_files=json_files)
     if not success:
         sys.exit(1)
 
