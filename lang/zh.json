@@ -17352,7 +17352,7 @@
   "file_browser.make_file_creation_promos.title": {"string": "使用 Make 添加交互。"},
   "whiteboard.inline_menu.image_rotated_feedback": {"string": "图像已顺时针旋转 90 度"},
   "org_settings.export_controls.by_all_viewers": {"string": "允许所有查看者导出（默认）"},
-  "image_ai.model_type.gpt_image_0721_mini_alpha": {"string": "GPT Image 1.5"},
+  "image_ai.model_type.gpt_image_0721_mini_alpha": {"string": "GPT Image 轻量版"},
   "figmake.chat_management.messages.chat_history_cleared_user": {"string": " 由 {username}"},
   "file_permissions_modal.approve_seat_request_tab.seat_type_seat": {"string": "{seatType} 席位"},
   "file_browser.file_type_icon_aria_label": {"string": "{fileType} 文件"},
