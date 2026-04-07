@@ -1,2 +1,11 @@
-split_dir/*
-temp_dir/*
+# 中间产物
+.cache/
+
+# 自动备份（运行时生成）
+lang/backup/
+
+# 系统文件
+.DS_Store
+
+# 日志
+*.log

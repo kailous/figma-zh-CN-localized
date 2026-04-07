@@ -141,7 +141,7 @@ jobs:
           set -euo pipefail
 
           if [[ -f lang/en_latest.json ]]; then
-            python3 tools/format_json.py -i lang/en_latest.json -o lang/en_latest+.json
+            python3 _agent/skills/figma_localize/scripts/format_json.py -i lang/en_latest.json -o lang/en_latest+.json
           fi
 
           format_in_place() {
@@ -151,7 +151,7 @@ jobs:
             fi
             local tmp
             tmp="$(mktemp)"
-            python3 tools/format_json.py -i "$path" -o "$tmp"
+            python3 _agent/skills/figma_localize/scripts/format_json.py -i "$path" -o "$tmp"
             mv "$tmp" "$path"
           }
 
