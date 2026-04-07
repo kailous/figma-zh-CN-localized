@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en" data-product-locale="en">
+  <head>
+    <script nonce="V2X5VhHy&#47;VXFOs0U13VmEA==">performance.mark('figma:bootstrap:preload-start-http')</script>
+
+    <meta charset="utf-8">
+
+    <meta name="entrypoint_variant" content="auth" />
+
+
+    
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==">
+        function isSupportedBrowser() {
+          const isCSSLayerSupported = typeof CSSLayerBlockRule !== 'undefined'
+
+          let isIntlListFormatSupported = true
+          try {
+            new Intl.ListFormat()
+          } catch {
+            isIntlListFormatSupported = false
+          }
+
+
+          const checks = [
+            isCSSLayerSupported,
+            isIntlListFormatSupported,
+            window.WebGL2RenderingContext !== undefined,
+            window.WeakRef !== undefined,
+          ]
+          // The browser is supported if all checks pass
+          return checks.every(v => v)
+        }
+        if (!isSupportedBrowser()) {
+          window.isUnsupportedBrowser = true
+          location.href = '/unsupported_browser'
+        }
+      </script>
+
+    
+<style nonce="V2X5VhHy&#47;VXFOs0U13VmEA==">
+
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 200;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-LightItalic.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-LightItalic.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-LightItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 200;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-Light.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-Light.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-Regular.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-Regular.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-RegularItalic.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-RegularItalic.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-RegularItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-Medium.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-Medium.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-MediumItalic.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-MediumItalic.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-MediumItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Apercu-Mono';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/blog/fonts/Apercu-Mono.eot?#iefix) format('embedded-opentype'),
+    url(https://static.figma.com/blog/fonts/Apercu-Mono.woff2) format('woff2'),
+    url(https://static.figma.com/blog/fonts/Apercu-Mono.ttf) format('truetype');
+}
+
+
+
+
+
+
+
+@font-face {
+  font-family: 'D7CBI';
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/DSEG7Classic-Italic-Custom2.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/DSEG7Classic-Italic-Custom2.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'D7CBIB';
+  font-style: italic;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/uploads/ebb2329c34e943b5ff793ecbca7fd432fb93f8c6) format('woff2'),
+    url(https://static.figma.com/uploads/06688d40b7d52b25111a4d495f45e6584f7e65cb) format('woff');
+}
+
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: normal;
+  font-weight: 300;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Light.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Light.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: oblique;
+  font-weight: 300;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Light-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Light-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Regular.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/Figma-Standard-Text-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: oblique;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Regular-Oblique.woff2)
+      format('woff2'),
+    url(https://static.figma.com/webfont/Figma-Standard-Text-Regular-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Medium.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Medium.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: oblique;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Medium-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Medium-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Bold.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Bold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: oblique;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Bold-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Bold-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: normal;
+  font-weight: 900;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Heavy.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Heavy.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Sans';
+  font-style: oblique;
+  font-weight: 900;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Heavy-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Standard-Text-Heavy-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: normal;
+  font-weight: 300;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Light.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Light.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: oblique;
+  font-weight: 300;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Light-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Light-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Regular.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: oblique;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Regular-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Regular-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Medium.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Medium.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: oblique;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Medium-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Medium-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Bold.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Bold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: oblique;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Bold-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Bold-Oblique.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: normal;
+  font-weight: 900;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Heavy.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Heavy.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Figma Mono';
+  font-style: oblique;
+  font-weight: 900;
+  src:
+    url(https://static.figma.com/webfont/1/Figma-Mono-Heavy-Oblique.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Figma-Mono-Heavy-Oblique.woff) format('woff');
+}
+
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url(https://static.figma.com/uploads/2cca21a49f7dad1daa612d73d50357644671964a);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 100 900;
+  font-style: italic;
+  font-named-instance: 'Italic';
+  src: url(https://static.figma.com/uploads/43d730c59dee2754d29e0d946ba8cb8339656979)
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src:
+    url(https://static.figma.com/webfont/1/Roboto-Light.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Roboto-Light.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Roboto-Regular.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Roboto-Regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Roboto-Medium.woff2?v=2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Roboto-Medium.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Roboto-Bold.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/Roboto-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/RobotoMono-Regular.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/RobotoMono-Regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/RobotoMono-Bold.woff2) format('woff2'),
+    url(https://static.figma.com/webfont/1/RobotoMono-Bold.woff) format('woff');
+}
+
+
+
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/Whyte-Regular.woff) format('woff'),
+    url(https://static.figma.com/webfont/1/Whyte-Regular.woff2) format('wof2');
+}
+
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    url(https://static.figma.com/webfont/1/Whyte-Medium.woff) format('woff'),
+    url(https://static.figma.com/webfont/1/Whyte-Medium.woff2) format('wof2');
+}
+
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/Whyte-Bold.woff) format('woff'),
+    url(https://static.figma.com/webfont/1/Whyte-Bold.woff2) format('wof2');
+}
+
+@font-face {
+  font-family: 'WhyteInktrap';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url(https://static.figma.com/webfont/1/WhyteInktrap-Regular.woff) format('woff'),
+    url(https://static.figma.com/webfont/1/WhyteInktrap-Regular.woff2) format('wof2');
+}
+
+@font-face {
+  font-family: 'WhyteInktrap';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(https://static.figma.com/webfont/1/WhyteInktrap-Bold.woff) format('woff'),
+    url(https://static.figma.com/webfont/1/WhyteInktrap-Bold.woff2) format('wof2');
+}
+
+</style>
+
+
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;runtime~auth-4d51b4f14ad52f6e.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;vendor-core-d89312026a3d00dd.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;cssbuilder-cfe321a459b8474e.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;vendor-2b1476679e52ad4c.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;330-7edb24d9ab538f69.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+      <link rel="preload" as="script" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;auth-da62ebdd14da11d3.min.js" crossorigin="anonymous" nonce="V2X5VhHy/VXFOs0U13VmEA==" />
+
+
+
+
+
+    <script nonce="V2X5VhHy/VXFOs0U13VmEA==">performance?.mark('loadTimings:initialOptionsStart')</script>
+
+    <script nonce="V2X5VhHy&#47;VXFOs0U13VmEA==" type="application/json" data-initial>{"INITIAL_OPTIONS":{"statsig_figma_app_client_api_key":"client-CIbRGW8h7lTl7wjJTyKWmPVXuJai3B8xe7llhBQmjJX","statsig_figma_app_client_on_device_eval_api_key":"client-jpgCrJjxXHTsQC8BoeGofYZJZwKokoNgta0CJaVG7rG","sts_assets_version":"v11","npm_registry_public_proxy_address":"registry.figma.com","launchdarkly_client_side_id":"62e9cfc83c59501226eae584","preset_library_keys":["1380235722331273046","1035203688168086460","1385659531316001292"],"preset_library_keys_v2":["lk-5a31d104cabc6a74d4edf6425e7bc6575e9c0f18cda7efb746193aef4d915b077d115c985e6cf49d36d97d455a17d5127a2cbbfbc618b8a70a38669dccb61462","lk-df324a089628d1c7c7b0d29e676b621790cdcac1c725b49a3cfbb974a362f8201ac643e1fbccc855970ab22dabd6897ef20e72a7feda01014ddd59daf3f6ed52","lk-e0ffcff14368019c4f30f45401cd233d6cbc5f869988484192d04cbbef801fb0064ef68feaa8a2775ee4f1f05d9a4af1a6d07b2658eac4aefb7afb18728c4066"],"sites_template_picker_urls":{"1466571845869232209":"https://afar-pogo-speak.preview.site/","1466631198911201377":"https://resize-yearn-fried.preview.site/","1466631692707147876":"https://prism-pound-acorn.preview.site/","1466631940117567589":"https://capri-divide-roast.preview.site/"},"tracking_session_id":"Gmi6e9icqRiUaefD","cluster_name":"prod","frontend_sentry_dsn":"https://d1b12a8fbe424e4b956eb33cadd5b30d@errors.figma.com/api/sentry/56203","sites_preview_sentry_dsn":"https://333f664af67c57ab0ed581c89de74387@o22594.ingest.us.sentry.io/56203","figma_email_suffix":"@figma.com","csp_nonce":"V2X5VhHy/VXFOs0U13VmEA==","figma_url":"https://www.figma.com","make_git_base_url":"","embed_url":"https://embed.figma.com","cloudflare_waf_validation_url":"https://s3-figma-hubfile-images-production.cf.figma.com/cf-waf-validation","dictionary_url_by_locale":{"ja":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/2f8e25ccbe1c8796a39e09832801f80924a2fdd4","figma-db":"https://www.figma.com/i18n-artifacts/locales/7c6b6272b476f0cf1d282980c97ff1e0c83620b8"},"fr":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/5dae4bde2f31a8bc1207fd7cd86bc705183ea2ad","figma-db":"https://www.figma.com/i18n-artifacts/locales/29cca51e6c5b073deafc482deb0a8ca938f96875"},"de":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/06519451da7da26a70d1e6e09acd575acb3e4327","figma-db":"https://www.figma.com/i18n-artifacts/locales/0019929083e1c09ca9ca325f1c8d58d3176d96f2"},"es-es":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/7a614fef6c7b50ab0403e675c4436af20a2fc75c","figma-db":"https://www.figma.com/i18n-artifacts/locales/62c0bbef6d4c81b310231eed08c94cf8b069437d"},"es-la":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/d8cd09c1f569dd743a6fc4028332ea48e3181eb9","figma-db":"https://www.figma.com/i18n-artifacts/locales/d5119d121de44d39f2b8ed8db3c231e79b44616a"},"ko-kr":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/431c041d26a688ed72dbb37b1bcdc03518c4d436","figma-db":"https://www.figma.com/i18n-artifacts/locales/4d495193640a97ae9067f889f3e75d17c8d89f2c"},"pt-br":{"figma-web":"https://www.figma.com/i18n-artifacts/locales/18d18ada564f59b762d65fdf0ad52882d42f2d6b","figma-db":"https://www.figma.com/i18n-artifacts/locales/26815e595defec71c8f680596bd27f338d2f1bec"}},"flash":{"error":null,"warn":null,"success":null},"user_currency_from_ip":"usd","fxr_for_currency":null,"starting_points":{"desktop_templates_hub_file_id":"1407444634155503553","figma_basics_hub_file_id":"1407443818947305406","mobile_templates_hub_file_id":"1407444184001622975","website_templates_hub_file_id":"1407444409982535616"},"google_client_id":"532352704633-6pkces9iboppp465idnovkcqtlsa8j7t.apps.googleusercontent.com","consent_region":"implicit","page_load_token":"pv=1\u0026pr=5de2f61086dcf978\u0026pt=1775543685\u0026ph=YuIZr8k2NGbsKODZ5OmtKKE67TaGU8cupJDFwE0GiSI","resource_type":null,"email":null,"user_ip":"98.98.91.150","redirect_url":null,"email_token":null,"existing_session":false,"should_use_redirect_instead":false,"from_chrome_extension":false,"viewer_region":"CA","viewer_city":"Los Angeles","iso_code":"US","tos_agreement_required":false,"form_state":"sign_in","from_ms_teams":false,"integration_host":null,"from_embed":false,"statsig_metadata":{},"firebase_cloud_messaging_browser_notifications":{"api_key":"AIzaSyBr6NC5yqMqpOhQYPqDvjv0U-yrYxvLfb8","app_id":"1:812015163338:web:0c31148f40e18de8e2a133","auth_domain":"figma-production.firebaseapp.com","messaging_sender_id":"812015163338","project_id":"figma-production","storage_bucket":"figma-production.appspot.com","vapid_id":"BDO_yQCznJm8LhsTJ7dJ_pPN_H8gqRf5f1ewLJ2rzbA7QOsGsRf-4zzk3CKAOv_961dW7iGq4E6DqqUByBPLsBo"},"stripe_api_public":"pk_live_LKZ0RKjSZG2D2pwdtwrAhkiJ","google_tag_manager_iframe_url":"https://marketing.figma.com","ag_grid_api_key":"Using_this_{AG_Grid}_Enterprise_key_{AG-077507}_in_excess_of_the_licence_granted_is_not_permitted___Please_report_misuse_to_legal@ag-grid.com___For_help_with_changing_this_key_please_contact_info@ag-grid.com___{Figma,_Inc}_is_granted_a_{Single_Application}_Developer_License_for_the_application_{New_Product}_only_for_{3}_Front-End_JavaScript_developers___All_Front-End_JavaScript_developers_working_on_{New_Product}_need_to_be_licensed___{New_Product}_has_been_granted_a_Deployment_License_Add-on_for_{1}_Production_Environment___This_key_works_with_{AG_Grid}_Enterprise_versions_released_before_{31_May_2026}____[v3]_[01]_MTc4MDE4MjAwMDAwMA==71131259516df98b2ff517b67dc0cfb3","sprig_iframe_url":"https://sprig.figma.com","recaptcha_v3_ent_site_key":"6Le0W80aAAAAAGU9L7qz4o9tQVqrdJVv2M8XHIcd","arkose_challenge_public_key":"A207F8A1-ED09-4325-ACE6-C8E26A458FBA","arkose_frame_url":"https://verify.figma.com/arkose_frame.html","arkose_origin":"https://verify.figma.com","sheerid_frame_url":"https://verify.figma.com/sheerid.html","sheerid_origin":"https://verify.figma.com","sheerid_student_program_id":"689a62a06d6a3a59de4fbcb8","sheerid_educator_program_id":"689a65716d6a3a59de4ff268","sheerid_log_level":"error","release_manifest_git_commit":"736e42afce44f9fae25012411ff072d3daa792a8","release_server_git_commit":"4e7246a78357a43815c235fba6a41a1337f1657f","release_git_tag":"master","release_manifest_hash":"472b38b548ad4d14d58cfaa5c77b0ed0","feature_flags":{"ds_variables_strokes":true,"editor_zero_width_input":true,"vat_save_my":true,"pro_templates_lg":true,"bake_unsplash_tool":true,"dt_component_browser_sort_by_usage":true,"aip_replace_image_me":true,"migrate_community_comment_web_api":true,"figjam_mermaid_preprocess_replace_classname_end":true,"ce_gc_paths_clipper":true,"comments_faster_saving_ux_v2":true,"prototype_expr_float_compare":true,"vat_tax_collection_ph":true,"fpl_style_picker_combobox":true,"first_draft_make_changes":true,"prototype_preload_offline":true,"ext_clientstorage_increase":true,"ds_flush_updaters_allow_recursion":true,"ds_fix_missing_component_prop_initial_value":true,"ai_design_assistant_user_allowlist":true,"ps_benchmark_upgrade_prevention":true,"dt_code_connect_js_iframe":true,"figment_rate_limiting":true,"show_account_balance_banner":true,"cmty_curated_tags_mapping":true,"ext_s3_url_use_figma_domains":true,"ce_offscreen_indicators_for_hovered_nodes":true,"sites_admin_req_pwds":true,"ff_wsai_policies":true,"slides_carousel_preserve_tool":true,"ext_launch_apps_in_community":true,"resumable_makes_cortex_killswitch":true,"ui3p_file_rename_migration":true,"filter_noisy_nano_experiment_durations":true,"folder_page_skip_fetching_repo_branches":true,"figjam_text_to_visual_timeline":true,"prototype_set_mode_action":true,"desktop_isolate_metadata":true,"first_draft_prompt_history":true,"prototype_log_run_action":true,"prototype_fix_scrolling_hotspots":true,"fullscreen_send_client_rendered_message":true,"file_browser_search_panel_fpl_migration":true,"ui3p_a11y_selection_actions_retain_focus":true,"dse_read_slots":true,"show_deprecation_figjam_ipad":true,"dt_a11y_announce_measurements":true,"team_creation_standalone_tos":true,"user_groups_create_onboarding":true,"dse_module_publish":true,"ce_view_only_undo":true,"ce_skip_misnamed_font":true,"org_file_export_setting":true,"ds_new_dev_mode_gradient_ux":true,"aip_flower_garden_rerank":true,"derived_subtree_instances_materialize_on_click":true,"vat_save_tr":true,"ext_figma_apps_publishing_scope_picker_refactor":true,"saml_signup_standalone_team_tos":true,"frame_time_collector_cutover":true,"make_chat_sdk_disable_sg_writes_code_layers":true,"cursor_bot":true,"cmty_categories_other_input":true,"figjam_3p_hardware_integration":true,"cmty_rdp_creator_nudge_email":true,"aip_make_images_one_request_only":true,"exp_proto_rename_conditional":true,"ai_assistant":true,"ds_variable_resolved_value_scenenode":true,"user_groups_at_mentions_pv2":true,"ds_preserve_dsd_in_hidden_layers":true,"asset_visibility_defer_during_materialization":true,"asset_suggestions":true,"ce_paste_stack_absolute_pos":true,"figjam_sticky_clustering":true,"ce_tv_fallback_fonts_more_weights":true,"aip_reset_stored_img_model":true,"cms_can_edit_mouse_behaviour":true,"admin_ai_credits_percentage_sort":true,"figjam_realtime_stamp_obs":true,"make_publishing_errors_in_console":true,"make_publish_errors_in_console":true,"ec_cim_feature_callout":true,"statsig_enable_on_device_adapter":true,"marketing_promo_banner_office_hours_slots":true,"dt_code_connect_inline_instances":true,"ce_al_predict_use_msal":true,"ff_a11y_page_tab_fix":true,"statsig_enable_new_web_sdk":true,"ds_extended_collections_var_swap":true,"ai_credits_plan_add_on":true,"livestore_fix_throttled_invalidate":true,"ce_tl_dst_scale_instances_missing_fonts":true,"ds_vars_min_font_size_resolution":true,"cmty_footer":true,"trackable":true,"embedkit_v2_embed_api":true,"ds_lbu_create_variable_under_selection":true,"figjam_a11y_inline_toolbar":true,"web_memory_stats":true,"ce_tv_ime_font_size":true,"admin_ai_add_on_display":true,"ai_add_on_end_user_ux_l2":true,"admin_ai_credits_csv":true,"bake_canvas_default_size":true,"web_vitals_report":true,"widgets_in_figma_onboarding":true,"i18n_auth_nl_nl":true,"dsa_restrict_actions_to_design":true,"in_product_help_and_learning":true,"disable_free_trial_from_grace_period":true,"dt_github_app":true,"ai_ga":true,"load_fullscreen_make_mobile_web":true,"starter_file_no_auto_grant_role":true,"vat_save_tw":true,"billing_overview_v3":true,"livegraph_create_lg_client_on_app_start":true,"dse_read_slots_proto":true,"billing_q5_invoice_reminder_copy_change":true,"vital_frame_metrics_provider":true,"sprig_enabled":true,"dsa_public_api":true,"dt_figmadoc":true,"stripe_3ds_mandate":true,"first_draft_auto_select_kits":true,"fullscreen_skip_overlay_grid_on_mobile":true,"incremental_loading_filter_queries_on_reconnect":true,"fullscreen_loop_blinn_solid_color":true,"aip_image_launch_april_2025":true,"dt_component_browser_inline_suggestions":true,"enable_make_code_view_for_dev_seat":true,"send_to_buzz_from_design":true,"ai_addon_plan_invoice":true,"ce_il_a11y_endpoints":true,"ds_variables_increased_modes":true,"figjam_no_fill_shape_behavior":true,"make_manual_versions":true,"make_chat_sdk_reads_from_db":true,"ai_metering_monthly_v2_double_write":true,"admin_ai_fetch_metering_periods":true,"ds_variable_props":true,"vat_save_no":true,"a11y_design_dom_mirror":true,"can_transfer_admin_list":true,"product_trials_figmake":true,"ui3p_design_navbar":true,"mix_gl_arbitrary_shapes":true,"dt_code_connect_ai_new_permission":true,"ce_font_metadata_mismatch":true,"org_checkout_min_seat_info_copy":true,"vat_save_au":true,"sts_multiedit_toggle":true,"plan_hook_migration":true,"ce_tv_fill_hug_i18n":true,"cortex_drop_union_errors":true,"mix_gl_splay":true,"ds_var_mirror_library_preview_integration":true,"no_dtm_folder_reads_lg":true,"viewer_visible_focus":true,"make_chat_sdk_disable_sg_writes":true,"figjam_color_ramp_stroke":true,"api_contacts_v2_at_mentions":true,"vat_save_sg":true,"embedkit_v2":true,"ssp_stop_client_gen_thumb_generation":true,"bake_sb":true,"file_browser_file_cards":true,"ce_export_allow_non_integer_origins":true,"ds_flush_updaters_multiplayer":true,"make_template_picker_same_file_insertion":true,"ds_defer_dependency_bus_for_branching":true,"ds_flush_updaters_nodetsapi_getnodetoread":true,"fpl_a11y_place_image_announcement":true,"ai_permissions_refactor_web_shadow":true,"preview_iframe_subdomain_with_version":true,"admin_ai_historical_periods":true,"billing_payg_only_translate":true,"i18n_sample_string_sentry_errors":true,"ce_node_name_better_increment":true,"prototype_ai_magic_link_v2_endpoint":true,"org_merge_credit_workflow":true,"i18n_fr":true,"aip_content_fill_no_autolayout":true,"sites_beta":true,"coterm_modal_ui_improvements":true,"ds_enable_code_presets_sidecar_table":true,"ds_flush_updaters_undo_redo":true,"cmty_search_dropdown_improvements":true,"accessible_comments_in_prototype":true,"vat_save_kh":true,"cmty_skills_foundational_description":true,"cmty_skills_page_redesign_enabled":true,"font_skip_inter":true,"viewer_editor_renderer_unification":true,"ds_style_prefetch_on_hover":true,"contact_sales_form_uses_plan":true,"cmty_release_plugin_row_v2":true,"eu_fpl_frame_preset_menu":true,"cart_rewrite_full_send":true,"ce_tv_fill_hug_better_i18n":true,"ext_show_missing_community_fields_warning":true,"iphone_17_air_device_frames":true,"standalone_team_org_audience_fix":true,"qa_search_frecency":true,"ds_workspace_team_default_modes":true,"figjam_summarization":true,"prototype_hide_matching_noodles":true,"variables_paste_remap":true,"admin_billing":true,"datadog_rum_init":true,"sts_auto_constraints_proximity":true,"org_campfire_provisional_access_enabled":true,"figjam_mermaid_to_diagram":true,"aip_image_alpha":true,"resumable_makes":true,"cms_new_collection_usability":true,"ds_disallow_pi_lookup_on_unrooted_nodes":true,"ds_force_materialize_variable_consumers":true,"ce_tl_spellcheck_a11y":true,"user_groups_get_paginated_idp_groups":true,"integ_zoom_allow_extensions":true,"cooper":true,"dependency_event_bus_variable_versioning":true,"user_spaces_caching":true,"ds_untracked_layers_versioning_fix":true,"resumable_makes_org_enterprise":true,"viewer_optimize_figguid":true,"make_client_side_tool_call_grouping":true,"file_browser_preload_context_menu_hover":true,"vat_save_lk":true,"ai_credits_updated_sales_cta":true,"tou_pv2_deny_edits_for_restricted_drafts_folder":true,"unsplash_service_enabled":true,"ce_tv_hyperlinks_contribute_to_bullet_styles":true,"ds_extended_collections_vars_mirror_in_view":true,"pv2_plan_record_perms":true,"remove_branch_selector_dropdown":true,"ai_credits_plan_add_on_purchase_org":true,"ds_zombie_styles_fixes":true,"skip_true_ups_by_license":true,"mobile_reply_upsell":true,"antiabuse_file_download_check":true,"dsa_styles_variables_ui":true,"order_form_billing_terms_banner":true,"file_invite_redeem_request_entrypoint":true,"resumable_makes_pro_student":true,"cms_require_collection_id_when_editing_fields":true,"make_header_with_navbar":true,"veru_vba_detached_array_buffer_fix":true,"cmty_collections_v2":true,"unified_index_v3_endpoint":true,"first_draft_make_changes_reopen":true,"embedkit_v2_enforce_embed_origins":true,"ds_log_dropped_nivb_overrides":true,"cmty_resource_hub":true,"vat_save_th":true,"ext_fix_try_editor_types":true,"ff_msl_v2":true,"cmty_make_page_feed_shelf":true,"viewer_as_web_dep":true,"vat_save_ng":true,"oauth_weavy_tos":true,"dse_read_slots_proto_mobile":true,"uxp_speed_up_selection_actions_hooks":true,"frame_time_collector_event_trackers":true,"make_chat_sdk_reads_from_db_codelayers":true,"ds_gradient_variables":true,"variables":true,"block_double_logging_upgrades":true,"jamgpt":true,"rl_logging":true,"ui3_mixin_changes":true,"enable_plan_key_targeting_in_web_and_sinatra":true,"bake_skip_ata":true,"apex_domain_support":true,"dt_component_browser_in_context":true,"ai_permissions_refactor_figma_ai":true,"viewer_optimize_ifl_bound_variables":true,"plan_record_lr_plan_id":true,"prototype_ai_magic_link":true,"figjam_3p_hardware_device":true,"ps_personal_draft_migration":true,"first_draft_new_prompt_pills":true,"notif_ui3_bell":true,"product_trial_create":true,"vat_tax_collection_th":true,"eu_fpl_search_result_chips":true,"cms_undo_redo":true,"ds_defer_dependency_bus_for_update_variable_set":true,"mix_gl_downscale":true,"async_updater_unset_dirty_queue_agnostic":true,"livegraph_file_can_access":true,"ds_ssp_thumbnailing_client_prep_wait_extra_frames":true,"ds_new_mode_dropdown_data":true,"load_timer_enabled":true,"fpl_select_aria_disabled":true,"ce_il_a11y_stroke_align_select":true,"expr_ai_gemini_3_alpha":true,"cms_field_content_size_limit":true,"ce_mixed_text_spacing":true,"cmty_collections_v2_figjam_ai":true,"asset_suggestions_require_completed_backfill":true,"sts_auto_constraints":true,"fpl_a11y_grid":true,"mix_gl":true,"ce_il_cleanup_geometry_perf":true,"async_updater_defer_layout":true,"admin_ai_credits_horizontal_scroll_table_only":true,"cms_require_collection_id_when_validating_fields":true,"unified_index_v3_default":true,"cmty_disable_vat_for_india":true,"prototype_code_presets":true,"ds_extended_collections_vars_mirror_include_all":true,"ce_tv_faster_font_mutator":true,"send_stickies_to_make":true,"viewer_use_wasm_tile_stack_tile":true,"ds_defer_dependency_bus_for_adding_mode":true,"ai_permissions_refactor_figjam_ai":true,"ds_style_update_override_consumers":true,"fix_symbol_rotation_ufv_bump":true,"repair_backing_component_set":true,"antispam_arkose":true,"prototype_async_font_loading":true,"desktop_show_tab_audio_indicator":true,"figment_rate_limit_events":true,"fullscreen_flanimations":true,"can_discover_pending_invite":true,"ds_variable_props_binding_vars":true,"ds_transfer_dropped_nivb_overrides":true,"bake":true,"ds_unconditional_nested_instance_update":true,"realtime_disable_websocket_connection":true,"dependency_event_bus_cms":true,"dependency_event_bus_fk_cache_optimization":true,"ds_flush_updaters_plugins":true,"ss_orphaned_node_recorder":true,"ai_assistant_batch_new_subtree_insertion":true,"cmty_mixed_feed_deprecation_lo":true,"prototype_multi_path_paywall":true,"desktop_haptics_experimental":true,"qa_ai_metering":true,"ce_skip_pingfangui_font":true,"user_groups_pv2_plan_record":true,"ds_extended_collections_write_inherited_variables":true,"workspace_audience":true,"discard_vertex_buffers_all_platforms":true,"use_single_higher_threshold_memory_warning":true,"ce_textlinedata_styleid":true,"multiplayer_ds_style_type":true,"desktop_fonts_via_utility_process":true,"piper_style_libraries":true,"ce_svg_support_more_gradient_exports":true,"first_draft_surgical_edits":true,"derived_subtree_instances":true,"billing_org_invoice_uncollectible_status":true,"datadog_rum_compress":true,"eu_fpl_styles_header_menu":true,"i18n_auth_it_it":true,"enable_starter_cart_rum_tracking":true,"viewer_optimize_overlay_mode_batch_apply":true,"cmty_weave_discovery":true,"make_binary_files_proxy":true,"product_trials_lg":true,"widget_link_encode_uri_component":true,"ai_assistant_header":true,"ce_gc_vn_strokes_2":true,"make_better_version_history":true,"version_history_disable_loading_spinner":true,"tv_always_show_list_controls":true,"lazy_load_branch_count_footer":true,"streaming_zstd_more":true,"use_short_exposure_logging_delay":true,"livegraph_splay_loaded_views":true,"sites_web_fonts":true,"desktop_new_tab_faceted_search":true,"datadog_rum_capture_non_success_deny_list":true,"vec_a11y_announcements":true,"viewer_as_web_dep_preload":true,"ce_variable_assets_query_result_cache":true,"ce_gc_reduce_text_fill_vns":true,"ds_dirty_all_states_in_group":true,"ds_variables_authoring_resize":true,"make_edits":true,"plan_level_file_export_controls":true,"ff_new_team_people_table_filters":true,"tv_hide_decovar_alpha":true,"ai_assistant_serialization_async":true,"prototype_flows_panel_fpl_grid":true,"native_toolbar_diagram_shapes":true,"ds_component_props_mp_repair":true,"comments_faster_saving_ux":true,"emoji_15_upgrade":true,"library_subs_on_livegraph":true,"multi_stack_auto_layout_sites":true,"ds_fpl_publishing_modal":true,"ds_extended_collections":true,"ce_tv_grid_hug":true,"user_groups_pv2_loading":true,"ce_il_vws_custom_preview":true,"ds_flush_updaters_thumbnails":true,"ui3p_disable_cached_subtree":true,"samsung_internet_29_check":true,"ai_assistant_tools_changes_stager":true,"ec_cim_screenshot_enhancements":true,"first_draft_native":true,"ce_font_network_status_ui":true,"ds_variable_props_binding":true,"branching_update_status_lg":true,"campfire_provisional_access_enabled":true,"buzz_video_thumbnails":true,"ds_flush_updaters_copy_paste":true,"vat_save_uz":true,"ai_assistant_stop_button":true,"file_browser_folder_cards":true,"make_foundry_cache_preview_client":true,"dt_component_browser_beta_badge_hidden":true,"viewer_skip_ctg_fill":true,"dt_measurement_creation_a11y":true,"derived_subtree_skip_unrooted_sublayers":true,"figjam_paste_image_section_parent":true,"make_chat_contents_cache":true,"roles_middleware_fetch_refactor":true,"ds_variables_relax_modes":true,"desktop_font_reload_on_focus":true,"integ_zoom_allow_file_switching":true,"desktop_unified_index_v3_rollout":true,"web_lbu_frame_presets":true,"ds_variable_props_launch":true,"i18n_wrapper_element":true,"figma_web_beta":true,"cmty_make_discovery":true,"ai_assistant_server_side_chat":true,"ds_flush_updaters_variables":true,"ignore_grandfather_logic_on_student_expiry":true,"make_preview_banner_version_2":true,"test_julian_release_pipeline_1":true,"file_branch_menu_observability":true,"ds_remove_redux_library_status":true,"variables_paste_remap_popup":true,"cmty_make_publishing":true,"vat_save_ge":true,"ce_il_a11y_line_style":true,"ce_tv_a11y_tokenizable_input_fix":true,"ds_variables_modal_breadcrumbs":true,"viewer_use_wasm_rasterizer":true,"uxp_split_design_tab_expanded_ui3":true,"make_stream_compression_deltas":true,"deprecate_duplicate_tile_selection_state":true,"figjam_text_to_visual_mindmap":true,"comments_html_paste":true,"ce_al_track_msal_duration":true,"dakota_bundle":true,"billing_enable_no_tos_org_updates_on_renewal":true,"ui3p_no_hscroll_measurement_node":true,"bake_ds_import":true,"ce_tv_tagged_pdf":true,"viewer_optimize_has_hyperlinks":true,"ds_extended_collections_prompt_iv_update":true,"accessible_comments_in_make":true,"dse_slots_no_layout_in_content":true,"ec_cim_feedback_form":true,"last_upgraded_at_backfill":true,"figjam_text_to_visual":true,"jubilee_enabled":true,"dse_fpl_wave_1":true,"ce_support_export_of_long_names":true,"edit_request_reformat":true,"slides_starter_team_design_toggle":true,"dt_annotations_always_expand":true,"aip_content_fill":true,"dtm_deprecation_post_migration_onboarding":true,"permissions_ff_context":true,"ce_tv_grid_ga":true,"ce_il_vws_keyboard_nav":true,"ds_write_lk_styles":true,"fpl_a11y_rotation":true,"enable_swiftui_settings":true,"ai_assistant_new_permission":true,"dependency_bus_check_node_validity_before_update":true,"expr_ai_gpt_image_model_dec_2025":true,"ds_remove_simplified_instances":true,"figjam_embeds_v1":true,"sites":true,"dt_vscode_ready_for_dev":true,"ds_ssp_css_thumbnailing":true,"xrv_api_arkose_is_on":true,"ai_assistant_chat_history":true,"renewal_updates_sep_2025":true,"ds_extended_collections_read_inherited_variables":true,"ds_subscribed_atoms_fixes":true,"ce_multiplayer_text_logging":true,"ce_paste_replace_styles":true,"variables_nested_variant_props":true,"notif_async_refresh_bell":true,"ip_restrictions_livegraph_auth_failure":true,"ds_incompatible_modes_page_fix":true,"log_webgpu_compatibility":true,"ds_ssp_thumbnailing_auto_resize_text_style":true,"ds_flush_updaters_text_vector":true,"ds_flush_updaters_nodetsapi_other":true,"sites_annotation_scaling":true,"viewer_optimize_materializer_dirty_check":true,"scheduled_cancellation_enabled_co":true,"billing_q5_invoice_reminder_copy_change_ai_copy":true,"items_view_key_based_selection":true,"cmty_skills_page_enabled":true,"cmty_weavy_to_weave_rename":true,"i18n_sample_string_datadog":true,"slides_viewer_a11y":true,"ai_assistant_entrypoint_make_edits":true,"ds_flush_updaters_renderserver":true,"ce_il_a11y_individual_strokes":true,"ds_defer_dependency_bus_for_deleting_variables":true,"cortex_restricted_event_log":true,"uxp_slow_hooks_removal":true,"enable_shadow_read_rate_limiting":true,"ai_credits_plan_add_on_purchase_team":true,"ds_auto_repair_override_keys":true,"livegraph_recent_files_full_read":true,"dakota":true,"ce_il_root":true,"ds_variables_modal_improvements_sidebar":true,"ai_credit_usage":true,"buzz_template_picker_modal_refresh":true,"dependency_event_bus_track_event_loops":true,"ext_plugin_code_review_with_claude_project":true,"ce_scale_tool_v2":true,"ce_al_experiments_on":true,"mfa_for_guests":true,"fullscreen_animations_prime":true,"first_draft_make_changes_errors":true,"dsa_styles_variables_api":true,"bake_monetization_plan":true,"ff_wsai_toggle":true,"figjam_emoji_stamps_mw25":true,"mobile_auth_automatic_redirect":true,"sts_a11y_presets":true,"ai_permissions_refactor_slides_ai":true,"vec_guard_findroots_depth":true,"ec_cim_beta_tag":true,"ce_multi_edit_groups":true,"web_frame_preset_quick_add":true,"fpl_menu_under_curator":true,"enable_code_chat_soft_limit_banner_for_plan":true,"ds_only_copy_dsd_text_when_dtd_is_found":true,"early_window_dot_figma":true,"ai_assistant_materialize_permanently":true,"ec_cim_take_screenshot":true,"dse_calc_counts_from_library":true,"ce_node_position_properties":true,"datadog_rum_trace_header":true,"fpl_hide_missing_alert":true,"ad_curved_connectors":true,"bake_chat_message_revamp":true,"observability_client_fps":true,"bake_manual_edits":true,"show_team_account_credit_banner":true,"ai_assistant_canvas_entrypoint":true,"ds_flush_updaters_exporter":true,"ce_il_edit_object_entry":true,"billing_contractual_add_on_updates_enabled":true,"make_npm_private_registry":true,"vec_pattern_fill_nested_images":true,"uxp_selection_actions_buttons_memo_layers":true,"fpl_accessible_areas_for_design":true,"campfire_cart":true,"i18n_de":true,"logged_out_dev_mode_demo_file":true,"scheduled_cancellation_enabled":true,"livegraph_unstick_on_refresh":true,"ds_flush_updaters_viewport":true,"ce_tv_fpl_library_tabs":true,"ds_var_mirror_subscribed_optimization":true,"ai_assistant_force_savepoints":true,"figjam_paste_attached_connector":true,"april_fun_2026":true,"fpl_dialog_trigger":true,"dev_mode_org_pinned_plugins_ent":true,"qa_user_additional_feedback":true,"cmty_expand_extension_m10n":true,"ce_tv_hide_summer_silo":true,"billing_remove_sales_start_backdating":true,"increase_blur_max_texel_radius":true,"billing_contracts_default_quantities":true,"admin_ai_stats_only":true,"ds_flush_updaters_rendering":true,"ds_flush_updaters_misc":true,"ai_assistant_top_k_styles_fallback":true,"comments_load_visual_bell":true,"ai_permissions_refactor_figmake_ai":true,"ext_figma_apps_enforce_announcement_banner":true,"mobile_make_web_enabled":true,"cmty_hub_file_expiration_update":true,"ai_assistant_undo":true,"mix_gl_variables":true,"compress_metrics_batch_upload":true,"swy_ignore_fetched_repo_branches":true,"qa_v2":true,"vat_save_eg":true,"cmty_resource_use_endpoints_enabled":true,"prototype_transition_enforcer_loaded_page":true,"aip_magnolia":true,"aip_replace_image":true,"make_chat_ui_improvements":true,"slides_videojs_upgrade":true,"ds_current_var_set_fixes":true,"scheduled_cancellation_enabled_va":true,"make_virtualized_file_tree":true,"uxp_make_react_performance":true,"ds_flush_updaters_pubsub":true,"billing_dev_mode_customer_ui":true,"desktop_font_reload_on_focus_ux":true,"vat_save_tz":true,"sites_publish_upgrade_entry_point":true,"team_campfire_provisional_access_enabled":true,"vat_save_ph":true,"dt_code_connect_without_eval":true,"ds_flush_updaters_prototyping":true,"ds_flush_updaters_layout":true,"ai_assistant_restore":true,"figjam_mermaid_preprocess_state_ids":true,"bake_mcp_client_lg":true,"make_version_history_in_chat":true,"dependency_event_bus_skip_events_on_load":true,"desktop_quickreply_filebrowser":true,"prototype_responsive_viewer":true,"ps_trashed_drafts_enabled":true,"sts_code":true,"hub_file_fragments":true,"cmty_resource_like_endpoints_enabled":true,"statsig_aa_flag_plan_key_web":true,"ssp_extract_img_thumbnail_hashes_only":true,"ext_msft_teams_app_auth":true,"ds_optimize_style_invalidation":true,"dsf_dsd_validate_derived_override_field":true,"payload_environment_variables_ui":true,"statsig_aa_flag_web_file_tile":true,"ip_allowlist_gate":true,"qa_text_features":true,"ds_materialize_in_subtree_match":true,"fb_redux_shadow_reads_logging":true,"ds_ssp_thumbnailing_render_text_style_directly":true,"datadog_rum_allow_send":true,"preview_estimated_coterm_cost":true,"slides_editor_a11y":true,"fpl_tooltip":true,"cmty_logged_out_help_widget":true,"ds_flush_updaters_first_draft":true,"use_swiftui_login_screen":true,"hide_feedback_on_duplicated_messages":true,"skip_swapped_symbol_constraint_rerouting":true,"first_draft_regions_prompt":true,"chrome_third_party_cookie_origin_trial":true,"viewer_cleanup_buffer_areas":true,"ds_new_mode_consolidation":true,"ce_eu_deselect_remote_removals":true,"policy_acknowledgement_enforcement":true,"ce_il_a11y_brush_picker_grid":true,"ds_defer_dependency_bus_for_pasting_variables":true,"slides_presentation_observability_logging":true,"figjam_paste_table_from_google_docs":true,"prototype_change_flow_starting_point_a11y":true,"ec_cim_group_by_version":true,"dt_rfd_button_with_menu":true,"desktop_renderer_fullscreen_oom_metrics":true,"ds_block_unpublished_symbol_reqs":true,"ee_unsanitized_png":true,"defer_invisible_children":true,"font_index_240708":true,"ds_clone_subscribed_variables_on_paste":true,"figjam_mermaid_auto_shape_scaling":true,"ds_extended_collections_plankey":true,"collaborative_text_unacked_create_fix":true,"make_binary_files_save_local_copy":true,"api_asset_search":true,"ce_preserve_rich_text_whitespace":true,"ds_file_proxy_for_style_assets":true,"delete_empty_abandoned_draft_folders":true,"observability_client":true,"ds_gp_dependency_event_bus":true,"redep_create_new_file_state":true,"peer_upgrade_on_autocomplate_change":true},"feature_flags_hash_function":"md5","feature_flag_rules":{"b974f66bb751666d12a802d01412e4e9":"default","c8a9326835ef5e38eba4c8f3f2525d47":"1lXJvAnVts0veUnOfwFuP3","81393c54fe2854c1eb784aef5fa87d1e":"default","39eaafbdb03c1c17cead0696e99c73ab":"default","daec66cef23e9c22ee2a12905705a7c5":"default","7aeb465994610362e67d487bff8441cd":"default","b1dbf86cc1c091bf48586f8aabbff597":"default","8c6f3755d867b6ff4ebf134066f1011b":"default","5d7ed14c68450120148ff81643da7009":"default","32693f3b91a326bde08c15b3ee04d76a":"default","1a283d8ad833358f5b1e5d2ebd25d883":"default","b576574643aa00f1637440fedfcff698":"default","0234b52b4596efe274a372684a1895a1":"default","d095499825d79b288d383798b5eda3ce":"default","da6403e3e9616b2236c64810f93e6535":"default","2e52541ac3e9f75249c29d233dd2c358":"default","4bfe21960df005aba0723224b2dd6451":"default","d1edc8cabd5d91894fa11cf81b30aad3":"default","0db743d8b204622706456c488d64042f":"default","2e0c046deb1a775d76c11bce1d5fa94b":"default","18ff32b31092826628320699706b2638":"disabled","b4a58e457c1e3b9bcc6e0154a58312e6":"default","0635a6adec660f20a8fb1b75fe6acef6":"default","5824a1e4c448507dcf14277601c744ec":"4I7JfQ3bYmPxh9XyBJLyrH:100.00:1","c384ccb0b24ace51866c786cdb095105":"default","9482b74bd52df50d1c2c7e69cd2310b5":"default","ce35083acadaa9fa589277fd786e5907":"default","86d11db820d3fcbed9a09d544b797f42":"6WKxcFT0K2uDKLSy7LDCSw","d76323544800ab5b89360c75d4272993":"default","70dae6cce52e648e7edc215b13fc1783":"disabled","2cd2066b008f520fe3575da7f2563bf9":"default","2b84189ce2116328c84facd7c864a034":"default","d564076506504fb5ff6197c39bb3979a":"default","9469dbb1222ae8efcad05c7ca0d80178":"disabled","2e8754ac2653f3d6b61f633b17e3ccfb":"default","8fa9c676dbdd137ad6e739acec000d77":"2JkttFfJXncufM1xLlRAod:100.00:1","4f6b614fbeef7565d871bbc938a89be1":"default","66ee10b32523fcf8444fcfc0a76795f2":"default","85d869aa06caf8ed641af3cf5f68060c":"default","798aaf8c0514c222b325df34552e86e2":"default","d36a2aea4dc2e0958ee81b73a9797b28":"default","a0d73c921225da42678c9f71de8ff7b3":"default","3303f5adbadc0952eb981bd3db44a2a6":"default","5364d7fe177e98930a29678e5a13d468":"default","956074f8925f5f62db07cca6289beae8":"default","c9566438904b38a8d70f0b041fa065b4":"1U2q7hRaAuJ20uQDyNM7SA:100.00:1","e503c4b172e6c9fce485a74f32851b51":"disabled","57d6db6939e583b42a9c3060060c15f2":"default","cfdf6580f38d4d7f09ecb4862a520c60":"default","597950a631544e5527563ae1dc5f72fd":"1KMN4wwP6X56Ytv2CorS1u","1524cf42d527f2eff34618c2ba8cf4eb":"default","5a5a320cceeb2008b76c1f407d3e15a9":"default","3e3a0f0a6d6664e17220ec0a82e26546":"default","bd81dbfddd217fedf1b07675c2821432":"default","72f6d6f5496b9e23611851cf073c29be":"default","5e07f46d014883890217df5a4b9f6c7d":"default","bb87eb82bfa64680c758586140f07918":"default","dec9036bcaed2ca4d9cd54e8e1d3bf18":"default","dbf5b539da87ebb2fdf47b32ca90574d":"default","d33d209d0f7bbb79b025337aa4e07913":"default","a1c511f1550bc0b2a45265b96f8f8461":"default","9cc48bab0b6646934dd35110d943e45b":"default","36cd13436bab1c5e9056f339ffe32644":"default","85c6bfb64bbedbc1cb1c5fd70a947d60":"default","d1337823580433c27c9c4ea94bd4f8fa":"default","b4271f61ee6284990951a5d14a88a059":"default","d5d152655add787b309259e5b602106b":"disabled","2315c1aed666cc3f6c8b588553da16a2":"default","3a294cd4b7e347c513a2957c0987787e":"default","be855b6d7b521d9fc601013439041beb":"4ohJlTZaHMEqNAQs1AfaUk:100.00:3","97417e7bab005fc325e0bbcef6357505":"mkAOd9pbDSue9XM3iqU08","006924ce8b6818dcbfc6339f9d92def3":"6NuVChdIOAlTyuilMuzQJI","cff012fa54c0a59f9e648ecda702d70a":"default","47a3eebaf409ca980544c938f38146c9":"default","d799dcaa7d2910d326b08234099f67ed":"default","1ef4065d204d71479e68488bc4e35fb5":"disabled","5e029584efc59bbba12bf4c3ff41e24c":"default","c159869b14be5ab61d1ac571e6387a61":"default","5fbd03f05d3df5d068a1ecb404cd7129":"default","b0dceef55ec5fc4e565474e80ba6d1c0":"default","357be60f1fe5c44c8025b99f384de338":"2q3PFyJUxZqoswmN0RrfXd","3f5d49b9cf532bf64e6a5baa77c4f199":"default","3394d4d8c15e15270c3ff646b263f301":"default","c2ecc7d16cfd4ed6bd2fb68b8fc05d7f":"default","32467719254c0bfa45a6e8f93fead3e3":"default","3b2bdfa99230ef5bce72a8f841d8a690":"disabled","d4b542ccdccd68544b947d8c72682651":"default","7af02b513cecf213234a393f5843cd06":"default","50076e6f0954f243ce5de8bd8ec1029b":"default","881132b2d6202cbe1446ce108845285f":"default","d46c8c1380ff9c2e4d522817cb57991a":"default","6e1e4edc4806a83d305de2527bb4b8e3":"default","f6d9b32e0bdee537313031483593a6f4":"default","5c3d5480acb474a1f1521ce765b15c06":"default","38e1039cb51d5392c6ec9adf9cab5b66":"default","b68bd9cfc41eec40fb27b53b84489fc9":"3jQW2rUh50rcJTqDHT1xcH","260f7d481f5a097ce4802c729f3eb774":"default","25b1ccbf6a5c5c9c9babf75fefaeb315":"2TG8Y2wHuARfThdyaNJyrJ","8f1a4a1141b5aa22e7eae05b3bdee431":"default","3abef6ef3fd6d68df552aec79a05fc3b":"default","a8335ff4dcdb4afa38c4a30acbb384b0":"default","d65f24a9be51a92bac221a51a84fc8a3":"default","e95e45156cf5635c3debdfc2fc25a831":"default","f5d41875f2c50027a962ed8ca3c68409":"default","4a6502cf6f36d5b7ffc50bc27ccfcfdc":"default","551a64657daa80f434e0b39f2b192d49":"default","39a64c06e6082b89d21319b013d070cf":"default","8461d452c7cb880e0e7dd490aa2c6ab1":"default","ad832b999f44b06dee4c58a4dc1bdf42":"default","e84f46ca0e0e43f22516505df2881be8":"default","3dc6a5c37028d0207427b87efc0df4b9":"default","28834e1083e7f90c1e4f9552a2dc3951":"default","2f57214a2a819b0f59b705bd4bf807d4":"default","42892b70974c88f5076d6cb3541e8b8d":"default","7753008e2d6f4f1c89082277b311940e":"default","c994dfe5661b04dda3068cf38d2c394a":"default","d4e2fe71b607adf86344e6e685738d2e":"default","22e908ccb131f992314210c59e672d94":"default","161b6742985146e85cfa5ee3084cd2d1":"6zQ90dCLPEf4io36d3Bg4m:100.00:1","b34f9a497f88e7b3ff0808176f358c8b":"disabled","93c602ef8c86d681764926bce5a89d09":"default","13f883ea8d20f684fb637849ef141da0":"default","64c4211097e16f6905eac3aeb93c7722":"default","81cbdb86415b2f20ce85a50bd49ef3a2":"default","e5f652da868cc47d015e83fb576d4001":"default","9a2014e24540b02af727ad64dc9d1635":"disabled","22797cd436c1c92b8adf4390d79c161b":"disabled","cbafb2cd7e4485e7467779776084ee08":"default","6e3a7952763fd9f04b78ce1d107c9abc":"disabled","5adbf4b2c202bebdc0bb395e33f41642":"default","a9682b71ced52a4ed5578ebd1350c5da":"disabled","5f2316a60aa80dceeb95e613c3b12cf9":"default","fd51ff067d4c88adb34e10f50ba73a7b":"default","c9343a0fe1d2dcd94c97848b9d53b23f":"default","59f0449a5d2e3edfd5fa49923ea0ad99":"default","642bfea91cca05c36576311839cd9fa7":"default","b298797719d3643c2b87a7a5f24d4f60":"default","4c19a3c90fd4913bfc5a426dad8e6042":"default","e30390a037a84a104ab96e60ea2a5e6e":"5XIRk8njYyR7WilPnVET8i:100.00:1","eb8aacd0dbb61a85a8bad06034627454":"default","6f6dab928917f205dfb5ca7572b97075":"default","ec6220498433984e8996223f9da53a0e":"default","0d4b1e75a6fbfd91bc6a8782c1b014b1":"default","4302afe2caef9d6ce3a6029c288dda64":"3J0lsHN6uCXEyVubbbVndL","54a75cb7d6ab901ce3a716859b48fe43":"default","e6a352b86a1c6a938fd367481f01946f":"default","3a1dd4307f0199df1f3cc91a3e57a79d":"default","a9c5940d3985c09ca3f837df986f90a7":"default","8d71122322fab5997a17d7c74edf6188":"default","c3bd7889f8ba4a17bb6d6f3d2dc49d02":"2ASC7cw13U17I4n2dO3s7g:50.00:4","b173e557b9f0c6a04d89f5187756cde8":"default","530e6efa129220bd5bb8962415628e95":"default","a8d0aaea72de4a8249cd3ff3494fa966":"default","ef67f656671a04174556dea878325e39":"default","0fb9b629cb8fb9c49066c62cf1eee511":"default","f7d69e4d8346433ab59c844444991b9d":"default","748da6bbdf13305ecefd382d8f7219fb":"default","10318facce590c623011ba1685c20740":"default","8feedd4887a75f389c991767d2df9d35":"default","f5270acfb8e6d34060538abd5975e5e2":"default","cf38dc66275ced6390a3b51d9514247e":"disabled","0eef991160aef7f650471902358a5c65":"default","ba993e7f8bd25e4cd1dd35ccdf1dc1d0":"default","4ece3e8591c0a50f9db156ad83a2f673":"default","4b0f9e9d44259a075a19810a48bcbcc9":"default","10da5c1180b9d4eebece704505f2625b":"disabled","432a4bcfe6eebc69c7437980c3a032e3":"disabled","e7218e86d0fc1e1e0678a110e08b5dc7":"disabled","5b01044608ea5b585265adb05adcdb65":"kl2YoijnxwKdeVGDUH2PF:0.00:1","53acc2c3e724df8dc8fe828c1c92a78f":"default","5e7e9d096040831fe852d31c7923c5b4":"default","b0f6cf3ef250652d2d7252c5a0614ba3":"6wyq6Wu0oBUafRk0N21TyU","f554be37cebf097375ea076dd8ff358b":"default","e42cf30947d122bf8107b737db386e93":"default","36bb1481efb09b7db4c52eb02093c7c7":"default","1c859f8d6338e4ae86ecdd1aa972dfdc":"disabled","2e5a647093fc03028b0e6e0823596655":"default","355539f8bde469161134eb1b74d87269":"default","d843d0384a45c32d3d76ea18fb0f9149":"default","fd72a1e81141c7be60a0ed68e55ed26b":"default","8d7c37de377bbdd3d3f5cb23eddc7cd0":"default","d8121e9627412de0f373cf21cce704f2":"default","3bf9247877b3f79347c241f2af1454dc":"default","82399c73bbc0185cb5f00b7d446f0846":"51p0WQSZAwXBigXcC7HJm1:100.00:1","202bd784e16bcf64b84d8047e69a6e11":"default","42666622be962c5a1c36953b084b1869":"7MCEUkAccIlmHwWbLMJXBS:100.00:2","2116fad46acd32022cbea32fd95df674":"6e5xiNWtvTIko9PYKOyosK:25.00:10","3c6be40f91353a8602e2225f805df50b":"default","73365370b961c281963e906d45dae449":"disabled","7fea3c46a492dfbf76ebc448a4615bca":"default","7f4230a29af4444273376e7e0ec6b17f":"disabled","a99032211d28aa4481e0e8a9a3795ec5":"default","bffd5dfaa38ae408870da4ba2664a8fe":"default","bcc97591577c8791b2f10c3db24ded42":"default","0cc87abcd196309dc8dfb4de3d46c15e":"679ZgVL93uvss6q5DTniIq","32ca2f2108702b1143c069c52250ff12":"default","34bae54ca6d847d948c46e1ef8e7dde2":"default","c97b7a7844ba40311532480855d708b1":"default","84761453931b30186fd2171619de5e3f":"default","ca9770e3f760212908fb9f49487757d2":"default","47164a7d62f8310234537dabfcefdaeb":"default","838b8150a779fa7898efbdec4f2dd13b":"default","623ff27f39ba6203fb41e2e11b4434e9":"default","52619b3a8e402d020db275d9ae08e3c0":"default","cc34ba8b43b2492ba6dce97b5e17c510":"default","cb450cc7ae7be760729b0159ad4b9c93":"default","bfa170ca85bbdbd33870ef1c07f1e2f1":"disabled","a0420c052acb3a75b05456fabf9093dc":"default","84434ebda4a3e3ca48c9420ea80bdb8c":"default","ad7ba25e825afd29ce879f816d00ef52":"disabled","96ba504b7d7362bcacfd2af4f3925645":"7ijYVVu5yt9dTBY4SslLjf:0.00:1","84aa8352edcd032bfbe627e5b2457c3a":"disabled","e6b08e8b74f822ecae493fa74067cd9a":"disabled","286bb3bf1ffd5386500101b31746a743":"default","9fa3b701de3e543e2f7ade7a7578775a":"default","0b33e6786dd92545a7f54c39e79db8f2":"default","92d3fc1d1895152453f17f43f9c8baf0":"default","45808c3f0ea1a117206f90db71ca6c03":"default","5fd13123db0189b92587c366cbb219b4":"default","ec1dc1cd9d2b1183f37d41430558f485":"default","55997c3946c7a7bfee519039eb9f32d9":"default","51ba9911bfa5cbb413e81d8b3e0b28d2":"6vPiO8S6R8lMiVAS72n0iT:100.00:6","7eadfd844cab214476bfe8d17e092855":"default","18af6139b80b70f0695b68cf5a583bd8":"default","a8526292e58e4f48e0b2ab70ef573cf6":"default","f68d41a9e42c08d69931cb8bad8b00b9":"default","b1e4537af4a75a96044af6e3c071242a":"1Tyz64LbNQyFruYe09f9Sb","9af0ec3cbf6db419563efb514beaf4bc":"default","9425697a9795a946800b8e6f3ff2b62a":"default","3b2bd7ecad4170bb15c5324e0bf7ec3e":"1KvwSW047mtMQNACbazqS0","5edf47f50c8d267e31c883dc6d1f1343":"default","12d53d35250620ccb720d2573bca21da":"default","c0979a07839338e480bab9010784e456":"default","0b045e4fcb9388254fcdc36f996c4f9f":"default","b47c212e99a0295a56dad12f90e2b0a6":"default","94b3f9cd36881403181fda67cff29c14":"default","aa39f4d1095649ff361d47c805eaf452":"default","8a9ce25ead0488d266a400a1c06b63bc":"disabled","b2eb165597c561b1ff73283c4bd2ef48":"default","3a2247595dc25d4a3ac9a3a42bd5941d":"default","4e5dad9a2162b6264b8474ca76d49803":"dTqOos3NRwUXDXDe9QMCE:100.00:2","7f0997bd6f8e9d20695f4d93a1ff1f84":"default","df04cd8bef444ea95ed320b3d69c3246":"default","80355c0d20351b7f2d33cf6de7fa802d":"1iKnubQC0PFcBIX3ULdxv3","3e5ff911e1c3abcb523f0c838d6495e5":"default","5e61280b56d9b2065976a25c849c2a7c":"default","a18b2fd3feadd8c145f7dee4ca1166fd":"default","ff03b311a15a397483b3390b6ba6bae7":"4l08NVUmctnPFItZOQ5oXh:100.00:4","e9301ae49bfdabeab78e43e9acd5dbe3":"KVXIeZyonGIFDe8eMfmt2","9eb0464fb02e968fccfba592ef6494a2":"default","d363316e451a9940c3e830e4dde46ad5":"disabled","4c91ac5a68cc02aeadf05fe98579fad9":"KMo3msOX92Q50X70NfUxf","f25dd908e7b5ae2c77af125e19cc99b5":"default","9a95da2fc054d885f5f615d602400b7a":"57zDJR7Sp5n7q0XH2NBww6:100.00:1","59f36a9024d66f621b374eee139e4767":"3HWTuUbZsFPmvL1y3r5kjw","243fcb6872134691a24c0c582f3fda2e":"default","c6c5e0ac1403e7e53e04fb0f2c6a2386":"default","764987926c94944e0e6dbe690f2f795f":"default","bc34384078ff6340d73f51fcb46800c0":"default","ee238677e4af0b2aa18623d22b5850e3":"disabled","529e136dc0454e65b95e88df85ca33bd":"2bLWj5T7Sbog15poqS0VPq","4d369c9220cb0176cf058c330837a3ea":"default","58297abe84723dbd43eb2173029d0ad7":"default","a36761c47b7f294bdf63a681cc9bbd0c":"default","5ac4aa98403a95db4696a78914c18db8":"default","6a1a4f5788a51055e912a5d8ae334b1b":"default","717809d017b699b8aad26118f314b1a9":"default","1a890cd89e89a97861421fc4fbf7eb9d":"default","61a9b1f65790642ff3f34a016966894c":"default","49e59d4a9d17d2894c5ead2be83964a1":"default","ca13c920a8ed5e7921fa393f1c9be839":"default","1599ea8240acac5ac87f584f069e9bba":"default","31a15e6b4a6acb0e37fdd08ea6031953":"default","6f6b831338e7e98210812cb48e6115db":"default","a26c2f6462f7d572cfd38600888271e1":"disabled","ae6908c960506d099b28c2d1c53341dc":"disabled","0ba3610f7f6d1d98d3ed34d532efb580":"default","b642f42521de13510c5404604d96862f":"default","ec3feccb474c6e6b6d9e7af6e3718222":"default","8f58efde9bd40a82375663485cd3394c":"default","50809aa311797ea6e67f61babd02127a":"default","ce10f3ed380f16b960487ce11c9bc750":"default","62f6ffbbaf239ced3ff9b5deba350e38":"default","1503b2bad832cc11c05f7b57050a430a":"default","b348696f36d7ce3ddafafd8da665b3c7":"default","d8b38027764ef11c963441de6cf7b246":"default","14ff6963df437b858340f607a182a6d0":"default","19fb7f7918e6aa446c0fa107713ed62a":"default","5daf39814cd57ba9d918421a25acf4c0":"default","2a98f8397b30c493f33c257c780c9084":"default","e62e4b7eb3f6e406c55436cf4082e995":"1F7ZaIZkV7pdI4e2kYjPN5","842a3cacf1cf62b9105954f81c7651ba":"default","dc5996cf014b85e7cf59d7c558be0a7c":"default","6b7fe0a00d09316082829d117a89920d":"default","4639599095dbcca3fdacb33d55bc2ffa":"default","7354034d97f1af68b07d908fdc91ca5b":"default","6b2dbb537b1e9dca81c149c8a9e5bb75":"3dR9860EqCLK529kVla7Us:100.00:1","04fcc3b72173d8d1bffa9fcc2bc9a74c":"disabled","7f04e7635a9fc60ee6ae2b5491fa5ef4":"default","939d9d7771d698b9d25459f2a8f4d220":"default","581ee9e077abdc0ed62c29f8c1bf4f2d":"default","ce16815012589b41985bed178ba54c9d":"default","89fb3ced8c9dc8f4ecb411584f8f3b4e":"default","c69d972fbbb3c4552fbd83824bcc7e7a":"default","87fc8d8606afa102d246bc19af60dceb":"default","e22c61168eac73598da1881f1743f324":"default","20fa98992c968d9088f879dab20b7ad5":"default","4d0e4659392f1750cfbb19886bc9cb7c":"default","ebd4b7461a86b3ee677ecaca485a64a9":"default","477a6fa4ed7b2705ae1d3c4a4657bbaf":"default","1629efb737d3565c5d04ec326de5876f":"default","fb8090f74c7a754eeeb64dbc698badf4":"default","80be01891a81845e0937f07870da7ee6":"default","0828355d3e0b5fccbc16e6cb4aae32d8":"default","9db8a0dc94d44930978f7bd6f04c80d1":"7mTzhrDxqRzectHm43xq7H:100.00:16","464e8798546956ad0ceca2ed1806547d":"default","54fcb86e3c25bca6fc2cd54db07d52db":"3Qhwty81aqD4isZc4TPe5t","8740f6fcb317127e8e92b71aa80872b9":"disabled","b86d66177f73326fb6f186d2be61ca77":"2kyyx5LAg1U9kyzWQLLkAa:50.00:1","0408aff1a041bf273e4fcd0da38da866":"default","a87d8830b46a457a564f8ad6bf04005e":"disabled","232446edc7c2ea1de6244c351d676d04":"default","23c40d67506ecc9be110008cef20eabb":"default","e9e10bb1b175b0643a3109225822100a":"default","6433af8468f0c3b64c65432fb2cf14a3":"default","7b02b8c1c45e483f0ecb565ab5b88431":"default","6947980f21562ff87bd3cfa15e19d451":"default","271c86d99f79ad97aefffe382b218a08":"default","28845fd5a4f2d62de026c68e34326765":"disabled","eabf6bfeaa86da1c94ef5ae88ea2e1e2":"default","e981eb4649f63a7b5026ab46c49766d3":"6G1AsniA5NUDEDlWFH8okk:100.00:2","823e7c3489c9b87ad9ac517da94ccec8":"default","848419e022d1908b6fdd678e1abe3171":"default","6b3b698c11e2e93ca8b0fb42549da881":"5bR0cdpapyozMJFTExRjda","6167d6ab6e67e4bdeb1f74fe5be64922":"default","b0f5b20da229eb2412904e21195ed13e":"default","2ef01095575f39f9d5fbdfda90b9af0c":"default","3294098c725314523c8c3786b50e746b":"6y1B141UuwOz2Ii0vKiL55","5d63a576debd27d285e5ff74ea75b7f5":"default","7227ed9926a4ed41ac6d9ac186fd493d":"73lfcckQRljsuHswTgDiEL","72dfc8498d734f2f3e408e44b5b14a78":"default","284688e505f7796505212ec6202e49a3":"default","1d1ce8148fb0f51161c58246f559596a":"disabled","ccadef6ee3f53cb7039d51a0ac150e8a":"default","58085ab8f4b220a2e2099fa016c96262":"disabled","233cf0ef306e59689d3c3511406f641d":"default","9de97baa3e097c95ff70e90dee3483f3":"disabled","afbc50a66c30d352ae72f2268d35df09":"default","242e3bf12ca666ed74cebc78db47c902":"disabled","dc11e02c8a0e5517617b414af6c49352":"default","69bcd525d05294103fdc899c96428f32":"disabled","0a92096efe63b25ae448ec1029f945b0":"default","214a9f48d1ac5b38860b2f0fe922808b":"default","b206a4b8815a0b1d0debc9b7310e15c9":"default","e071d0e41b8e49d3b3b8d51d8d6391a5":"default","28e27e14540ce02b166279a74cca1b24":"default","4d38bd8504801a71838aaa1d56e50c4a":"default","d00e31c96d24fd5a6a0c559914013cad":"default","56c89c8b1785701110cf4c3b46ec6a97":"default","c6906307bc4f2e6d491531cb13f51317":"default","2c1c8f989600f45bd53d711be2426b14":"default","7840489ba7341c6d0ba3ad4362efcc0d":"3sKSNvHXD7VAvzST7xThy6","bd1b414952eedda328590bce2c4b6ae5":"S9XmVVd8kIGkm8KxmrF0I","75658cbb4599a655515844f1e680fdbc":"default","dcbf06c29675859b43cdc9284520e7bd":"default","6083ed6d102fd4a681a1e949c8664c28":"default","056366f21d5cc3af63de83181c05b2c7":"default","645efcccf3c05dd58cf9d07d68e1db3c":"default","9c8cfa6ad633165a55e0a98c139925b8":"disabled","a1c533089a043ddf1c9bee6f136b829f":"disabled","c3d55402c4456675f9072bf3c93ae0d5":"disabled","217e510b9c203c7d03f5915864cdbdbf":"default","8bc9b75e206d56a6454a41c5bb136314":"default","4985b11be26658d80bdaa1c959376cab":"default","85cfea33a7d584a1820fae946843fb55":"default","e3642a7e836ff8df401f47c427d80866":"default","485223f301c8de58ef0bec091d72e806":"default","df05d079ddb63cf1a70d48ff55372aff":"disabled","9870a8d673d7950d1d58d9cc21e78db6":"default","2031a5d3d66acebfab7aa87577949d56":"disabled","6f68df6265adefe144fd81340e05d5a2":"default","0a4a57d20db8bdb0cb39f5f6a34b027e":"default","9cb7f598a90f942c79c691bcceb70fb5":"default","ce6f16d821d4a02f5c4788a344370bd5":"default","93a6e50aea2d7677d0003ab1b31313a0":"1kWI6SsKn4p40ITWTYw0Iv","d92c37bbc81fd3f373c7b7c7e4b74711":"default","6784cb2f52aa0bf7062f84069ee62db9":"disabled","9cc7dec8acaaa418cc371d94664349b1":"default","24a9da2f2998b2d2a62b9dae5ff1b47f":"default","0574a1b175dda94fd715dd527563ec1f":"default","00f9d3fc9bd4869547a69ee96c05f814":"default","75ab5f063941a5588837866d2ecf04ee":"default","25e11af23ff00f58706de56da41d1509":"default","a456e994a700952ea134ae31fd6f439a":"default","b13c18290cb634d02319a7bc1c04e4d7":"disabled","927d699a8b4ec6875649808531d907e5":"default","50509ebb417eba6a0237299a388197b7":"default","48856f955993a362805a3c711bbad324":"default","3b6560eabf86cad03e73ec45ec5a75aa":"default","0dbd9a1c7c5825c5bc6508c8814c41f9":"default","c388d85dc1f8d59c4f86e27e0ffce026":"default","accfb8a80957bdf23228d3f33cc2ce73":"default","fa802631eb2bd9e87519d9b8f6eb4a10":"default","ba1116152b187c7f29a96ba7c0e4bcc5":"default","0a395afcd445dd1c2362c972692c2501":"default","464216cfdb1ad6d066c35534ddc41f84":"disabled","43929f67219fb0868e8fb5a6ae7b346a":"default","c8a96f4f87e507ca23fffab94d7279f6":"default","d9b6339129b6d7fe86239abd837f36f9":"default","36c618ee63dd08d63aaf285889b2d3fa":"default","42e68dc1f5f7d9a14dd426fec91d0fdc":"default","9e1a00ea849f524bc8218bc552178405":"default","f8ae4e9ee12c957f630f25530d5ab41c":"5hySen5qVjbhEHnQO8YjMC:100.00:1","213c123fa65a5b1ed69b9e56f2c556c7":"default","54c8da4096afc7a7d3f564d14d0fe657":"default","a040b37ad43fbf82ac954fdf6ea10f4e":"default","30bd3bd63706a64a619ffbbbc033a47f":"default","c820598d28543c2b9d51fcc76c6f0b4d":"default","71c9823722e72859d2e65ff897e6fd9a":"default","50fa1f21ee7fabda8d1005c6fb4cb4e8":"default","e322a7b8311bb74d0178547ad170b09f":"disabled","92638ad43b600aa4f1148006e712ea28":"disabled","f8cc5d01f5752e1cb135bf97b8518742":"disabled","9680b1eac2fb4c742973f43be70ce040":"disabled","73d061b88b3659e4d3c88cd2f86f045d":"disabled","b1b6435a9f9c88294829fe6df3526470":"default","a85ae4e1b0bd4ff3a2e0a64141f9dd5d":"default","a7255cb9f2c7303e684f72aeffc63f4f":"1vU0rZCiciXQz3pKV8VB8V:100.00:3","57fa1be1083b33968d6a017f827e2e5b":"default","5018ad645f48cfee4126b6fb70d6a17c":"default","6c4a482d6c0db8390090f589cfd35db9":"default","cb94894d01fb04a80521a4f69a165263":"default","7c256a450ab642b72b2e53119b3d3907":"default","48bc590f99a49a181f88b9ebed17d4f3":"default","326f1d519555b05a44ab9022f8115588":"disabled","7d05b04eea98200f3abacd2969bfbf72":"default","63b083f624a09c71cb1f2504b18225dc":"default","f5a4e053ebbf289b317a14e3d09b3f77":"default","65468f41d2270d6d68337f22c58bd4bc":"default","17476a971f3da0caf6abbdc251d96648":"default","be9d186ecee352b18bb8592635f5ea74":"default","349830df1d01a8ba1c1245ecae5c4385":"default","48ec5b0e0c9f849135b72429e488d91e":"default","db4df3a2a8987a0decbb1da7fb175485":"default","8320a22125dfafed3c02399ec80f52c9":"default","506f48f232069a535c29ee72d5f17d2f":"default","c4e21b3783a4110804e0f01e173ab577":"default","8356bedc7bcba3185e1aaa61eb74ae30":"default","4f451811cb65b7f5ebb393f083a687f9":"default","9a7fd0d96f9063569f4121bc460b6a89":"4uNVctgKT03VjFjg1bMis0:100.00:1","90ff4d75fb4d755fd7541c775e97088d":"default","81a41e626fdddd4b3bcaa37a21b9a323":"default","06359224d4f0f59b19abbf51c119e9a7":"disabled","2a4acd0f7a9803952078df3a11431ec6":"fPiR8hrRq9p5zXm1oPZ18","38661adf39668e21552686879f61a716":"229fsG4RGoebRjD4vbC6LF","8974e0c46bf1561d3b1613ccd20d45b7":"default","975857c44133b9752e975473637482ac":"disabled","4a1d951036e13033a48633d7abe0dab9":"default","9e74bac3352a05f336cb0342ecfdbb7b":"default","916ca4ddc6b6f8430f16b07f00bfaed6":"default","145787828d996c84034114dc8df1b95c":"default","8688e59b0262fc2b74efd0d662648b3c":"disabled","d2f9d086312289db2e8797274912c814":"disabled","37081a5e88ef2f0181cbe2fa2db4a39d":"default","d96db0c569bf101c8f9513692eba92f4":"default","11a60f13c21a345c3b6f33a5b568337f":"3lWv55Aoox7GehhacgzXaM:100.00:1","9d056f8f6a41cd7583c9e3897774dead":"default","855c2ee23b69400fd99cf22a56efd3c5":"default","81e59b97088c446c0349dcae249939b1":"1zJj5t0kDm45jzYZQwVKiU:100.00:1","76c3f109bffd4a9fd1d77062d5dd173a":"7gWzeYP2J3SgaQBkzJ8UuG","2715c40aebabf900c2fe98ed4b1fc144":"default","96331cb7686fe198cf54c86d5bfebd21":"default","e056b56eb57734145f367c85deeb8aa8":"default","86e0e35c22f0ed6f5060e5a1bb68dd9c":"default","e93b67cc613e5b42e93d0dcd899c9e8e":"2oSaeX8M97IubCo46DJKTn","4b7dc1cc5c572521669af12b0e8dcdef":"default","32021de2c30a6280c462055da7b272d2":"disabled","daef2911c4ab7c6754cdba0e0c6615f9":"default","357b05d86bbf8582b323de1d6624a2a5":"disabled","1917b10c41c816abb295e84dfc228f33":"disabled","d5d72f80ad2b68a07b7bd6aa2b2ddb48":"55MxyXmhyZifTv2a7ZPLH5","2ff2520ea512a5ae7645fd781b3ccc95":"default","b776846eab28326b6f0670ed625fdd8e":"default","1964bd7a653c579a8d31ab5db981651e":"default","7dc5b5ac80cb5c44c56d972c037a68da":"default","bb47075d79644dee258cfd6f564246ae":"default","ae3402fa28782063e5433c87bee1cbd1":"47Qffd0eouT8X9fuFLxW3t:100.00:3","a2e38881b3fb7b413e62d6aa7f914e49":"default","badaea48e44e1a55c72e67492d3fefc6":"default","3ad4132457eb2de26f862ed8aac56213":"default","24d96b4b7546717ba478af98f39aa87d":"default","05f55718a13e358ea80ccdc0ccc42d5d":"6jg6zyQqtx1SceYrczWMZG","f40ed67aa12ab2184bd252f02d84de08":"disabled","c1c5ef68e597fb091cbaa06a8e62e58c":"default","f287ae39d7ab80c1e411be205a2c6d62":"default","f2b37242833f00f46264f51713e6f994":"default","8dd1469c4738fc84d2170672d6aa47c2":"default","e421ad4ef947447fce7efe0e9a87ab04":"default","681a0797bb575f23c33692580da2c39b":"default","54ea17cf755c37409d523ec0b3bcbaab":"default","ee8b4c9a5e3cf8373ff8972de423d240":"default","dc6e4cbb2e0f572c3526f116c148c116":"default","3eb5aa3cb9192b6adea0367f8a3822eb":"default","f018a3f38da24240eea7e9a22c664a62":"default","8cf6ffc3b694f944829445143a712047":"disabled","92e7cd05082f268611442c5016032f04":"disabled","baa01f061faa3eb364c2fc537873f524":"disabled","e3c4448e9051b3500e0d6c95cfee5a1b":"default","2b4eafcbba7d65b6bd411e19cd8a50f7":"default","8217fc4c798c1e72f55e86a860e93b3f":"default","28f20394572f976f9fbaf88ead821e25":"default","87d1cc60ac9a3635e11ab7d6c3702d50":"5AeZ4gbSy6gzciygdezm9L:100.00:1","822169f5c80329c43f9e6ab2ceac3f0b":"default","49d0d6de573844beb3c94a6eef7de47b":"disabled","bb13b580069ba73b65921daacdcc59c5":"default","1fb081f51a7a07f232a177f744efb340":"default","4e720b9101be39beb1f0ff4fb21b2e4c":"5V94QcQOCnOn9fChjjXXLx","4a4a997c41d1ddbad25cfc1af5b9ccce":"default","e2b975c4ad87a409aa5405ebadb7e068":"P4kv8jc3X5cBKxUQY6IyA:100.00:1","246dd080fc50057d20d26234d04e74f0":"default","a3d1f46eaf3ec9828ec0e0fa642edf16":"default","9915c31e1530f07081e8fa581adc855b":"default","e269c4b231d0110ddfd3032d57096d30":"default","ffbf1117da07b92f5b37477c755aa8ad":"default","c8feb85b28816c0357d356938f577397":"disabled","4af7e8e1fda5782590d4ac5da67261b5":"6Ocdw9dYCqn6yfzubQHeTS:50.00:6","10fadba6070305ff8b51c15c02f11141":"default","e8a72a7513684b047d936a7d047c8557":"6IGNLB1TNmbCX337viXyiM:100.00:1","568312863f3b1e7129c794c076606864":"7yw3Yab3UgcoYnG05v1VeA:0.00:12","d5d8bd99123a8c691106973243662313":"default","fb2de7e49a8d6c70b6f06d7789241b90":"default","3591ddeef0f777e218c1f7909ae6f936":"default","67ffcd17db1b5d4e8b3f97290f1abe65":"default","b0ead5b5c773820c6e51777684f7517c":"default","15b1f2cbce64540293af42da2677afc8":"default","54609611a951868c4ba076b504b696d8":"default","a89b7ae65bd4f467a1cfa716fb95d544":"default","b9a5ca4d5a7992df8e64ad9caecfee5b":"default","05a3a29674110cc660c6da9b8ce2f866":"default","4a5ac9c92a50bddb33eed138a6656025":"default","2a38d7856ddf98ee9983870bc122c845":"2bOqcqvYceWhciyQktdGPu:100.00:3","b5e95e37ba21de8ebb1cd820e8028f85":"default","ea3004240498fc9b62b521ab8c8a55d1":"6IsKdwitpViX4IGJByTYDb","aa7d619fff590b97f2dcdd6a0e9f5d2c":"default","66d6dd33c5d993894c8f796a7a07f76d":"disabled","11fe784f74092c57c4a337bf2a343566":"default","c87a2dcef2c1cc2a9ccdbc298760599d":"default","71df6b5f5bded78691cb934479c88e8e":"default","e654dc7cde38e1078f6b361527a42478":"default","128f4949787ef13d13ab2aa1ca779ec1":"default","14168139809ba65ab15580087dd2f4c0":"default","30580f8dabcb02d5f17cc88c7e2d13d2":"default","ceec19b937263176c608f4525840fdc5":"default","6acc2747c89c587a0566c6d4f29b526e":"default","17661dcf0c5204caf1aaefc745620043":"default","c47bd1a5bfedd6a7106e86d111530bd8":"default","1c65601ca9aafb61af0f97944205e358":"default","920606dcafd07cccb310587d415cd7ae":"default","9f9e38c551e0b7bbf1c7a9b21884ab88":"32bAWroBDNG18ThrHuqyG8","44483960b13f55e4b97aadbcb1efba49":"default","c3538b0f7238f03686f64496174f4109":"disabled","f0116cc0d1bc1e3b4712373b5f587cf5":"default","449e2183f4f23b931873aed54c4aed18":"default","cd6965e71c29a8f015c80c1b13ba9fde":"default","9a7687ea162673532b024f1574df547e":"2Pwc5Vlm0nJ8fnu4xbgcEZ","c573a09d891b23351c903b3223c076a5":"default","999751ee1ae71221a394157953d8fab3":"default","e49ab981618e2d256d59ba3d4f874eed":"default","838a19bffca9765bd36ee88f07b7988f":"default","b2d61b89bb438df77da78f39a7c8c2c3":"default","2477682334d3269fdb964f94b890fe25":"5kobkvZDSZ8kq5DhL4HvXr:100.00:2","f12e344f145a384838c9d4eb642dcefb":"default","80a486c035f7ea6a9d0502acb19378cf":"default","e5c08b7677bc4f4886db0c7ee62d7a8d":"default","662ab3f9ec5f5e1f22ae75b1a3f6de49":"default","27e8cadf20548aca15dd78ac5b88ba76":"default","7abced258817ec5c7c8e601a74726356":"default","0955a9c89b9083958959ef40979174d4":"default","c429487182545e06f6fae642e701caa1":"7f17vLRgzucKc6yT1TOwpH:100.00:1","876f12f5180e411174af8c99095e06c8":"default","b71c93b8942fa754a729284f9311ab19":"default","8e9f22e49fc0542f9248fbb1597c3f3c":"default","faa8cb3b1b9054b73d5e2060a31ac5d4":"default","719d8945da130b9b0fb2f10c495a463f":"disabled","e4e81624920997bc0b1edadef5a7bd53":"default","7dbe56c8d4fa797b510b45dadafd5623":"disabled","e5a6327e88aad74d6791e035b28940a3":"default","27ee1731c6db0afc8d11c0c720b71254":"default","66b70a38f263b0ed6df46ef3d62a55df":"disabled","503f72e7386199d70bbcde397cc17355":"default","d94bd9ad8b0d9471a67e5f25290e1369":"default","3be610811031dd967822bf0b1240cdb2":"default","f8581d53bb507d3bea4c45e0c3d10067":"default","68eb148a793318f6099511f49e5f1317":"default","06bdbeb729ccef47014c4f2d5864c661":"disabled","3197e5d83016f980de9715c077b07867":"default","d546a4a60198fda5ad6d21db15df6c1c":"disabled","202fd3d06f3445b9bfe8fb671df3e444":"disabled","894d627a4e7227fb5a82f9b862ced01d":"default","5f9c6092c039f8e2f226f60d819900e9":"default","2d0239e87c27d434796571fa4785f7d1":"default","d94cafdc3e8ed20b6fcb9c26424f39d9":"default","c9dd42163c970619783fafce754646cb":"3cB0096tZQqwJG1yeq8xJT","3e56e6672e014b8b83e08ff7b6b14329":"default","5345885e3366e92693a419aecef4ba4b":"disabled","fbe507aac46a1dd1d7f7e415ffaa4114":"disabled","0d5c276174226c762a5f88d49c600079":"default","3ca23fd3e42474338e8377ef87dc8226":"default","e036a27f00b7ee0665feb6eec43579ea":"default","5ebe5915c1f4f40882cb0637b15804fe":"default","d23d8cf26e401804a670f266ce2d0f5c":"disabled","bf041e8e2c23612ccfeaaa16c909bbd1":"default","397d4e0a7079bd80ec1fe4bf9746ea8d":"default","91972c780706eaa00b638023b11c5235":"default","dee05a115087a4ef63eaf6c477d00698":"default","2fbdd8193fc4807ca445f92c251aa37f":"default","d356fe11eb4dd2fe8f8e9b5d32d8ab9e":"OT2RGaG3UEqRa8cgU18pw","262fc2ee4646b06b50661bb88bec97c4":"default","8aafe1cf976b52afe5fa5b02f3298298":"disabled","fc8c165f256db4c4a67b949ae5026369":"default","ac5377a9d1a10ddead7cb68fce48e2e3":"default","12fcc86f149597f5c0533397cc9c7009":"default","2dbb8378b1d9fbbcfa34158f2196b63f":"default","04ab26f2fdfb0cb2c17e095994ff2d58":"default","2904e7612e4c8a4a8020921e3c453277":"disabled","80731f8b1413c2f3bbe1a5b6e0d1fce8":"default","7e6c6d809df0783f546b03f46a91cd4f":"default","44b6e2536292296e7b71c9ad7383c3a3":"default","2e0f4fb4816d77b5233a9567a058326a":"default","ed2f3e5d0ae2d2b3deb4baa72da9feec":"default","49fc2a388beab668a760920dba969239":"default","6c0c6fa74831ad43741b9aecc0032159":"default","07147e3c77a86b8dc40dc357f98b0358":"disabled","ebd086751ee546fa70befa818432c997":"disabled","5105f701aea2793805b5b42899f95dbd":"70J9tfY0cNnvV6n1seB0bU:100.00:1","b3c462c609ad1182b13ea2e14ffaf8c4":"disabled","666ab1e6ab94f2d2094ab018432b4993":"default","997edd54ae56e201dfbf18521a30af3e":"6QXzNEDpGXjo7nV9rL4Gu1","8be04666cc31dbb7b8619066f3aaafad":"default","896ce761e8549a1863423c44dd04d926":"default","4e483dfed4e0bb4464887c10f0f7580a":"default","524cb893d26af2c69040d3637b31700d":"default","2518fc2f8991cd2c99a562b9ce087b9e":"default","472cf35992db02b9858d861f769daa24":"default","22b07d4efd9d19ce2f960f3358b7c74b":"default","4e6dc20a04eb26ce20468977b2becb7d":"default","9d6bad5262f018b07f91edc932a9d419":"default","cf92d7d9b301b306ce917a40ef3b5d87":"default","27da56ae57d704f64a2694a3adbabb84":"6JEYOlq6lHUFtDnTsYAv9q:50.00:5","b2922cea8e1167069aef37d7445be21c":"default","8138685514d524e955f2e69ef8e97b29":"6fUZlyHr3ogenEg4mHKapZ:100.00:1","006a914dd8168a3c5a134c43e08ef938":"default","542d607fa0155cb4ccbfbb102b8b4ee3":"default","7f4e24ce61855c3624fe7485ce58dd64":"default","acac127eafc4bda547893e5b9bda50d8":"default","f132264b283997cee077cfd64c33dd21":"disabled","d218210b0992a31dbb90a15fefd9c0f3":"disabled","304b700789805340929f559aad436e2b":"default","5f26facf7da504dc6ea93594f0b7af75":"7Jh7dXT8LJOlBiJQ1EBpTi","eb0cda8785b326da4df33967138ba115":"default","b7c4854d174e0f64b3413385353135ca":"disabled","c6b2a1a74ad5dd97b04e8e3e1c9f010d":"default","f904f7150ae2f8481a97dd22d5a537bb":"default","01a7662742e3e460e050399381082d0c":"default","c423ef7ac6476c90183f38660e260683":"default","664ea4871b8bd2adb490007217980934":"default","636ed0d521e08d854f913f2f523f6502":"default","b9e2e15ff8d1d3a09020bed2a958dc7b":"default","ca16cc9f2ab0edf0b1d6cb5a9889144a":"default","f0c8fb7651a2f69fa2174745f20f2dbd":"disabled","6ea699484c7fe24a2c19447741cc3551":"default","288ba4a39d8440c8cd898af608ebc921":"default","5fef7b3f6374a2b85bd0427eb89d13b8":"disabled","32f99900aa6649001d060f56aeb48b10":"default","85ee0f0820c14bd24efa2c2f7755f6e0":"disabled","83b20a0c47634e27e7eee4bf48dbe9ea":"a6BsDtsmmO9Vv9IssiihJ:100.00:1","4b4e7269d406743544a0928149758db0":"default","5c80051d37f24cee9496e002a82601d8":"default","78f9153af0b67226d846b37ee4d2b8bf":"5aD3UWl8ZOzZEEaUMcG7Sz:100.00:1","873b29baec918d5c3be54aa0ec20927f":"default","6131b6b455e41c514c5e0503adf23d33":"disabled","bdec44b1d0ae0d537bd0621dae79c1e6":"default","91cbde11cd034118d8f320c51a39a4fa":"default","ee22be43d19dec4f8e2973270f39d88c":"default","8f8f8909e8e8af29ec9de2ca9840c623":"default","5beaa9dd05e067e560ac049191314315":"4VuLRrkp7KPtNfzCxKUgHc","1f60ef33b944938fbf70b0b1d509bf55":"default","1e076069200c6025ed34fb69db56beec":"3ItktfksOnaEf5OZ5LUAmd:0.00:1","a7a733a8a6257144bc888ad029f1a3d9":"default","7b92aa2897e9a0c08754b27ed4eb6d53":"disabled","72fe393da5e3227939368e0755389d82":"default","d19327d672c7c524f39146ed39b02222":"7J1QHbaTDvGtd17Ojnn5AG","6ac05d3d860f9238dbdebdb9e8ea43b2":"default","ebebed08d961365ec82ad68676e789ed":"default","a1136fc1d4f5b2aa7e167fd943510ff5":"default","2054da28c7d7cc47327175920192e4a1":"default","5ca233f12334b53be3efc0974a616339":"default","062b1bd8276c21d07fa6aef8527ad085":"default"},"i18n_desktop_version_support":{"de":154,"es-es":125,"es-la":144,"fr":153,"ja":70,"ko-kr":131,"pt-br":132},"dynamic_configs":{"make_edits_global_configuration":{"configs":[{"assistantOpaqueConfigurationKey":"assistant-release-17","assistantGlobalOptionOverrides":{},"makeEditsFallbackConfigurationKey":"release-15-default","makeEditsOpaqueConfigurationKey":"release-5.1-fast-repair-quality-with-jsx-diff","makeEditsFallbackZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsDSZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsContextZTOConfigurationKey":"release-5.1-fast-repair-quality-with-jsx-diff","makeEditsDSContextZTOConfigurationKey":"release-5.1-fast-repair-quality-with-jsx-diff","makeEditsGlobalOptionOverrides":{},"productString":"ai_assistant.model_picker.models.auto","productStringEnglishFallback":"Auto","default":true,"iconKey":"brain","iconKeyEmojiFallback":"🧠","description":"ai_assistant.model_picker.models.experimental.description","descriptionEnglishFallback":"Uses the latest release","tags":["1P"]},{"assistantOpaqueConfigurationKey":"assistant-release-16-with-typo-fix","assistantGlobalOptionOverrides":{"includePreciseResponseInstructions":false},"makeEditsFallbackConfigurationKey":"release-15-default","makeEditsOpaqueConfigurationKey":"release-5.1-fast-repair-quality","makeEditsFallbackZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsDSZTOConfigurationKey":"zero-to-one-frisky-falcon","makeEditsContextZTOConfigurationKey":"release-5.1-fast-repair-quality","makeEditsDSContextZTOConfigurationKey":"release-5.1-fast-repair-quality","makeEditsGlobalOptionOverrides":{},"iconKey":"experiment","iconKeyEmojiFallback":"🧪","productString":"ai_assistant.model_picker.models.previous_release","productStringEnglishFallback":"Previous release","description":"ai_assistant.model_picker.models.previous_release.description","descriptionEnglishFallback":"Uses the previous stable release","tags":["1P"]}],"buzzConfigs":[{"assistantOpaqueConfigurationKey":"buzz.assistant-release-0","assistantGlobalOptionOverrides":{},"makeEditsOpaqueConfigurationKey":"release-1-default","makeEditsGlobalOptionOverrides":{"allowMissingFonts":true},"default":true,"productString":"ai_assistant.model_picker.models.default","productStringEnglishFallback":"Default"},{"assistantOpaqueConfigurationKey":"buzz.assistant-zero-to-one","assistantGlobalOptionOverrides":{},"makeEditsOpaqueConfigurationKey":"buzz.zero-to-one","makeEditsGlobalOptionOverrides":{"allowMissingFonts":true},"productString":"ai_assistant.model_picker.models.zero_to_one","productStringEnglishFallback":"Zero to One"}]},"img_default_model_key":{"generate_image":"generate_image_model_type_3","edit_image":"edit_image_model_type_3"},"assistant_mcp_client_editor_config":{"supported_editor_types":["design"]},"datadog_rum_trace_config":{"allowed_urls":["^https://www\\.figma\\.com/.*","^https://figma-gov\\.com/.*","^https://figma\\.com/.*"]},"internal_admin_announcement_banner":{"config":{"enabled":false,"variant":"default","message":"test","linkText":"test","linkUrl":"htts://example.com","storageKey":"test"}},"datadog_rum_plan_rollout_config":{"enterprise":{"rolloutPercent":100,"sessionSampleRate":100,"traceSampleRate":1,"preloadedTabSampleRate":5,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20},"org":{"rolloutPercent":100,"sessionSampleRate":100,"traceSampleRate":1,"preloadedTabSampleRate":5,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20},"pro":{"rolloutPercent":100,"sessionSampleRate":100,"traceSampleRate":1,"preloadedTabSampleRate":5,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20},"starter":{"rolloutPercent":0,"sessionSampleRate":0,"traceSampleRate":1,"preloadedTabSampleRate":5,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20},"employee":{"rolloutPercent":100,"sessionSampleRate":100,"replaySampleRate":0,"traceSampleRate":100,"preloadedTabSampleRate":100,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20},"fallback":{"rolloutPercent":0,"sessionSampleRate":0,"replaySampleRate":0,"traceSampleRate":0,"preloadedTabSampleRate":0,"maxGlobalSendEventsPerSecond":200,"maxLogsPerSecond":20}},"make_large_paste_threshold":{"sizeBytes":250000},"community_permissions_redux_deprecation":{"GROUP_0":"cutover","GROUP_1":"cutover","GROUP_2":"cutover","GROUP_3":"cutover","GROUP_4":"cutover","GROUP_5":"cutover","GROUP_6":"cutover","GROUP_7":"cutover"},"figma_react_profiler_config":{"default_sampling_rate":0.001,"component_specific_sampling_rates":{"ActivePage":0.0003,"DesignView":0.0001,"FullscreenViewInnerWrapper":0.0001,"ObjectRow":0.0001,"MakeViewProvider":0.005},"render_ratio_component_ids":["Ui3ObjectsPanel"]},"image_tools_bundle_launch_date":{"date":"2025-12-10"},"make_edits_1p_description":{"title":"Using 1P Make edits model","description":"This model has some limitations\n\n• No instance support: Detach all nested instances before using.\n• For optimal 0-\u003e1 generation, please start with an empty frame.• This model doesn't support multiple frame selections for batch editing. Make sure only one frame is selected."},"cms_usage_limits":{"maximumCollectionsPerFile":50,"maximumItemsPerCollection":200,"maximumFieldSchemasPerCollection":100},"make_use_complex_large_attachment_heuristic_values":{"instanceCoefficient":5,"imageCoefficient":5,"vectorCoefficient":5},"webgl_fallback_triggers":{"webgl_fallback_triggers":{"request_device_failure":true,"webgpu_error":true,"webgpu_oom":true,"js_error":true,"compatibility_test":true}},"provisional_access_refresh_interval":{"refreshIntervalInMs":3600000},"tos_required_launch_ts":{"ts":"2025-05-28T16:45:00Z"},"admin_ai_early_release_date":{"date":"2025-12-09T12:00:00.000Z"},"webgpu_sync_readback_config":{"vendor_architecture_context2d":[{"vendor":"apple","architecture":"metal-3"}]},"load_timer_enablement":{"base_policy":"enabled","enabled_load_timers":[],"disabled_load_timers":["ActivePage","AdminAbandonedDraftsTable","AllView","AnnotationWrapper","AnnotationsOverlay","AssetPanelLibrary","AssetPanelResponsiveSetTile","AssetPanelTile","BranchCountProvider","BrowsePluginsView","CommentsSidebarPanel","CommunityLibraryIcon","DakotaLivegraphSubscriber","DesignSystemsLiveGraphProviders","DesignView","DesignDevHandoffWrapper","DevHandoffView","DevModeOverview","FdBrowseResourceTile","FdBrowseResourceModalContent","FigmaAppView","FigjamAppView","FigjamPluginTile","FigjamWidgetTile","FullscreenViewInnerWrapper","FullscreenViewGeneral","Header","InspectPanel","LibrariesSection","LibraryBadge","LibraryCard","LibraryItemTiles","LibraryItemsCompactView","LibraryItemsInFrame","MultiplayerEditorOverlays","OrgTeamsViewContent","OrgWorkspacesView","PagesList","PluginList","PluginTryButton","PropertiesPanel","PublishedExtensionItem","ResourceSaveButton","RunCTAButton","SharedWithYouFilesView","SubmenuDropdown","TemplatesContextMenu","TileMeta","Updates","UpdatesCheckpoint","VariableModeValue","VariableValueInput"],"enable_log_to_figment":["FilePermissionsModal","FolderPermissionsModal","TeamPermissionsModal","ObjectsPanel","OrgAdminSettingsPageView--","OrgAdminSettingsPageView-activity-","OrgAdminSettingsPageView-ai-credits-","OrgAdminSettingsPageView-billing-billing-groups","OrgAdminSettingsPageView-billing-invoices","OrgAdminSettingsPageView-billing-overview","OrgAdminSettingsPageView-content-","OrgAdminSettingsPageView-content-abandoned-drafts","OrgAdminSettingsPageView-content-connected-projects","OrgAdminSettingsPageView-content-teams","OrgAdminSettingsPageView-content-workspaces","OrgAdminSettingsPageView-members-all-members","OrgAdminSettingsPageView-members-","OrgAdminSettingsPageView-members-user-groups","OrgAdminSettingsPageView-resources-","OrgAdminSettingsPageView-resources-fonts","OrgAdminSettingsPageView-resources-libraries","OrgAdminSettingsPageView-resources-plugins","OrgAdminSettingsPageView-resources-widgets","OrgAdminSettingsPageView-settings-"]},"peter_test":{},"dt_mcp_rate_limit":{"maxTokens":4,"refillInterval":1000},"tou_current_plan_user_migrator_config":{"group_1":"cutover","group_2":"cutover","group_3":"cutover","group_4":"cutover","group_5":"cutover","group_6":"cutover","group_7":"cutover","group_8":"cutover","group_9":"cutover","group_10":"cutover","group_11":"cutover","group_12":"cutover","group_default":"cutover"},"sts_max_single_video_bytes":{"max_single_video_size_bytes":10485760,"limit_for_error_message":"10MB"},"tou_lg_migrator_config":{"group_1":"shadowread","group_2":"shadowread","group_3":"shadowread","group_4":"shadowread","group_5":"shadowread","group_6":"shadowread","group_7":"passthrough","group_8":"passthrough","group_9":"passthrough","group_10":"passthrough","group_11":"passthrough","group_12":"passthrough","group_default":"passthrough"},"migrate_team_data_to_livegraph":{"GROUP_1":"cutover","GROUP_2":"passthrough","GROUP_3":"passthrough"},"tou_current_user_plan_migrator_config":{"group_1":"cutover","group_2":"cutover","group_3":"cutover","group_4":"cutover","group_5":"cutover","group_6":"cutover","group_7":"cutover","group_8":"cutover","group_9":"cutover","group_10":"cutover","group_11":"cutover","group_12":"cutover","group_default":"cutover"},"webgpu_platform_device_config":{"graphics_card_blocklist":["Intel(R) Arc(TM)","Intel(R) Graphics (ADL-N)","Intel(R) Graphics (ADL GT2)","Intel(R) Xe Graphics (TGL GT2)"],"vendor_architecture_blocklist":[{"vendor":"amd","architecture":"rdna-3"},{"vendor":"qualcomm","architecture":"adreno-6xx"},{"vendor":"arm","architecture":"bifrost"},{"vendor":"microsoft","architecture":"warp"},{"vendor":"intel","architecture":"xe-lpg"},{"vendor":"nvidia","architecture":"kepler"},{"vendor":"nvidia","architecture":""},{"vendor":"amd","architecture":""},{"vendor":"qualcomm","architecture":""},{"vendor":"arm","architecture":"valhall"},{"vendor":"","architecture":""}],"minimum_chromium_version":126,"block_missing_graphics_card_name":true},"livegraph_query_node_debugging":{"fields":[]},"dse_slots_alpha_library_keys":{},"plugins_inactive_config":{"allowedPluginIds":["MTEwMTk0NDY0ODQ4MjE5MjcyNA=="],"blockedPluginIds":[]},"tos_modal_nux_delay":{"delay_ms":2000},"img_model_picker":{"make_image_config":[{"label":"Gemini 2.5 (with Nano Banana)","value":"nano-banana","supportsReferenceImages":true},{"label":"GPT Image 1.5","value":"openai-gpt-image-1.5","supportsReferenceImages":true},{"label":"Gemini 3.1 (with Nano Banana 2)","value":"gemini-3.1-flash-image","supportsReferenceImages":true},{"label":"Gemini 3 Pro (with Nano Banana)","value":"gemini-3-pro-image","supportsReferenceImages":true},{"label":"GPT Image 1 Mini","value":"gpt-image-1-mini","supportsReferenceImages":true},{"label":"Google Imagen 4","value":"imagen-4","supportsReferenceImages":false}],"edit_image_config":[{"label":"Gemini 2.5 (with Nano Banana)","value":"nano-banana","supportsReferenceImages":true},{"label":"GPT Image 1.5","value":"openai-gpt-image-1.5","supportsReferenceImages":true},{"label":"Gemini 3.1 (with Nano Banana 2)","value":"gemini-3.1-flash-image","supportsReferenceImages":true},{"label":"Gemini 3 Pro (with Nano Banana)","value":"gemini-3-pro-image","supportsReferenceImages":true},{"label":"GPT Image 1 Mini","value":"gpt-image-1-mini","supportsReferenceImages":true}]},"ai_org_use_llama":{"1461860615095461460":"enabled_for_gated_users","1482185498651851470":"enabled_for_all_users"},"img_models_in_alpha":{},"datadog_rum_native_ff_forwarding":{"tracked_flags":["Comments In Make","aip_flower_garden_design_logging","bake_byods_extraction_showcase_foundry","ce_simplified_variable_search_ui","comments_panning_bug","crash_on_oob_owned","critical_interaction_layers_panel_expand","datadog_rum_ff_tracking","dependency_event_bus_materializer_flush","desktop_fb_autorefresh_daily","dont_render_ui","dpl_journaled_reconnect","ds_disable_var_mirror","ds_flush_updaters_symbols","ds_override_key_cache_remap_shadow_read","ds_variable_resolution_inherited_variables_logs","dsm_object_menu_redesign","dst_fix_absolute_positioning","dst_handle_derived_node_constraint_writes","dt_focus_view_url_param","dt_mcp_write_file_allowlist","enable_selection_properties_query","ext_init_wdf","ext_sentinel","fb_team_page_pagination_folder_items","fig_diff_remove_canvas_fields_read","fig_diff_remove_canvas_fields_write","figjam_tables_cell_merge_consistency_checks","file_load_streaming_buffer_size","fix_multi_edit_unduplicate_reparent","fullscreen_avoid_caching_wasm_in_memory","fullscreen_blend_is_no_op","group_lookahead_occlusion_culling","incremental_loading_validation","layers_panel_v2_derived_prop","local_layer_update_optimization","make_design_attachments_v2","make_do_chat_compression_after_response_cortex","make_generate_use_resolver","make_video_attachments","operation_tracker_instrumentation","paginate_trashed_folders","prototype_transition_vitals","render_tree_paint_variant","selective_dirtying_npc","slides_mark_file_view","slides_pptx_embed_fonts","soft_oom_run_memory_optimizations","ss_checkpoint_direct_download_test","statsig_new_sdk_dark_read","streaming_kiwi_decoding","test_julian_safe_guard","track layers panel scrolling frame rate","track_initial_options_usage","track_object_usage","ui3p_speed_up_variables_hooks","uxp_design_navbar_release_gate","uxp_optimize_design_selection_actions_buttons","uxp_selected_view_atom_notify_immediate","variables_perf_truncation","viewer_current_page","viewer_editor_renderer_unification","voice_to_text","webgpu_texture_bindgroup_per_sampler_cache","zipjs_disable_workers"]},"sts_max_total_video_bytes":{"max_total_video_size_bytes":1073741824,"limit_for_error_message":"1GB"},"ai_metering_credits_per_feature":{"remove-background":{"default":1},"magic-link":{"default":20},"first-draft":{"default":20},"first-draft-make-changes":{"default":20},"upscale-image":{"default":6},"expand-image":{"default":8},"remove-object":{"default":5},"separate-layers":{"default":6},"vectorize-image":{"default":2},"generate-image":{"amazon.titan-image-generator-v2:0":2,"imagen-3.0-generate-001":8,"imagen-4.0-generate-001":8,"gemini-2.0-flash-preview-image-generation":8,"gemini-2.5-flash-image-preview":8,"gemini-2.5-flash-image":8,"gpt-image-1":10,"gpt-image-0721-mini-alpha":5,"gpt-image-1-mini":5,"gpt-image-1.5":8,"gemini-3-pro-image-preview":25,"gemini-3.1-flash-image-preview":16,"robin-1":16,"hawk-1":0},"edit-image":{"gemini-2.0-flash-preview-image-generation":8,"gemini-2.5-flash-image-preview":8,"gemini-2.5-flash-image":8,"gpt-image-1":10,"gpt-image-1.5":8,"gpt-image-0721-mini-alpha":5,"gpt-image-1-mini":5,"gemini-3-pro-image-preview":25,"gemini-3.1-flash-image-preview":16,"robin-1":16,"hawk-1":0}},"figjam_recenter_button_config":{"shortDelay":4000,"longDelay":8000,"recenterDistance":0,"fitPadding":0.8,"navDuration":800},"dt_ccv2_base_path":{},"dt_mcp_eligible_for_new_ui_date":{"date":"2025-07-22"},"ai_metering_quotas_with_seat_type":{"enterprise":{"collaborator":{"ai_credits":500},"developer":{"ai_credits":500},"expert":{"ai_credits":4250},"view":{"ai_credits":500}},"org":{"collaborator":{"ai_credits":500},"developer":{"ai_credits":500},"expert":{"ai_credits":3500},"view":{"ai_credits":500}},"pro":{"collaborator":{"ai_credits":500},"developer":{"ai_credits":500},"expert":{"ai_credits":3000},"view":{"ai_credits":500}},"starter":{"collaborator":{"ai_credits":500},"developer":{"ai_credits":500},"expert":{"ai_credits":500},"view":{"ai_credits":500}},"student":{"collaborator":{"ai_credits":3000},"developer":{"ai_credits":3000},"expert":{"ai_credits":3000},"view":{"ai_credits":3000}}},"user_action_timing_logged_feature_flags":{"featureFlagsToEvaluate":["dependency_event_bus_variable_versioning","ds_flush_updaters_thumbnails","ds_flush_updaters_variables","ds_flush_updaters_plugins","ds_flush_updaters_first_draft","ds_flush_updaters_rendering","ds_flush_updaters_exporter","ds_flush_updaters_misc","ds_flush_updaters_symbols","ds_flush_updaters_branching_and_merging","ds_flush_updaters_viewport","ds_flush_updaters_figjam","ds_flush_updaters_nodetsapi","ds_flush_updaters_copy_paste","ds_flush_updaters_symbols","ds_flush_updaters_prototyping","ds_flush_updaters_multiplayer","ds_flush_updaters_layout","ds_flush_updaters_renderserver","ds_flush_updaters_undo_redo","ds_flush_updaters_slides","ds_flush_updaters_text_vector","ds_extended_collections","ds_extended_collections_plankey"]},"fmr_redux_deprecation":{"WORKFLOW_GROUP_0":"cutover","WAYFINDING_GROUP_0":"passthrough","WAYFINDING_GROUP_1":"cutover","WAYFINDING_GROUP_2":"cutover","WAYFINDING_GROUP_3":"cutover"},"days_allowed_to_see_nux":{"days":30},"redux_deprecation":{"GROUP_0":"cutover","GROUP_1":"cutover","GROUP_2":"cutover","GROUP_3":"cutover","GROUP_4":"cutover","GROUP_5":"cutover","GROUP_6":"cutover","GROUP_7":"cutover","GROUP_8":"cutover","GROUP_9":"cutover","GROUP_10":"cutover"},"livegraph_eventual_consistency_checker":{"enabled":false},"livegraph_client_config":{"sync_timeout_ms":31556952000,"retry_errored_view_subscriptions":true,"subscription_retry_backoff_config":{"maxAttempt":10,"backoffInitialMs":5000,"backoffMaxMs":300000,"backoffMultiplier":2},"session_reporting_config":{"reporting_interval_ms":30000,"reporting_threshold":20,"stuck_loading_threshold_ms":30000},"subscription_retry_backoff_config_by_priority":{"p0":{"backoffInitialMs":1000,"backoffMaxMs":300000,"backoffMultiplier":2},"p1":{"backoffInitialMs":5000,"backoffMaxMs":300000,"backoffMultiplier":2},"p2":{"backoffInitialMs":5000,"backoffMaxMs":300000,"backoffMultiplier":2},"p3":{"backoffInitialMs":5000,"backoffMaxMs":300000,"backoffMultiplier":2},"default":{"backoffInitialMs":5000,"backoffMaxMs":300000,"backoffMultiplier":2}}},"april_fun_day_2026_day_metadata":{"day":6,"about_url":"https://www.youtube.com/watch?v=4YOp1x0jDrQ"},"dependency_event_bus_sampling_metrics":{"sampling_rate":0}},"statsig_bootstrap_values":null,"livegraph_preload_views":{},"analyze_data_flow_v2_until":"2025-03-11T17:00:00.000Z","statsig_project_id":"5ETXMP5xDW3P7AMyQ14tey","dev_mode_demo_file_key":"bv2nMIdFf4u3dESGail4sm","datadog_rum_application_id":"91eb025c-e89b-4645-bda6-ca0e442e0b64","datadog_rum_client_token":"pub3f6fa9c94d5ff85890f30fdc10b09c61","datadog_rum_site":"datadoghq.com","admin_cognito_logout_url":"https://figma-production-admin.auth.us-west-2.amazoncognito.com/logout?client_id=2lsagdo9asi3ehjvtslcrsqp24\u0026logout_uri=https://admin.figma.com/admin/logout","slides_default_blank_template":"lk-f3ce1561c60f28cc064ae3455d9e9d67d9bbe202c2c59971e3df951fed3e58420f027d5679c44cf2e7f72272737b45b0d60f9ea459ce7fbf5c328fecbd0f1313","stripe_payment_method_configurations":{"org":"pmc_1RwPalIvcqWR3dFDnPwWUmNB","pro":"pmc_1RwPaFIvcqWR3dFD8u52VGOB"},"user_debug_session_active":false},"EARLY_ARGS":{"api_user_state_path":null,"api_session_state_path":null,"feature_flags":{"livegraph_skip_early_conn_preload":false,"incremental_loading_validation":false,"incremental_loading_validation_branching":false,"manifest_commit_sha":false,"livegraph_connect_next":false,"track_initial_options_usage":false}}}</script>
+<script nonce="V2X5VhHy/VXFOs0U13VmEA==">
+Object.assign(window, JSON.parse(document.querySelector('[data-initial]').textContent));
+
+console.log('Running frontend commit', "736e42afce44f9fae25012411ff072d3daa792a8");
+
+</script>
+
+<script nonce="V2X5VhHy/VXFOs0U13VmEA==">performance?.mark('figma:bootstrap:earlyJsLoadStart')</script>
+  <script nonce="V2X5VhHy/VXFOs0U13VmEA==" data-early-bundle="early">
+    
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ce8a8e34-707c-5e09-a5c1-f537f9a4abff")}catch(e){}}();
+(()=>{"use strict";let e,t,n,o;var r={},i={};function s(e){var t=i[e];if(void 0!==t)return t.exports;var n=i[e]={exports:{}};return r[e](n,n.exports,s),n.exports}s.rv=()=>"1.7.5",s.ruid="bundler=rspack@1.7.5";class a extends WebSocket{constructor(e,t,n){super(e,t),this.onCloseCb=n,this.events=[],this._onopen_=null,this._onmessage_=null,this._onclose_=null,this._onerror_=null,super.onopen=this.onOpen,super.onmessage=this.onMessage,super.onclose=this.onClose,super.onerror=this.onError}onOpen(e){this.events.push({event:"onopen",ev:e}),this.flushIfInitialized()}onMessage(e){this.events.push({event:"onmessage",ev:e}),this.flushIfInitialized()}onClose(e){this.onCloseCb?.(),this.events.push({event:"onclose",ev:e}),this.flushIfInitialized()}onError(e){this.events.push({event:"onerror",ev:e}),this.flushIfInitialized()}flushIfInitialized(){if(this._onmessage_&&this._onopen_&&this._onclose_&&this._onerror_)for(;this.events.length>0;){let{event:e,ev:t}=this.events.shift();switch(e){case"onopen":this._onopen_(t);break;case"onmessage":this._onmessage_(t);break;case"onclose":this._onclose_(t);break;case"onerror":this._onerror_(t)}}}set onopen(e){this._onopen_=e,this.flushIfInitialized()}get onopen(){return this._onopen_}set onmessage(e){this._onmessage_=e,this.flushIfInitialized()}get onmessage(){return this._onmessage_}set onclose(e){this._onclose_=e,this.flushIfInitialized()}get onclose(){return this._onclose_}set onerror(e){this._onerror_=e,this.flushIfInitialized()}get onerror(){return this._onerror_}}class l{constructor(){this.queue=[],this.storeErrors=!0}static getInstance(){return l.instance||(l.instance=new l),l.instance}registerError(e){this.queue.push(e)}onerror(e,t,n,o,r){return this.storeErrors&&this.queue.push({message:e,source:t,lineno:n,colno:o,error:r}),!1}drainErrors(){for(let e of(this.storeErrors=!1,this.queue))window.onerror?.(e.message,e.source,e.lineno,e.colno,e.error);this.queue.length=0}init(){return{onerror:this.onerror.bind(this),drainErrors:this.drainErrors.bind(this),registerError:this.registerError.bind(this)}}}let c=l.getInstance(),d=!1,w=!1;window.MONITORING=window.MONITORING||{};let p=window.MONITORING;function u(e,t,n){try{let o=`${n}:connectStart`;performance.mark(o,{startTime:t}),e.addEventListener("open",()=>{let e=`${n}:open`;performance.mark(e),performance.measure(`${n}:connect`,o,e)},{once:!0}),e.addEventListener("message",()=>{let e=`${n}:firstByte`;performance.mark(e),performance.measure(`${n}:firstByte`,o,e)},{once:!0})}catch(e){console.error("Error instrumenting WebSocket timing",e)}}let f=window.matchMedia("(prefers-color-scheme: dark)");function h(e){return"system"===e?f.matches?"dark":"light":"dark"===e?"dark":"light"}function m(e){return"dark"===e?"1E1E1E":"F5F5F5"}let _="global-debug-theme-preference";function I(e){if(e){let t=e?.getItem(_);return t||"system"}return null}function g(e){return Array.from(e).map(e=>String.fromCharCode(e.charCodeAt(0)-1)).join("")}let S=Object.freeze("gjhnb"),O=Object.freeze("dispnf.fyufotjpo;00"),y=Object.freeze("np{.fyufotjpo;00"),N=Error,T=String.prototype.includes,k=Object.getOwnPropertyDescriptor(N.prototype,"stack")?.get;performance?.mark("figma:bootstrap:earlyJsExecutionStart"),self.global=self;let{onerror:E,drainErrors:L,registerError:v}=c.init();window.onerror=E,window.drainErrors=L;try{p.earlyVisibilityChangeHandler=()=>{let e=window.performance.now();d||(d=!0,p.firstVisibilityChange={visibilityState:document.visibilityState,time:e}),p.mostRecentVisibilityChange={visibilityState:document.visibilityState,time:e}},window.addEventListener("visibilitychange",p.earlyVisibilityChangeHandler)}catch(e){console.error("Error initializing page visibility listener",e)}try{p.earlyNetworkStatusChangeHandler=()=>{let e=window.performance.now();w||(w=!0,p.firstNetworkStatusChange={networkStatus:window.navigator.onLine?"online":"offline",time:e}),p.mostRecentNetworkStatus={networkStatus:window.navigator.onLine?"online":"offline",time:e}},window.addEventListener("online",p.earlyNetworkStatusChangeHandler),window.addEventListener("offline",p.earlyNetworkStatusChangeHandler)}catch(e){console.error("Error initializing network status listener",e)}"true"===new URLSearchParams(window.location.search).get("api_paywall")&&sessionStorage.setItem("figma_initial_api_paywall","true"),(()=>{var r,i;let s,l,c,d,w,{file_minimal_user_state:p,mock_user_state_for_tests_json:E,multiplayer_preconnect_options:L,omit_core_data:A,omit_user_state:b,preload_fullscreen_urls:P,should_connect_to_multiplayer:R,api_user_state_path:C,api_session_state_path:D,skip_lg_preload:$,checkpoint_url:H,checkpoint_sequence_number:U}=window.EARLY_ARGS||{};if(window.INITIAL_OPTIONS||(window.INITIAL_OPTIONS={}),window.EARLY_ARGS?.feature_flags?.track_initial_options_usage&&function(){let e=window.INITIAL_OPTIONS;if(!e)return;window.INITIAL_OPTIONS_ACCESSED_FIELDS||(window.INITIAL_OPTIONS_ACCESSED_FIELDS=new Map);let t=new Proxy(e,{get(t,n){let o=t[n];if("symbol"==typeof n||!e.hasOwnProperty(n)||Array.isArray(e)&&"length"===n||!window.INITIAL_OPTIONS_ACCESSED_FIELDS)return o;let r=Error().stack;if(r){let e=window.INITIAL_OPTIONS_ACCESSED_FIELDS.get(n);e||(e=new Set,window.INITIAL_OPTIONS_ACCESSED_FIELDS.set(n,e)),e.add(r)}return o},set:(e,t,n)=>(e[t]=n,!0)});window.INITIAL_OPTIONS=t}(),H&&null!=U){performance?.mark("figma:checkpoint-fetch:fetch-start");let e=fetch(H).then(e=>e.ok?(performance?.mark("figma:checkpoint-fetch:fetch-end"),e.arrayBuffer()):(console.warn(`Unable to fetch checkpoint: status ${e.status}`,e),v({message:"[checkpoint-reconnect] Checkpoint fetch response not ok"}),performance?.mark("figma:checkpoint-fetch:fetch-failed"),null)).catch(e=>(v({message:"[checkpoint-reconnect] Checkpoint fetch failed",error:e}),performance?.mark("figma:checkpoint-fetch:fetch-failed"),null)),t=crypto.randomUUID();window.CHECKPOINT_DATA={url:H,sequenceNumber:U,reconnectKey:t,fetchPromise:e},L&&(L.checkpointReconnect={reconnectKey:t,sequenceNumber:U})}((e,t,n,o,r,i,s)=>{if(e){window.userStateXHR={readyState:4,status:200,responseText:e};return}if(!window.Fig)return;if(o||!window.INITIAL_OPTIONS.user_data){window.startUserStateXHR=()=>{};return}let a=i||"/api/session/state";window.startUserStateXHR=function(e){let t=r;if(!t){t="/api/user/state";var o=[];window.INITIAL_OPTIONS.org_id&&o.push("org_id="+window.INITIAL_OPTIONS.org_id),window.INITIAL_OPTIONS.team_id&&o.push("team_id="+window.INITIAL_OPTIONS.team_id),n&&o.push("omit_core_data=1"),e&&o.push("file_key="+e),0!==o.length&&(t+="?"+o.join("&"))}window.userStateXHR=new XMLHttpRequest,window.userStateXHR.open("GET",t);let i=window.INITIAL_OPTIONS.user_data?.id;i&&window.userStateXHR.setRequestHeader("X-Figma-User-ID",i),window.userStateXHR.send();var s=window.performance?window.performance.now():-1;window.userStateXHR.addEventListener("load",function(){window.userStateXHRDuration=window.performance?window.performance.now()-s:-1},!1),window.sessionStateXHR=new XMLHttpRequest,window.sessionStateXHR.open("GET",a),i&&window.sessionStateXHR.setRequestHeader("X-Figma-User-ID",i),window.sessionStateXHR.send()};let l="/preload-android-proto"===location.pathname||"/file/new"===location.pathname||"/design/new"===location.pathname||"/slides/new"===location.pathname||"/board/new"===location.pathname||"/site/new"===location.pathname||"/buzz/new"===location.pathname||"/rev/new"===location.pathname||"/make/new"===location.pathname,c=window.INITIAL_OPTIONS.editing_file&&window.INITIAL_OPTIONS.editing_file.key;t?window.startUserStateXHR(c):l||window.startUserStateXHR()})(E,!!p,!!A,!!b,C,D);let F=/iPhone|iPad|iPod/.test(navigator.userAgent),G=!!window.EARLY_ARGS?.feature_flags?.livegraph_skip_early_conn_preload;if(!F&&!$&&!G){let e,t,n,o,r,i=(e=window.INITIAL_OPTIONS?.figma_url,t=!!window.EARLY_ARGS?.feature_flags?.livegraph_connect_next,n={clientUrl:window.document.URL},o=window.__figmaDesktop||window.__figmaDesktopGetPopoutAPI?.(),r=window.bellFeedAPI,o?(n.desktop=JSON.stringify(o.appVersion),o.version>=126&&(n.desktopOS=JSON.stringify(o.osVersion))):r&&(n.bell="1",r.version>=8&&(n.desktop=JSON.stringify(r.desktopAppVersion),n.desktopOS=JSON.stringify(r.osVersion))),{url:function(e){let t,n;if(e)try{let o=new URL(e);n=o.protocol,t=o.host}catch(e){}return(void 0===t||void 0===n)&&("admin.staging.figma.com"===(t=window.location.host)||"embed.staging.figma.com"===t?t="staging.figma.com":("admin.figma.com"===t||"embed.figma.com"===t)&&(t="www.figma.com"),n=window.location.protocol),`${"https:"===n?"wss":"ws"}://${t}`}(e),userId:window.INITIAL_OPTIONS?.user_data?.id||null,anonUserId:window.INITIAL_OPTIONS?.anonymous_user_id||null,pageLoadToken:window.INITIAL_OPTIONS?.page_load_token||"",preloadedViews:window.INITIAL_OPTIONS?.livegraph_preload_views||{},commitHash:window.INITIAL_OPTIONS?.release_manifest_git_commit||"missing",clientType:o||r?"desktop":"web",useNext:t,extras:n}),s=new URLSearchParams(i.pageLoadToken);for(let[e,t]of(s.append("userId",i.userId||""),s.append("anonUserId",i.anonUserId||""),s.append("clientType",i.clientType),s.append("commitHash",i.commitHash),s.append("preload",JSON.stringify(i.preloadedViews)),Object.entries(i.extras)))s.append(e,t);s.append("connectionType","initial"),s.append("reconnect","0");let l=i.useNext?"/api/livegraph-next":"/api/livegraph",c=`${i.url}${l}?${s.toString()}`;if(!i.extras.bell)try{let e=performance.now();window.LGEarlyWS=new a(c,void 0,()=>{window.LGEarlyWS=void 0}),u(window.LGEarlyWS,e,"figma:ws:livegraph")}catch(e){console.warn("Early.js Bootstrap Error: LG websocket creation failed",e),console.error(e),v({message:"Early.js Bootstrap Error: LG websocket creation failed",error:e})}}if(r=!1!==R,s=window.INITIAL_OPTIONS.user_data?.id,l=window.INITIAL_OPTIONS.tracking_session_id,c=window.INITIAL_OPTIONS.release_manifest_git_commit,d=null,null!=window.__figmaDesktop?d=window.__figmaDesktop.clientID??null:null!=window.__figmaDesktopGetPopoutAPI&&(d=window.__figmaDesktopGetPopoutAPI().clientID??null),w=L?.checkpointReconnect?.reconnectKey??null,window.mpGlobal={version:function(){if(!window.EARLY_ARGS?.feature_flags?.manifest_commit_sha)return 151;let e=window.location.search;if(e.includes("force-client-version")){let t=new URLSearchParams(e).get("force-client-version");if(t){let e=parseInt(t);if(!isNaN(e)&&e>0)return console.log(`!! Overriding client version to ${e}`),e}}return 151}(),sock:null,msgs:[],perfMetrics:[],shouldConnectToMultiplayer:r,url({fileKey:e,role:t,oauthToken:n,nodeIds:o,suppressDecodeErrors:i,tagForLogging:a,forceViewOnly:p,canvasQuerySkipContainers:u,checkpointReconnect:f}){if(!r)return"";let h=null;L&&e===L.fileKey&&L.targetFileVersion&&(h=L.targetFileVersion);let m=null!==w&&f?.reconnectKey===w,_=m?"":("editor"===t||"viewerWithCpp"===t)&&o?`&scenegraph-queries-initial-nodes=${o}`:"",I=new URLSearchParams(window.location.search),g="true"===I.get("recovery"),S="true"===I.get("merge-on-file-open"),O=I.get("force-dpl-journaled-reconnect");"editor"!==t||L?.forceIncrementalForEditors!==1||g||S?(L?.forceIncrementalForEditors===0||g)&&(_+="&use-incremental-for-editors=0"):_+="&use-incremental-for-editors=1","editor"===t&&(window.EARLY_ARGS?.feature_flags?.incremental_loading_validation||S&&window.EARLY_ARGS?.feature_flags?.incremental_loading_validation_branching)&&(_+="&incremental-loading-validation=1");let y=1;try{let e=JSON.parse(sessionStorage.getItem("reload_times")||"[0]"),t=e[e.length-1];y=+(Date.now()-t<5e3)}catch(e){}let N=u;("prototype"===t||"viewer"===t)&&(N=!0);let T=window.INITIAL_OPTIONS.e2e_traffic,k=window.INITIAL_OPTIONS.e2e_test_name;return`${location.protocol.replace("http","ws")}//${location.host}/api/multiplayer/${e}?role=${t}&tracking_session_id=${l}&version=${this.version}&recentReload=${y}&file-load-streaming-compression`+_+(n?"&oauth_token="+n:"")+(s?`&user-id=${s}`:"")+(h?`&target-file-version=${h}`:"")+(c?`&client_release=${c}`:"")+(i?"&suppress-decode-errors":"")+(a?`&tag-for-logging=${a}`:"")+(T?"&e2e_traffic=true":"")+(k?`&e2e_test_name=${k}`:"")+(p?"&force-view-only":"")+(d?`&clientID=${d}`:"")+(N?"&canvas-query-skip-containers":"")+(null!==O?`&force-dpl-journaled-reconnect=${O}`:"")+(m?"&previousLoadMode=full":"")+(f?.reconnectKey?`&reconnect-key=${f.reconnectKey}`:"")+(f?.sequenceNumber!=null?`&reconnect-sequence-number=${f.sequenceNumber}`:"")},DEBUG_THEME_PREFERENCE_KEY:_,DARK_THEME_MEDIA_QUERY:f,themePreferenceFromLocalStorage:I,getBackgroundColorForTheme:m,getVisibleTheme:h,preconnect(e){if(!1===r)return;if(this.sock){if(e===this.sock.url&&this.sock.readyState!==WebSocket.CLOSED)return;try{this.sock.close()}catch(e){}}let t=performance.now();this.sock=new WebSocket(e),this.sock.binaryType="arraybuffer",u(this.sock,t,"figma:ws:multiplayer"),this.sock.onopen=e=>{this.perfMetrics.push({key:"mp-ws-onopen",ts:performance.now(),nBytes:void 0})},this.sock.onmessage=e=>{let t=new Uint8Array(e.data);this.msgs.push(t),this.perfMetrics.push({key:"mp-ws-onmessage",ts:performance.now(),nBytes:t.length*t.BYTES_PER_ELEMENT})},this.msgs=[],this.perfMetrics=[]},isCheckpointReconnectUrl:e=>null!==w&&new URL(e).searchParams.get("reconnect-key")===w},L&&(L.forceViewOnly=!1,(window.INITIAL_OPTIONS?.cluster_name==="staging"||window.INITIAL_OPTIONS?.cluster_name==="local")&&(function(){let e=null;try{e=window.localStorage}catch(e){}return e})()?.getItem("force-vscode")==="true"?L.forceViewOnly=!0:L.forceViewOnly=window?.location.ancestorOrigins&&[...window.location.ancestorOrigins].some(e=>e.startsWith("vscode-webview://")),mpGlobal.preconnect(mpGlobal.url(L))),!P&&!/FigmaMobile-Android/.test(navigator.userAgent)&&(L?.role==="editor"||L?.role==="viewerWithCpp"||L?.role==="prototype")){let e,t=L?.role==="prototype"?Fig.prototypeLibURLs:Fig.fullscreenURLs,n=fetch(t["compiled_wasm.wasm"]);n.catch(e=>console.error(`Fetching compiled_wasm.wasm failed: ${e}`));let o=(i=t["compiled_wasm.js"],(e=new Promise((e,t)=>{let n,o=((n=document.createElement("script")).type="text/javascript",n.async=!0,n.setAttribute("nonce",window.INITIAL_OPTIONS.csp_nonce),n.crossOrigin="anonymous",n);o.onload=e,o.src=i,document.head.appendChild(o)})).catch(e=>console.error(`Fetching ${i} failed: ${e}`)),e);window.FULLSCREEN_PRELOADS={wasm:n,js:o}}!function(){try{if(window.INITIAL_OPTIONS.e2e_traffic||window.location.pathname.startsWith("/test/interactions"))return;let r=window.INITIAL_OPTIONS.editing_file?.can_edit===!1;Object.defineProperty(window,e||(e=g(S)),{get:()=>{let e,i;if((e=new N,!((i=k?k.call(e):e.stack)&&(null==t&&(t=g(O)),null==n&&(n=g(y)),T.call(i,t)||T.call(i,n))))&&!r){if(null!=o){let e=window.__windowDotFigmaOnAccess;"function"==typeof e&&e()}return o}},set:e=>{r||(o=null!=e?e:void 0)},configurable:!1,enumerable:!1})}catch(e){}}(),performance?.mark("figma:bootstrap:earlyJsExecutionEnd")})()})();
+
+//# debugId=ce8a8e34-707c-5e09-a5c1-f537f9a4abff
+
+//# sourceMappingURL=https://admin.figma.com/admin/webpack-artifacts/639ff953c6b09a96fc52edd28f4f8aa459e67aaa/early-f16978cae99634c9.min.js.map
+  </script>
+
+
+
+    <script nonce="V2X5VhHy/VXFOs0U13VmEA==">performance?.mark('loadTimings:initialOptionsEnd')</script>
+
+    <meta name="google" content="notranslate" />
+    <meta name="slack-app-id" content="A01N2QYSA81">
+
+    <title>Login | Figma</title>
+
+    <style nonce="V2X5VhHy&#47;VXFOs0U13VmEA==" type="text/css">
+
+  /*
+    This should be kept in sync with:
+    - GRID_TILE_MIN_WIDTH in web/js/browse/shared/views/items_view/grid_view/grid_view.tsx
+    - $gridTileMinWidth in _measurements.css
+  */
+  :root {
+    --file-grid-tile-min-width: 272px;
+  }
+
+  #filebrowser-loading-page {
+    opacity: 1;
+    -webkit-transition: opacity .2s ease-in-out;
+  }
+
+  .filebrowser-loading-page-layout {
+    display: flex;
+    flex-wrap: wrap;
+
+    /* Make sure the loading page is flush with the edges of the page so
+       our layout isnt affected by browser default margins/paddings */
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg, var(--fallback-color-bg, white));
+  }
+
+  #loading-content-pane {
+    opacity: 1;
+    -webkit-transition: opacity .4s ease-in-out;
+  }
+
+  #filebrowser-loading-page.fadeOut {
+    opacity: 0;
+  }
+
+  #filebrowser-loading-page.hidden {
+    display: none;
+    opacity: 0;
+  }
+
+  .filebrowser-loading-page .file-grid.create-file-grid {
+    margin: 24px 0px;
+    grid-gap: 32px;
+    background-color: var(--color-bg, white);
+  }
+
+  /* HAX: see loading-page-container in loading_spinner.tsx */
+  #loading-page-container .create-file-grid {
+    display: none;
+    background-color: var(--color-bg, white);
+  }
+  #loading-page-container .sort-dropdown {
+    margin-top: 0px;
+  }
+
+ /*
+  * HAX: The sidebar is cloned and used independently outside of this
+  * page so any styles like `.filebrowser-loading-page .thing` applied
+  * to sidebar sub-elements also need a selector like
+  * `.filebrowser-loading-sidebar .thing` so that they work outside of
+  * this page too.
+  */
+  .filebrowser-loading-page .row,
+  .filebrowser-loading-sidebar .row {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    border-radius: 3px;
+    height: 16px;
+  }
+
+  .filebrowser-loading-page .circle,
+  .filebrowser-loading-sidebar .circle {
+    border-radius: 3px;
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    width: 16px;
+    height: 16px;
+  }
+
+  .filebrowser-loading-page .row .circle,
+  .filebrowser-loading-sidebar .row .circle {
+    position: relative;
+    top: -1px;
+    left: -35px;
+  }
+
+  .filebrowser-loading-sidebar {
+    flex: 0 0 240px;
+    width: 240px;
+    background-color: var(--color-bg, white);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filebrowser-loading-page .navbar {
+    height: 48px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: var(--color-bg-toolbar, #2C2C2C);
+    z-index: 1;
+  }
+
+  .filebrowser-loading-sidebar .row {
+    width: 85px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    margin-left: 48px;
+  }
+
+  .filebrowser-loading-sidebar .row .circle {
+    position: relative;
+    top: -1px;
+    left: -35px;
+  }
+
+  .filebrowser-loading-page .divider,
+  .filebrowser-loading-sidebar .divider {
+    height: 1px;
+    background-color: var(--color-border, rgba(0, 0, 0, 0.1));
+    margin-top: 8px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .filebrowser-loading-sidebar .row:nth-child(7) { width: 40px; }
+  .filebrowser-loading-sidebar .row:nth-child(8) { width: 58px; }
+
+  .filebrowser-loading-sidebar .row:nth-last-child(1) { opacity: 0.4; width: 65px; }
+  .filebrowser-loading-sidebar .row:nth-last-child(2) { opacity: 0.4; width: 65px; }
+  .filebrowser-loading-sidebar .row:nth-last-child(3) { opacity: 0.8; width: 46px; }
+
+  .filebrowser-loading-page .page {
+    flex: 1 1;
+    box-sizing: border-box;
+    border-left: 1px var(--color-border, #e5e5e5) solid;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filebrowser-loading-page .toolbar {
+    border-bottom: 1px var(--color-border, #e5e5e5) solid;
+    height: 48px;
+  }
+
+  .filebrowser-loading-page .toolbar .item {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    border-radius: 3px;
+    width: 85px;
+    height: 16px;
+    margin-left: 32px;
+    margin-top: 16px;
+  }
+
+  .filebrowser-loading-page .columns {
+    flex: 1 1;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 32px;
+  }
+
+  @media (max-width: 849px) {
+    .filebrowser-loading-page .columns {
+      flex-direction: column;
+    }
+
+    .filebrowser-loading-page .right-column {
+      padding-left: 32px;
+    }
+
+    .filebrowser-loading-page .public-header + .columns {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .filebrowser-loading-page .content {
+    flex: 1 1;
+  }
+
+  .filebrowser-loading-page .sort-dropdown {
+    border-radius: 3px;
+    width: 86px;
+    padding: 16px 32px 32px 32px;
+  }
+
+  .filebrowser-loading-page .create-file-tile {
+    background-color: var(--color-bg-secondary, white);
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    height: 72px;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 832px) {
+    .filebrowser-loading-page .create-file-tile {
+      height: 48px;
+    }
+  }
+
+  @media (max-width: 645px) {
+    .filebrowser-loading-page .create-file-tile, .filebrowser-loading-page .sort-dropdown {
+      display: none;
+    }
+  }
+
+  .filebrowser-loading-page .create-file-tile .icon {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    border-radius: 2px;
+    margin-left: 16px;
+    margin-right: 16px;
+    height: 24px;
+    width: 24px;
+  }
+
+  .filebrowser-loading-page .create-file-tile .label {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    width: 132px;
+    height: 16px;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 1440px) {
+   .filebrowser-loading-page .create-file-tile:nth-last-child(1) {
+     display: none;
+   }
+  }
+
+  .filebrowser-loading-page .tile {
+    height: 56px;
+    padding-top: 60%;
+    position: relative;
+  }
+
+  .filebrowser-loading-page .tile .inner {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 6px;
+    background-color: var(--color-bg-secondary, #f0f0f0);
+  }
+
+  .filebrowser-loading-page .tile .inner .lower {
+    height: 56px;
+    background-color: var(--color-bg, white);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 0 0 6px 6px;
+  }
+
+  .filebrowser-loading-page .public-grid {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--file-grid-tile-min-width), 1fr));
+    grid-gap: 32px;
+    padding-left: 32px;
+  }
+
+  @media (max-width: 1023px) {
+    .filebrowser-loading-page .public-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .filebrowser-loading-page .public-grid .tile {
+    height: 56px;
+    padding-top: 60%;
+  }
+
+  .filebrowser-loading-page .public-grid .tile:nth-child(6) { opacity: .8; }
+  .filebrowser-loading-page .public-grid .tile:nth-child(7) { opacity: .4; }
+
+  .filebrowser-loading-page .file-grid {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--file-grid-tile-min-width), 1fr));
+    grid-gap: 32px;
+    padding-left: 32px;
+  }
+
+  .filebrowser-loading-page .file-grid .tile:nth-child(6) { opacity: .8; }
+  .filebrowser-loading-page .file-grid .tile:nth-child(7) { opacity: .4; }
+
+  .filebrowser-loading-page .team-grid {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(264px, 1fr));
+    grid-gap: 32px 32px;
+    padding: 32px 0 0 32px;
+    align-content: start;
+  }
+
+  .filebrowser-loading-page .team-tile {
+    border: 1px solid var(--color-border, rgba(0, 0, 0, .1));
+    border-radius: 6px;
+    position: relative;
+    padding: 16px;
+  }
+
+  .filebrowser-loading-page .team-grid .team-tile:nth-child(6) { opacity: .8; }
+  .filebrowser-loading-page .team-grid .team-tile:nth-child(7) { opacity: .4; }
+
+  .filebrowser-loading-page .team-tile .row {
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  .filebrowser-loading-page .team-tile .row:nth-child(1) {
+    width: 32px;
+    height: 32px;
+  }
+
+  .filebrowser-loading-page .team-tile .row:nth-child(2) {
+    width: 65px;
+    height: 30px;
+    position: absolute;
+    top: 17px;
+    right: 16px;
+    margin-top: 0;
+  }
+
+  .filebrowser-loading-page .team-tile .row:nth-child(3) {
+    width: 120px;
+    margin-top: 20px;
+  }
+  .filebrowser-loading-page .team-tile .row:nth-child(4) {
+    width: 232px;
+    margin-top: 12px;
+  }
+  .filebrowser-loading-page .team-tile .row:nth-child(5) {
+    width: 174px;
+    margin-top: 8px;
+  }
+
+  .filebrowser-loading-page .team-tile .circles {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .filebrowser-loading-page .team-tile .circle {
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    margin-top: 22px;
+  }
+
+  .filebrowser-loading-page .public-header {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    width: 100%;
+    height: 240px;
+    margin-bottom: 80px;
+  }
+
+  .filebrowser-loading-page .profile-header {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    width: 100%;
+    height: 64px;
+  }
+
+  .filebrowser-loading-page .profile-grid {
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 24px 1fr .75fr;
+    align-items: end;
+  }
+
+  .filebrowser-loading-page .profile-grid .row {
+    margin-top: 24px;
+  }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(4n+1) { width: 148px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(4n+3) { width: 56px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(4n+4) { width: 99px; }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(1) { width: 61px; margin-top: 0; }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(5) { width: 61px; margin-top: 32px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(7) { width: 69px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(8) { width: 51px; }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(9) { margin-top: 36px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(11) { width: 69px; }
+  .filebrowser-loading-page .profile-grid div:nth-child(12) { width: 72px; }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(25),
+  .filebrowser-loading-page .profile-grid div:nth-child(27),
+  .filebrowser-loading-page .profile-grid div:nth-child(28) { opacity: .8; }
+
+  .filebrowser-loading-page .profile-grid div:nth-child(29),
+  .filebrowser-loading-page .profile-grid div:nth-child(31),
+  .filebrowser-loading-page .profile-grid div:nth-child(32) { opacity: .4; }
+
+  @media(max-width: 1000px) {
+    .filebrowser-loading-page .profile-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filebrowser-loading-page .profile-grid div:nth-child(5),
+    .filebrowser-loading-page .profile-grid div:nth-child(6),
+    .filebrowser-loading-page .profile-grid div:nth-child(7),
+    .filebrowser-loading-page .profile-grid div:nth-child(8),
+    .filebrowser-loading-page .profile-grid div:nth-child(4n+2),
+    .filebrowser-loading-page .profile-grid div:nth-child(4n+3),
+    .filebrowser-loading-page .profile-grid div:nth-child(4n+4) { display: none; }
+  }
+
+  .filebrowser-loading-page .project-grid {
+    padding-left: 32px;
+    display: grid;
+    grid-row-gap: 22px;
+  }
+
+  .filebrowser-loading-page .project-grid .card {
+    border: 1px solid var(--color-border, rgba(0, 0, 0, .1));
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 178px;
+    display: flex;
+  }
+
+  .filebrowser-loading-page .project-grid .card:nth-child(3) { opacity: .8; }
+  .filebrowser-loading-page .project-grid .card:nth-child(4) { opacity: .4; }
+
+  .filebrowser-loading-page .project-grid .card .left {
+    width: 196px;
+    margin: 16px;
+  }
+
+  .filebrowser-loading-page .project-grid .card .right {
+    flex: 1 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .filebrowser-loading-page .project-grid .card .left .row:nth-child(1) { width: 107px; }
+  .filebrowser-loading-page .project-grid .card .left .row:nth-child(2) { width: 164px; margin-top: 12px; }
+  .filebrowser-loading-page .project-grid .card .left .row:nth-child(3) { width: 145px; margin-top: 8px; }
+  .filebrowser-loading-page .project-grid .card .left .row:nth-child(4) { width: 158px; margin-top: 8px; }
+
+  .filebrowser-loading-page .project-grid .card .right .row {
+    height: 100%;
+    flex: 1 1 196px;
+    margin-right: 16px;
+    border-radius: 6px;
+  }
+
+  .filebrowser-loading-page .right-column {
+    flex: 0 0 304px;
+    margin-right: 16px;
+    margin-top: 16px;
+    box-sizing: border-box;
+    padding-left: 32px;
+  }
+
+  .filebrowser-loading-page .right-column .row:nth-child(1) {
+    margin-top: 16px;
+    width: 120px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(2) {
+    margin-top: 18px;
+    width: 272px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(3) {
+    margin-top: 8px;
+    width: 248px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(4) {
+    margin-top: 8px;
+    width: 272px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(5) {
+    margin-top: 8px;
+    width: 256px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(6) {
+    margin-top: 8px;
+    width: 200px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(7) {
+    margin-top: 35px;
+    width: 88px;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(8) {
+    margin-top: 22px;
+    margin-left: 51px;
+    width: 88px;
+    opacity: .8;
+  }
+  .filebrowser-loading-page .right-column .row:nth-child(9) {
+    margin-top: 18px;
+    margin-left: 51px;
+    width: 88px;
+    opacity: .4;
+  }
+
+  .filebrowser-loading-page .public-left-column {
+    padding: 0 0 32px 32px;
+    width: 320px;
+  }
+
+  .filebrowser-loading-page .public-left-column .row {
+    margin-top: 8px;
+  }
+
+  .filebrowser-loading-page .public-left-column .row:nth-child(1) {
+    width: 120px;
+    margin-top: 0;
+  }
+  .filebrowser-loading-page .public-left-column .row:nth-child(2) {
+    width: 272px;
+    margin-top: 18px;
+  }
+  .filebrowser-loading-page .public-left-column .row:nth-child(3) {
+    width: 248px;
+  }
+  .filebrowser-loading-page .public-left-column .row:nth-child(4) {
+    width: 272px;
+  }
+  .filebrowser-loading-page .public-left-column .row:nth-child(5) {
+    width: 256px;
+    opacity: .8;
+  }
+  .filebrowser-loading-page .public-left-column .row:nth-child(6) {
+    width: 200px;
+    opacity: .4;
+  }
+
+  /*
+  Note: Make sure any changes here are also duplicated in the fullscreen progress bar
+  (.progressBar in progress_bar.css)
+  */
+  #filebrowser-loading-progress-bar {
+    height: 5px;
+    /* Z index 6 chosen here so it renders over any nav elements but below any scroll bar or modals */
+    z-index: 6;
+
+      background: var(--color-bg-brand, #0D99FF);
+
+    position: absolute;
+    left: 0;
+    animation: filebrowserloadingProgressBar 10s cubic-bezier(.08,.8,.1,1) forwards;
+  }
+
+  @keyframes filebrowserloadingProgressBar {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+
+  @media (max-width: 645px) {
+    .filebrowser-loading-sidebar {
+      display: none;
+    }
+
+    .filebrowser-loading-page .page {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .filebrowser-loading-page .public-header {
+      height: 120px;
+    }
+
+    .filebrowser-loading-page .file-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+      align-self: center;
+    }
+  }
+
+</style>
+
+
+    <style nonce="V2X5VhHy&#47;VXFOs0U13VmEA==" type="text/css">
+
+  /*  PAGE LAYOUT STYLES */
+  .fb-page-layout {
+    background-color: var(--color-bg, var(--fallback-color-bg, white));
+  }
+
+  .fb-flex-row {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .fb-sidebar {
+    width: 240px;
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fb-sidebar > :nth-last-child(2) {
+    opacity: 0.6;
+  }
+
+  .fb-sidebar > :nth-last-child(1) {
+    opacity: 0.3;
+  }
+
+  .fb-page {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-left: 1px var(--color-border) solid;
+  }
+
+  .fb-page-content-columns {
+    overflow: hidden;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .fb-page-content {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    margin-right: 32px;
+  }
+
+  .fb-page-right-column {
+    width: 304px;
+    margin-top: 24px;
+    margin-right: 16px;
+    padding-left: 32px;
+  }
+
+  .fb-fading-content {
+    margin-left: 32px;
+  }
+
+  /* This is what applies the fading gradient over the skeletons */
+  .fb-fading-content:after {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    background: linear-gradient(to bottom, transparent 50%, var(--color-bg) 100%);
+    pointer-events: none;
+  }
+
+  /* SIDEBAR STYLES */
+
+  .fb-sidebar-account-and-notifications {
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fb-sidebar-searchbar {
+    padding: 0 8px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  .fb-sidebar-row {
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .fb-sidebar-row :nth-child(2) {
+    margin-left: 12px;
+  }
+
+
+  .fb-divider {
+    height: 1px;
+    background-color: var(--color-border, rgba(0, 0, 0, 0.1));
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+
+
+  @media (max-width: 645px) {
+    .fb-sidebar {
+      display: none;
+    }
+  }
+
+  /* RIGHT COLUMN STYLES */
+
+  .fb-page-right-column-header {
+    margin-bottom: 18px;
+  }
+
+  .fb-page-right-column-rows > :not(:first-child) {
+    margin-top: 8px;
+  }
+
+  .fb-page-right-column-lower {
+    margin-top: 35px;
+  }
+
+  .fb-page-right-column-user-list {
+    margin-top: 22px;
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .fb-page-right-column-user {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .fb-page-right-column-user:nth-child(2) {
+    opacity: 0.6;
+  }
+
+  .fb-page-right-column-user:nth-child(3) {
+    opacity: 0.3;
+  }
+
+  /* Skeleton Item Styles */
+
+  .fb-shrink-0 {
+    flex-shrink: 0;
+  }
+
+  .fb-circle-16 {
+    flex-shrink: 0;
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    height: 16px;
+    width: 16px;
+    border-radius: 9999px;
+  }
+
+  .fb-circle-24 {
+    background-color: var(--color-bg-secondary, #f0f0f0);
+    height: 24px;
+    width: 24px;
+    border-radius: 9999px;
+  }
+
+  .fb-rectangle-16 {
+    background-color: var(--color-bg-secondary);
+    height: 16px;
+    border-radius: 3px;
+  }
+
+  .fb-rectangle-24 {
+    background-color: var(--color-bg-secondary);
+    height: 24px;
+    border-radius: 3px;
+  }
+
+  .fb-rectangle-32 {
+    background-color: var(--color-bg-secondary);
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .fb-rectangle-36 {
+    background-color: var(--color-bg-secondary);
+    height: 36px;
+    border-radius: 3px;
+  }
+
+  /* Skeleton Item Width Options */
+
+  .fb-width-16 {
+    width: 16px;
+  }
+
+  .fb-width-32 {
+    width: 32px;
+  }
+
+  .fb-width-36 {
+    width: 36px;
+  }
+
+  .fb-width-50 {
+    width: 50px;
+  }
+
+  .fb-width-55 {
+    width: 55px;
+  }
+
+  .fb-width-60 {
+    width: 60px;
+  }
+
+  .fb-width-70 {
+    width: 70px;
+  }
+
+  .fb-width-80 {
+    width: 80px;
+  }
+
+  .fb-width-88 {
+    width: 88px;
+  }
+
+  .fb-width-100 {
+    width: 100px;
+  }
+
+  .fb-width-105 {
+    width: 105px;
+  }
+
+  .fb-width-115 {
+    width: 115px;
+  }
+
+  .fb-width-120 {
+    width: 120px;
+  }
+
+  .fb-width-148 {
+    width: 148px;
+  }
+
+  .fb-width-167 {
+    width: 167px;
+  }
+
+  .fb-width-180 {
+    width: 180px;
+  }
+
+  .fb-width-200 {
+    width: 200px;
+  }
+
+  .fb-width-248 {
+    width: 248px;
+  }
+
+  .fb-width-256 {
+    width: 256px;
+  }
+
+  .fb-width-272 {
+    width: 272px;
+  }
+
+  .fb-width-full {
+    width: 100%;
+  }
+
+  /* Header Styles */
+
+  .fb-toolbar-48 {
+    border-bottom: 1px var(--color-border, #e5e5e5) solid;
+    height: 48px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .fb-toolbar-64 {
+    border-bottom: 1px var(--color-border, #e5e5e5) solid;
+    height: 64px;
+    /* We have 10px above the toolbar in the actual page */
+    margin-top: 10px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .fb-toolbar-84 {
+    border-bottom: 1px var(--color-border, #e5e5e5) solid;
+    height: 80px;
+    /* We have 4px above the toolbar in the actual page */
+    margin-top: 4px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .fb-toolbar-84 :nth-child(2) {
+    margin-left: 12px;
+  }
+
+  .fb-breadcrumb {
+    height: 48px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .fb-header {
+    height: 64px;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 32px;
+  }
+
+  .fb-header :nth-child(2) {
+    margin-left: 12px;
+  }
+
+  .fb-viewbar {
+    padding-left: 32px;
+    height: 64px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Page Content: Tile Grid */
+
+  .fb-tile-grid {
+    display: grid;
+    gap: 32px;
+    justify-items: stretch;
+    /* Keep this grid template in line with the grid-template-columns in `shared/views/items_view/grid_view/grid_view.tsx` */
+    grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  }
+
+  .fb-tile-grid-top-padding {
+    margin-top: 24px;
+  }
+
+  .fb-file-tile-DEPRECATED {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fb-file-tile-DEPRECATED .fb-rectangle-16 {
+    margin-top: 20px;
+    margin-bottom: 20px
+  }
+
+  .fb-file-thumbnail {
+    background-color: var(--color-bg-secondary);
+    aspect-ratio: 16 / 9;
+  }
+
+  .fb-border-radius-8 {
+    border-radius: 8px;
+  }
+
+  .fb-card {
+    border: 1px solid var(--color-border);
+    border-radius: 13px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fb-file-card-footer {
+    border-top: 1px solid var(--color-border);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .fb-file-card-footer-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .fb-project-tile {
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .fb-project-tile > :nth-child(2) {
+    margin-top: 16px;
+  }
+
+  .fb-project-tile > :nth-child(3) {
+    margin-top: 8px;
+  }
+
+  .fb-team-tile {
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .fb-team-tile > :nth-child(2) {
+    margin-top: 48px;
+  }
+
+  .fb-team-tile > :nth-child(3),
+  .fb-team-tile > :nth-child(4) {
+    margin-top: 8px;
+  }
+
+  .fb-project-preview-grid {
+    display: grid;
+    gap: 12px;
+    justify-items: stretch;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 645px) {
+
+    .fb-tile-grid {
+      grid-template-columns: 100%;
+    }
+  }
+
+  .fb-profile-grid-header {
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+
+</style>
+
+
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta property="og:title" content="Login | Figma" />
+    <meta property="og:site_name" content="Figma" />
+
+    
+
+
+<link rel="icon" sizes="192x192" href="https://static.figma.com/uploads/1a667ef53b7c4837049399d0593ffca39e0bec9e">
+<link rel="icon" sizes="128x128" href="https://static.figma.com/uploads/b6df2735e4cb368306acf5480b50f96e69f96099">
+
+<link rel="icon" type="image/png" href="https://static.figma.com/app/icon/1/favicon.png" />
+<!--[if IE]><link rel="shortcut icon" href="https://static.figma.com/app/icon/1/favicon.ico" type="image/vnd.microsoft.icon" /><![endif]-->
+<link rel="icon" sizes="any" type="image/svg+xml" href="https://static.figma.com/app/icon/1/favicon.svg">
+
+<link rel="apple-touch-icon" sizes="76x76"   href="https://static.figma.com/app/icon/1/touch-76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://static.figma.com/app/icon/1/touch-120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://static.figma.com/app/icon/1/touch-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="https://static.figma.com/app/icon/1/touch-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://static.figma.com/app/icon/1/touch-180.png">
+
+
+
+
+
+      <link href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;auth-8384c3b565870da5.min.css" rel="stylesheet" crossorigin="anonymous">
+
+      <link rel="preload" as="fetch" id="englishDictionaryUrl" href="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;auth-53ea01e66ef9246f.min.en.json" crossorigin="anonymous" />
+  </head>
+  <body class="">
+
+
+    <div id="react-page"></div>
+
+
+
+      
+<div class='file-browser-loading-page-container'>
+  <div id="filebrowser-loading-page"
+      class="fb-page-layout hidden fadeOut"
+  >
+  <div id="filebrowser-loading-progress-bar"></div>
+
+  <div class="fb-flex-row">
+    <div id="filebrowser-loading-sidebar" class="fb-sidebar">
+      <div class="fb-sidebar-account-and-notifications">
+        <div class="fb-circle-24 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-120"></div>
+      </div>
+      <div class="fb-sidebar-searchbar">
+        <div class="fb-rectangle-32 fb-width-full"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-70"></div>
+      </div>
+      <div class="fb-divider"></div>
+      <div class="fb-sidebar-row">
+        <div class="fb-circle-16"></div>
+        <div class="fb-rectangle-16 fb-width-115"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-70"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-100"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-60"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-100"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-80"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-120"></div>
+      </div>
+      <div class="fb-sidebar-row">
+        <div class="fb-rectangle-16 fb-width-16 fb-shrink-0"></div>
+        <div class="fb-rectangle-16 fb-width-105"></div>
+      </div>
+    </div>
+
+
+    <div class="fb-page">
+
+
+          <div class="fb-toolbar-48">
+            <div class="fb-rectangle-16 fb-width-120"></div>
+          </div>
+
+
+
+      <div class="fb-page-content-columns">
+
+        <div class="fb-page-content">
+
+          <div id="loading-content-pane">
+            <div class="fb-fading-content">
+
+
+                  <div class="fb-tile-grid fb-tile-grid-top-padding">
+
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fb-card">
+                        <div class="fb-file-thumbnail"></div>
+                        <div class="fb-file-card-footer">
+                          <div class="fb-rectangle-16 fb-width-16"></div>
+                          <div class="fb-file-card-footer-text-container">
+                            <div class="fb-rectangle-16 fb-width-120"></div>
+                            <div class="fb-rectangle-16 fb-width-88"></div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+            </div>
+          </div>
+        </div>
+
+        &nbsp;
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <script nonce="V2X5VhHy/VXFOs0U13VmEA==" data-entrypoint="auth">
+      window.ENTRY_POINT = document.currentScript.dataset.entrypoint
+    </script>
+
+    
+
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==">
+    window['sentryConfig'] = {
+    }
+  </script>
+
+    
+
+    <script nonce="V2X5VhHy/VXFOs0U13VmEA==">performance?.mark('loadTimings:jsEvalStart')</script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;runtime~auth-4d51b4f14ad52f6e.min.js" defer crossorigin="anonymous"></script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;vendor-core-d89312026a3d00dd.min.js" defer crossorigin="anonymous"></script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;cssbuilder-cfe321a459b8474e.min.js" defer crossorigin="anonymous"></script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;vendor-2b1476679e52ad4c.min.js" defer crossorigin="anonymous"></script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;330-7edb24d9ab538f69.min.js" defer crossorigin="anonymous"></script>
+      <script nonce="V2X5VhHy/VXFOs0U13VmEA==" src="https:&#47;&#47;www.figma.com&#47;webpack-artifacts&#47;assets&#47;auth-da62ebdd14da11d3.min.js" defer crossorigin="anonymous"></script>
+    <script nonce="V2X5VhHy/VXFOs0U13VmEA==">
+      document.addEventListener('DOMContentLoaded', (e) => {
+        performance?.mark('loadTimings:DCL', { startTime: e.timeStamp })
+      })
+      window.addEventListener('load', (e) => {
+        performance?.mark('loadTimings:LOAD', { startTime: e.timeStamp })
+      })
+    </script>
+  </body>
+</html>

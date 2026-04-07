@@ -10,7 +10,12 @@ import os
 import json
 import sys
 import argparse
-from tqdm import tqdm
+try:
+    from tqdm import tqdm
+except ImportError:
+    # 模拟 tqdm 以保持代码兼容性
+    def tqdm(iterable, **kwargs):
+        return iterable
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'temp_dir')
