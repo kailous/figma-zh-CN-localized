@@ -65,7 +65,7 @@ def find_local_pack():
     return max(matches, key=os.path.getmtime)
 
 
-def sync(manual_source=None):
+def sync(manual_source=None, prefer_remote=False):
     dest_dir = os.path.join(PROJECT_ROOT, "lang")
     dest_file = os.path.join(dest_dir, "en_latest.json")
     dest_br = os.path.join(dest_dir, "en_latest.json.br")
@@ -73,8 +73,10 @@ def sync(manual_source=None):
 
     if manual_source and os.path.isfile(manual_source):
         source_file = manual_source
-    else:
+    elif not prefer_remote:
         source_file = find_local_pack()
+    else:
+        source_file = None
 
     if source_file:
         print(f"📦 使用本地英文包: {os.path.relpath(source_file, PROJECT_ROOT)}")
@@ -140,6 +142,11 @@ def sync(manual_source=None):
 
 
 if __name__ == "__main__":
-    arg_hash = sys.argv[1] if len(sys.argv) > 1 else None
-    ok = sync(arg_hash)
+    args = sys.argv[1:]
+    prefer_remote = False
+    if "--remote" in args:
+        prefer_remote = True
+        args.remove("--remote")
+    arg_hash = args[0] if args else None
+    ok = sync(arg_hash, prefer_remote=prefer_remote)
     sys.exit(0 if ok else 1)
