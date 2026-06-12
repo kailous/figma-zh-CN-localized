@@ -4,6 +4,10 @@
 # 自动备份（运行时生成）
 lang/backup/
 
+# Figma 官方英文包下载源文件（同步后会写入 lang/en_latest.json）
+figma_app*.min.en.json.br
+figma_app*.min.en.json.br.json
+
 # 系统文件
 .DS_Store
 

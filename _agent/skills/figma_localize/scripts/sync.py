@@ -8,6 +8,7 @@ import subprocess
 import shutil
 import glob
 import json
+import argparse
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
@@ -55,7 +56,9 @@ def sync_local_pack(source_file, dest_br, dest_file):
 def find_local_pack():
     patterns = [
         os.path.join(PROJECT_ROOT, "figma_app*.min.en.json.br"),
+        os.path.join(PROJECT_ROOT, "figma_app*.min.en.json.br.json"),
         os.path.join(PROJECT_ROOT, "lang", "figma_app*.min.en.json.br"),
+        os.path.join(PROJECT_ROOT, "lang", "figma_app*.min.en.json.br.json"),
     ]
     matches = []
     for pattern in patterns:
@@ -142,11 +145,9 @@ def sync(manual_source=None, prefer_remote=False):
 
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    prefer_remote = False
-    if "--remote" in args:
-        prefer_remote = True
-        args.remove("--remote")
-    arg_hash = args[0] if args else None
-    ok = sync(arg_hash, prefer_remote=prefer_remote)
+    parser = argparse.ArgumentParser(description="同步 Figma 英文语言包到 lang/en_latest.json")
+    parser.add_argument("source", nargs="?", help="本地包路径或 Figma 资源 hash")
+    parser.add_argument("--remote", action="store_true", help="忽略根目录本地包，强制远程探测/下载")
+    args = parser.parse_args()
+    ok = sync(args.source, prefer_remote=args.remote)
     sys.exit(0 if ok else 1)

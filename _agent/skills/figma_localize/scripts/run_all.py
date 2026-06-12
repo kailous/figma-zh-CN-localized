@@ -21,6 +21,8 @@ def main():
     parser = argparse.ArgumentParser(description="Figma 语言包全自动汉化")
     parser.add_argument("--skip-sync", action="store_true", help="跳过下载步骤（使用本地已有的 en_latest.json）")
     parser.add_argument("--skip-translate", action="store_true", help="跳过翻译步骤（假设 translated.json 已就绪）")
+    parser.add_argument("--remote", action="store_true", help="同步时忽略本地下载包，强制远程探测/下载")
+    parser.add_argument("--source", help="同步时指定本地语言包路径或 Figma 资源 hash")
     args = parser.parse_args()
 
     steps = [
@@ -46,7 +48,10 @@ def main():
 
         # 每个模块都有同名的主函数
         func = getattr(mod, name)
-        result = func()
+        if name == "sync":
+            result = func(args.source, prefer_remote=args.remote)
+        else:
+            result = func()
 
         if result is False:
             print(f"\n❌ 步骤 [{name}] 失败，流程中断。")

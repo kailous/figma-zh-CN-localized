@@ -1,16 +1,45 @@
-### 汉化伙伴招募
-如果你有兴趣参与到这个项目中，可以联系我，我会提供具体的汉化工作流程。
-我使用了python对语言包进行了排序和分割据，这样方便投递到 chatgpt 进行翻译。
-你只需要将分割好的语言包发送到 chatgpt 进行翻译，然后将翻译好的结果粘贴到zh/split 目录对应的文件中即可，最终我会使用脚本将其合并成一个完整的语言包。
+# 开发者说明
 
-最新脚本约定：拆分结果统一写入项目根目录的 `split_dir`，格式化、对比、合并后的临时产物集中在 `temp_dir`。如果流程中需要重建拆分或合并文件，可直接运行 `tools` 目录下的脚本，默认参数已经指向上述目录。
+本项目已经改为 Agent-first 维护方式，不再需要人工拆分 JSON、复制给 ChatGPT、再手动合并。
 
-后续我会再增加词条对比功能，以及其他的辅助脚本，方便进行汉化工作。
-目前需要招募的人员职能包括：
-- 将分隔后的语言包发送到 chatgpt 进行翻译的小伙伴
-- 测试体验对汉化结果进行反馈和润色的小伙伴
-如果你有兴趣参与到这个项目中，可以联系我，我会提供具体的汉化工作流程。
+公开产物仍然是：
 
-#### 脚本工具
-我使用 AI 开发了一些脚本工具，方便对语言包进行一些整理工作。
-[工具包](tools/README.md)
+```text
+lang/zh.json
+```
+
+这个路径不要移动或改名。
+
+## 更新流程
+
+```bash
+python3 _agent/skills/figma_localize/scripts/run_all.py
+```
+
+如果需要指定下载好的英文包：
+
+```bash
+python3 _agent/skills/figma_localize/scripts/run_all.py --source figma_app-xxxx.min.en.json.br.json
+```
+
+如果流程提示需要翻译，Agent 会读取 `.cache/pending.json` 并写入 `.cache/translated.json`。合并前必须运行：
+
+```bash
+python3 _agent/skills/figma_localize/scripts/validate_translation.py
+```
+
+然后继续：
+
+```bash
+python3 _agent/skills/figma_localize/scripts/run_all.py --skip-sync --skip-translate
+python3 _agent/skills/figma_localize/scripts/verify.py
+```
+
+## 贡献方向
+
+- 修正 `lang/zh.json` 中的翻译质量问题
+- 改进 `_agent/skills/figma_localize/scripts/` 工具链
+- 更新 Surge、FigCN、脚本使用教程
+- 补充 Agent 术语表和翻译规则
+
+旧的拆分脚本说明已废弃；请以 `_agent/skills/figma_localize/SKILL.md` 为准。
