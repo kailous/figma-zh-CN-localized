@@ -1,28 +1,37 @@
 name: check-figma-locale
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/check-figma-locale.yml"
   workflow_dispatch: {}
   schedule:
-    - cron: "*/30 * * * *"   # 每30分钟（UTC）
+    - cron: "*/30 * * * *" # 每30分钟（UTC）
 
 permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: check-figma-locale-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   check:
     runs-on: ubuntu-latest
     env:
-      # 读取“上次”的链接（你刚创建的仓库变量）
       PREVIOUS_URL: ${{ vars.LATEST_URL }}
-      # ERE 兼容正则（去掉了 (?:...)）
-      REGEX: 'https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/figma_app(_beta)?-[a-f0-9]+\.min\.en\.json(\.br)?'
-      # 如需自定义扫描页面，可在仓库“环境变量 Variables”里设置 PAGES，否则用下面默认
+      # 仅提取资源文件名，再统一补全 URL；兼容稳定版、Beta 和 Rspack。
+      REGEX: 'figma_app(_beta|__rspack)?-[a-f0-9]{10,64}\.min\.en\.json(\.br)?'
+      # 可在仓库 Variables 中设置 PAGES 覆盖默认扫描页面，页面之间用空格分隔。
       PAGES: ${{ vars.PAGES }}
     steps:
       - name: 检出仓库
-        uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: 安装必要的命令行工具
         shell: bash
@@ -42,11 +51,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          log(){ printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
+          log() { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
 
-          # 默认待扫页面（可用仓库变量 PAGES 覆盖，空格分隔）
           if [[ -z "${PAGES:-}" ]]; then
-            PAGES="https://www.figma.com/ https://www.figma.com/login https://www.figma.com/ja/"
+            PAGES="https://www.figma.com/ https://www.figma.com/login https://www.figma.com/community https://www.figma.com/ja/"
           fi
 
           tmp_dir="$(mktemp -d)"
@@ -54,23 +62,38 @@ jobs:
 
           combined="$tmp_dir/all.html"
           : > "$combined"
+          fetched=0
           for u in ${PAGES}; do
             log "抓取页面: $u"
-            curl -fsSL "$u" | tr -d '\n' >> "$combined"
-            echo >> "$combined"
+            if curl --fail --silent --show-error --location \
+              --retry 2 --connect-timeout 10 --max-time 30 "$u" \
+              | tr -d '\n' >> "$combined"; then
+              echo >> "$combined"
+              fetched=$((fetched + 1))
+            else
+              echo "::warning::抓取 Figma 页面失败：$u"
+            fi
           done
+
+          if [[ "$fetched" -eq 0 ]]; then
+            echo "::warning::所有 Figma 页面均抓取失败，本次不更新语言包"
+          fi
 
           declare -A PATTERNS
           PATTERNS[figma_app]="${REGEX}"
-          PATTERNS[auth_iframe]='https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/auth_iframe-[a-f0-9]+\.min\.en\.json(\.br)?'
-          PATTERNS[community]='https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/community-[a-f0-9]+\.min\.en\.json(\.br)?'
+          PATTERNS[auth_iframe]='auth_iframe-[a-f0-9]{10,64}\.min\.en\.json(\.br)?'
+          PATTERNS[community]='community-[a-f0-9]{10,64}\.min\.en\.json(\.br)?'
 
           declare -A FOUND
           for key in "${!PATTERNS[@]}"; do
             match_file="$tmp_dir/${key}.txt"
-            grep -oE "${PATTERNS[$key]}" "$combined" | awk 'NF' | sort -u | tail -n1 > "$match_file" || true
+            grep -oE "${PATTERNS[$key]}" "$combined" \
+              | awk 'NF && !seen[$0]++' \
+              | tail -n1 > "$match_file" || true
+
             if [[ -s "$match_file" ]]; then
-              value="$(cat "$match_file")"
+              filename="$(cat "$match_file")"
+              value="https://www.figma.com/webpack-artifacts/assets/${filename}"
               FOUND[$key]="$value"
               log "${key} 最新地址: $value"
               echo "${key}=$value" >> "$GITHUB_OUTPUT"
@@ -84,7 +107,7 @@ jobs:
           echo "found=${latest_found}" >> "$GITHUB_OUTPUT"
 
           if [[ -z "$latest_found" ]]; then
-            log "未找到 figma_app 对应的链接"
+            echo "::warning::未找到 figma_app 语言包链接，本次保持仓库文件不变"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -92,10 +115,11 @@ jobs:
           if [[ -n "${PREVIOUS_URL:-}" && "$latest_found" == "$PREVIOUS_URL" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true"  >> "$GITHUB_OUTPUT"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: 下载最新语言包文件
+        if: steps.detect.outputs.found != ''
         shell: bash
         run: |
           set -euo pipefail
@@ -111,23 +135,42 @@ jobs:
             fi
 
             echo "[$name] 下载中: $url"
-            local tmp
-            tmp="$(mktemp)"
-            if ! curl -fsSL "$url" -o "$tmp"; then
+            local downloaded candidate extracted
+            downloaded="$(mktemp)"
+
+            if ! curl --fail --silent --show-error --location \
+              --retry 2 --connect-timeout 10 --max-time 60 \
+              "$url" -o "$downloaded"; then
+              rm -f "$downloaded"
               echo "::error::下载 $name ($url) 失败"
               return 1
             fi
 
-            mkdir -p "$(dirname "$dest")"
-
+            candidate="$downloaded"
+            extracted=""
             if [[ "$url" == *.br ]]; then
-              local decompressed
-              decompressed="$(mktemp)"
-              brotli -d "$tmp" -o "$decompressed"
-              mv "$decompressed" "$dest"
-              rm -f "$tmp"
-            else
-              mv "$tmp" "$dest"
+              extracted="$(mktemp)"
+              if ! brotli -d "$downloaded" -o "$extracted"; then
+                rm -f "$downloaded" "$extracted"
+                echo "::error::$name 不是有效的 Brotli 文件，已保留仓库中的原文件"
+                return 1
+              fi
+              candidate="$extracted"
+            fi
+
+            if ! python3 -m json.tool "$candidate" >/dev/null; then
+              rm -f "$downloaded"
+              if [[ -n "$extracted" ]]; then
+                rm -f "$extracted"
+              fi
+              echo "::error::$name 下载结果不是有效 JSON，已保留仓库中的原文件"
+              return 1
+            fi
+
+            mkdir -p "$(dirname "$dest")"
+            mv "$candidate" "$dest"
+            if [[ "$candidate" != "$downloaded" ]]; then
+              rm -f "$downloaded"
             fi
           }
 
@@ -136,50 +179,52 @@ jobs:
           download_and_extract community "${{ steps.detect.outputs.community }}" "lang/community-en.json"
 
       - name: 重建格式化语言包
+        if: steps.detect.outputs.found != ''
         shell: bash
         run: |
           set -euo pipefail
 
           if [[ -f lang/en_latest.json ]]; then
-            python3 _agent/skills/figma_localize/scripts/format_json.py -i lang/en_latest.json -o lang/en_latest+.json
+            cp -- lang/en_latest.json lang/en_latest+.json
+            python3 _agent/skills/figma_localize/scripts/format_json.py lang/en_latest+.json
           fi
 
           format_in_place() {
             local path="$1"
-            if [[ ! -f "$path" ]]; then
-              return
+            if [[ -f "$path" ]]; then
+              python3 _agent/skills/figma_localize/scripts/format_json.py "$path"
             fi
-            local tmp
-            tmp="$(mktemp)"
-            python3 _agent/skills/figma_localize/scripts/format_json.py -i "$path" -o "$tmp"
-            mv "$tmp" "$path"
           }
 
           format_in_place lang/auth_iframe-en.json
           format_in_place lang/community-en.json
 
       - name: 提交语言包更新
+        if: steps.detect.outputs.found != ''
         shell: bash
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           set -euo pipefail
 
-          git status --short
+          paths=(
+            lang/en_latest.json
+            lang/en_latest+.json
+            lang/auth_iframe-en.json
+            lang/community-en.json
+          )
+          git status --short -- "${paths[@]}"
 
-          if git diff --quiet -- lang/en_latest.json lang/en_latest+.json lang/auth_iframe-en.json lang/community-en.json; then
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
             echo "没有检测到语言包变化"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add lang/en_latest.json lang/en_latest+.json lang/auth_iframe-en.json lang/community-en.json
-
+          git add --all -- "${paths[@]}"
           git commit -m "chore: update figma locale assets"
 
-          # 避免竞争条件
           branch="${TARGET_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}"
           git pull --rebase origin "$branch"
           git push origin "HEAD:$branch"
@@ -188,7 +233,7 @@ jobs:
         if: steps.detect.outputs.changed == 'true' && steps.detect.outputs.found != ''
         shell: bash
         env:
-          PAT_TOKEN: ${{ secrets.VARS_TOKEN }}   # 你的 PAT（repo + actions）
+          PAT_TOKEN: ${{ secrets.VARS_TOKEN }}
         run: |
           set -euo pipefail
           if [[ -z "${PAT_TOKEN:-}" ]]; then
@@ -203,9 +248,7 @@ jobs:
           echo "正在更新仓库变量 ${var_name}："
           echo "$new_value"
 
-          # 变量是否存在？先 GET 再决定 PATCH 还是 PUT（两者都能更新，这里使用 PATCH）
-          # Docs: PATCH /repos/{owner}/{repo}/actions/variables/{name}
-          curl -s -X PATCH \
+          curl --fail-with-body --silent --show-error --request PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${PAT_TOKEN}" \
             "https://api.github.com/repos/${owner_repo}/actions/variables/${var_name}" \
@@ -216,7 +259,7 @@ jobs:
       - name: 语言包更新时创建 Issue 通知
         if: steps.detect.outputs.changed == 'true' && steps.detect.outputs.found != ''
         env:
-          GH_TOKEN: ${{ github.token }}   # 默认 token，够发 Issue
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
