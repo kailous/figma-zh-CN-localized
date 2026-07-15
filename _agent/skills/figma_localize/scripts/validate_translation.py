@@ -8,7 +8,11 @@ import sys
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 CACHE_DIR = os.path.join(PROJECT_ROOT, ".cache")
 
-PLACEHOLDER_RE = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*(?:,[^{}]+)?\}")
+SIMPLE_PLACEHOLDER_RE = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*\}")
+ICU_ARGUMENT_RE = re.compile(
+    r"\{([A-Za-z_][A-Za-z0-9_]*),\s*(plural|selectordinal|select|date|time|number),"
+)
+ICU_BRANCH_PREFIX_RE = re.compile(r"(?:zero|one|two|few|many|other|=\d+)\s*$")
 ENGLISH_WORD_RE = re.compile(r"[A-Za-z]{4,}")
 URL_OR_COMMAND_RE = re.compile(r"(https?://|ssh-keyscan|ssh-agent|@[\w.-]+)")
 ALLOW_UNCHANGED = {
@@ -24,11 +28,18 @@ def load_json(path):
 
 
 def placeholders(text):
-    return sorted(PLACEHOLDER_RE.findall(text or ""))
+    text = text or ""
+    found = [f"{{{name},{kind}}}" for name, kind in ICU_ARGUMENT_RE.findall(text)]
+    for match in SIMPLE_PLACEHOLDER_RE.finditer(text):
+        # ICU branch braces contain translatable copy, not variable names.
+        if ICU_BRANCH_PREFIX_RE.search(text[:match.start()]):
+            continue
+        found.append(match.group(0))
+    return sorted(found)
 
 
 def strip_placeholders(text):
-    return PLACEHOLDER_RE.sub("", text or "")
+    return SIMPLE_PLACEHOLDER_RE.sub("", text or "")
 
 
 def validate_translation():
