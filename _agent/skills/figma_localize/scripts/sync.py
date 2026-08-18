@@ -9,10 +9,48 @@ import shutil
 import glob
 import json
 import argparse
+from urllib.parse import urlsplit
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 VERIFIED_HASHES = []  # 保留为空，强制使用自动探测
+
+ASSET_NAME_RE = re.compile(
+    r"^(figma_app(?:_beta|__rspack)?)-([a-f0-9]{10,64})\.min\.en\.json\.br$"
+)
+
+
+def parse_asset_reference(value):
+    """解析 hash、资源文件名或 Figma 官方完整 URL。"""
+    if not value:
+        return None
+
+    if re.fullmatch(r"[a-f0-9]{10,64}", value):
+        return {"hash": value, "prefix": "figma_app", "url": None}
+
+    candidate = value
+    if value.startswith(("http://", "https://")):
+        parsed = urlsplit(value)
+        if parsed.scheme != "https" or parsed.netloc != "www.figma.com":
+            raise ValueError("仅支持 https://www.figma.com 的语言包 URL")
+        asset_prefix = "/webpack-artifacts/assets/"
+        if not parsed.path.startswith(asset_prefix):
+            raise ValueError("URL 不是 Figma webpack-artifacts 语言包地址")
+        candidate = parsed.path[len(asset_prefix):]
+
+    match = ASSET_NAME_RE.fullmatch(candidate)
+    if not match:
+        raise ValueError(
+            "资源必须是 hash、figma_app*.min.en.json.br 文件名或 Figma 官方完整 URL"
+        )
+
+    prefix, asset_hash = match.groups()
+    canonical_url = (
+        "https://www.figma.com/webpack-artifacts/assets/"
+        f"{prefix}-{asset_hash}.min.en.json.br"
+    )
+    return {"hash": asset_hash, "prefix": prefix, "url": canonical_url}
+
 
 def decompress_brotli(src, dest):
     """解压 Brotli 文件。优先使用系统 brotli，缺失时回退到 Node.js 内置 zlib。"""
@@ -76,6 +114,9 @@ def sync(manual_source=None, prefer_remote=False):
 
     if manual_source and os.path.isfile(manual_source):
         source_file = manual_source
+    elif manual_source:
+        # 显式的 hash、文件名或 URL 必须优先于根目录中的旧临时包。
+        source_file = None
     elif not prefer_remote:
         source_file = find_local_pack()
     else:
@@ -95,8 +136,19 @@ def sync(manual_source=None, prefer_remote=False):
     url = 'https://www.figma.com/community'
     headers = {'User-Agent': 'Mozilla/5.0'}
 
-    h = manual_source
+    h = None
     prefix = "figma_app"
+    direct_url = None
+
+    if manual_source:
+        try:
+            reference = parse_asset_reference(manual_source)
+        except ValueError as e:
+            print(f"  ❌ 无效的远程语言包参数: {e}")
+            return False
+        h = reference["hash"]
+        prefix = reference["prefix"]
+        direct_url = reference["url"]
 
     if not h:
         print("🔍 正在从 Figma 探测最新语言包...")
@@ -120,13 +172,19 @@ def sync(manual_source=None, prefer_remote=False):
         print("  ❌ 无法定位语言包。可手动指定哈希: python3 .../sync.py <hash>")
         return False
 
-    # 尝试下载，自动切换前缀
-    prefixes = list(dict.fromkeys([prefix, "figma_app__rspack", "figma_app"]))
+    # 完整 URL/文件名优先使用精确地址；仅 hash 或自动探测时再切换前缀。
+    if direct_url:
+        candidate_urls = [direct_url]
+    else:
+        prefixes = list(dict.fromkeys([prefix, "figma_app__rspack", "figma_app"]))
+        candidate_urls = [
+            f"https://www.figma.com/webpack-artifacts/assets/{p}-{h}.min.en.json.br"
+            for p in prefixes
+        ]
 
-    for p in prefixes:
-        sync_url = f"https://www.figma.com/webpack-artifacts/assets/{p}-{h}.min.en.json.br"
+    for sync_url in candidate_urls:
         try:
-            print(f"  ⬇️  尝试: {p}-{h} ...")
+            print(f"  ⬇️  尝试: {os.path.basename(sync_url)} ...")
             req = urllib.request.Request(sync_url, headers=headers)
             with urllib.request.urlopen(req, timeout=30) as resp:
                 data = resp.read()
@@ -140,13 +198,17 @@ def sync(manual_source=None, prefer_remote=False):
         except Exception:
             continue
 
-    print(f"  ❌ 所有前缀尝试均失败 (hash: {h})")
+    print(f"  ❌ 语言包下载或解压失败 (hash: {h})")
     return False
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="同步 Figma 英文语言包到 lang/en_latest.json")
-    parser.add_argument("source", nargs="?", help="本地包路径或 Figma 资源 hash")
+    parser.add_argument(
+        "source",
+        nargs="?",
+        help="本地包路径、Figma 资源 hash、文件名或完整 URL",
+    )
     parser.add_argument("--remote", action="store_true", help="忽略根目录本地包，强制远程探测/下载")
     args = parser.parse_args()
     ok = sync(args.source, prefer_remote=args.remote)

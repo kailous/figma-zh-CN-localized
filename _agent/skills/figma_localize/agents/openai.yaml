@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma 中文语言包维护"
+  short_description: "从 Figma 团队首页定位英文包，并同步维护中文语言包"
+  default_prompt: "使用 $figma-localize 从已登录的 Figma 团队首页定位最新英文语言包 URL，并同步本地语言包。"

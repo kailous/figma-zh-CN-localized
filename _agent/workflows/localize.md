@@ -24,11 +24,13 @@ sed -n '1,220p' _agent/skills/figma_localize/SKILL.md
 python3 _agent/skills/figma_localize/scripts/run_all.py
 ```
 
-如果用户给了下载文件：
+如果用户给了下载文件、资源文件名或完整 URL：
 
 ```bash
 python3 _agent/skills/figma_localize/scripts/run_all.py --source <path-to-figma_app>
 ```
+
+如果用户要求从团队首页源码定位 URL，按 `SKILL.md` 的“从团队首页发现英文包”执行，再把完整 URL 传给 `--source`。
 
 如果要忽略本地临时包：
 

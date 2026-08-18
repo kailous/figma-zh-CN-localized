@@ -22,7 +22,10 @@ def main():
     parser.add_argument("--skip-sync", action="store_true", help="跳过下载步骤（使用本地已有的 en_latest.json）")
     parser.add_argument("--skip-translate", action="store_true", help="跳过翻译步骤（假设 translated.json 已就绪）")
     parser.add_argument("--remote", action="store_true", help="同步时忽略本地下载包，强制远程探测/下载")
-    parser.add_argument("--source", help="同步时指定本地语言包路径或 Figma 资源 hash")
+    parser.add_argument(
+        "--source",
+        help="同步时指定本地语言包路径、Figma 资源 hash、文件名或完整 URL",
+    )
     args = parser.parse_args()
 
     steps = [
@@ -59,7 +62,6 @@ def main():
 
         # translate 步骤特殊处理：如果有待翻译字段，需要 Agent 介入
         if name == "translate":
-            cache_dir = os.path.join(os.path.dirname(SCRIPT_DIR), '..', '..', '..', '.cache')
             cache_dir = os.path.normpath(os.path.join(SCRIPT_DIR, '..', '..', '..', '..', '..', '.cache'))
             pending = os.path.join(cache_dir, 'pending.json')
             translated = os.path.join(cache_dir, 'translated.json')
@@ -68,7 +70,16 @@ def main():
                 import json
                 with open(pending, 'r') as f:
                     data = json.load(f)
-                if data and not os.path.exists(translated):
+                translated_ready = False
+                if os.path.exists(translated):
+                    try:
+                        with open(translated, 'r') as f:
+                            existing = json.load(f)
+                        translated_ready = set(data).issubset(set(existing))
+                    except (json.JSONDecodeError, OSError):
+                        translated_ready = False
+
+                if data and not translated_ready:
                     print(f"\n⏸️  有 {len(data)} 个字段待 AI 翻译。")
                     print("   Agent 请读取 .cache/pending.json 并翻译后写入 .cache/translated.json")
                     print("   然后重新运行: python3 .../run_all.py --skip-sync --skip-translate")

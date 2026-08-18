@@ -37,6 +37,7 @@ lang/
 _agent/
   skills/figma_localize/
     SKILL.md          # Agent 维护规则、术语表和质量要求
+    agents/           # Codex Skill 列表和触发提示元数据
     scripts/          # 同步、对比、校验、合并工具
   workflows/
     localize.md       # Agent 更新工作流
@@ -57,6 +58,9 @@ python3 _agent/skills/figma_localize/scripts/run_all.py
 
 # 指定本地下载包
 python3 _agent/skills/figma_localize/scripts/run_all.py --source figma_app-xxxx.min.en.json.br.json
+
+# 使用 Skill 从已登录的 Figma 团队首页源码发现 URL 后直接同步
+python3 _agent/skills/figma_localize/scripts/run_all.py --source 'https://www.figma.com/webpack-artifacts/assets/figma_app-xxxx.min.en.json.br'
 
 # 强制尝试远程探测下载
 python3 _agent/skills/figma_localize/scripts/run_all.py --remote

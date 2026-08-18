@@ -1,11 +1,39 @@
 ---
-name: figma_localize
-description: Agent-first Figma 中文语言包维护工具链：同步英文包、提取差异、生成翻译、校验占位符、合并并发布。
+name: figma-localize
+description: Agent-first Figma 中文语言包维护工具链：从已登录的 Figma 团队首页源码发现最新英文语言包 URL，同步英文包、提取差异、生成翻译、校验占位符、合并并发布。用户要求查找 figma_app*.min.en.json.br、更新或汉化 Figma 语言包时使用。
 ---
 
 # Figma 中文语言包 Agent Skill
 
 你维护的是 `figma-zh-CN-localized`。公开产物是 `lang/zh.json`，这个路径不能移动、改名或替换成版本化路径。
+
+## 从团队首页发现英文包
+
+当用户要求从 `https://www.figma.com/files/team/` 查看源码并查找 `en.json.br` 时，使用能访问现有登录态的浏览器：
+
+1. 打开 `https://www.figma.com/files/team/`，等待跳转到实际团队首页。
+2. 只在当前文档源码中执行下面的只读提取逻辑；不要输出、保存或传递完整页面源码，因为其中可能包含账号或团队信息。
+
+```js
+() => {
+  const pattern = /(?:https:\/\/www\.figma\.com\/webpack-artifacts\/assets\/)?figma_app(?:_beta|__rspack)?-[a-f0-9]{10,64}\.min\.en\.json(?:\.br)?/g;
+  const matches = document.documentElement.outerHTML.match(pattern) || [];
+  return [...new Set(matches)].map((value) =>
+    value.startsWith("http")
+      ? value
+      : `https://www.figma.com/webpack-artifacts/assets/${value}`
+  );
+}
+```
+
+3. 优先选择带 `.br` 的稳定版 `figma_app-...`；只有稳定版不存在时才选择 `figma_app__rspack-...` 或 `figma_app_beta-...`。
+4. 将找到的完整 URL 直接交给同步流程：
+
+```bash
+python3 _agent/skills/figma_localize/scripts/run_all.py --source 'https://www.figma.com/webpack-artifacts/assets/figma_app-xxxx.min.en.json.br'
+```
+
+如果源码中没有匹配项，先重新加载一次页面。仍无匹配时使用 `--remote` 扫描公开页面；不要读取浏览器 cookie、localStorage 或用户资料来绕过登录问题。
 
 ## 默认工作流
 
@@ -19,6 +47,7 @@ python3 _agent/skills/figma_localize/scripts/run_all.py
 
 ```bash
 python3 _agent/skills/figma_localize/scripts/run_all.py --source figma_app-xxxx.min.en.json.br.json
+python3 _agent/skills/figma_localize/scripts/run_all.py --source 'https://www.figma.com/webpack-artifacts/assets/figma_app-xxxx.min.en.json.br'
 python3 _agent/skills/figma_localize/scripts/run_all.py --remote
 ```
 
@@ -47,7 +76,7 @@ git diff --stat
 
 ## 工具职责
 
-- `sync.py`：同步英文包到 `lang/en_latest.json`。支持本地 `.br`、浏览器另存为 `.br.json`、明文 JSON、Brotli 压缩包和远程 hash。
+- `sync.py`：同步英文包到 `lang/en_latest.json`。支持本地 `.br`、浏览器另存为 `.br.json`、明文 JSON、Brotli 压缩包，以及远程 hash、资源文件名和完整 URL。
 - `diff.py`：将英文包中新增但中文包缺失的键写入 `.cache/pending.json`。
 - `translate.py`：显示翻译任务状态；真正翻译由 Agent 写入 `.cache/translated.json`。
 - `validate_translation.py`：检查 translated 的 key、占位符和 ICU 片段是否安全。
