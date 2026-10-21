@@ -10,9 +10,10 @@ CACHE_DIR = os.path.join(PROJECT_ROOT, ".cache")
 
 SIMPLE_PLACEHOLDER_RE = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*\}")
 ICU_ARGUMENT_RE = re.compile(
-    r"\{([A-Za-z_][A-Za-z0-9_]*),\s*(plural|selectordinal|select|date|time|number),"
+    r"\s*([A-Za-z_][A-Za-z0-9_]*)\s*,\s*(plural|selectordinal|select|date|time|number)\s*,"
 )
-ICU_BRANCH_PREFIX_RE = re.compile(r"(?:zero|one|two|few|many|other|=\d+)\s*$")
+ICU_BRANCH_KEY_RE = re.compile(r"\s*(?:[A-Za-z_][A-Za-z0-9_]*|=\d+)\s*")
+SIMPLE_ARGUMENT_RE = re.compile(r"\s*([A-Za-z_][A-Za-z0-9_]*)\s*$")
 ENGLISH_WORD_RE = re.compile(r"[A-Za-z]{4,}")
 URL_OR_COMMAND_RE = re.compile(r"(https?://|ssh-keyscan|ssh-agent|@[\w.-]+)")
 ALLOW_UNCHANGED = {
@@ -27,14 +28,56 @@ def load_json(path):
         return json.load(f)
 
 
-def placeholders(text):
-    text = text or ""
-    found = [f"{{{name},{kind}}}" for name, kind in ICU_ARGUMENT_RE.findall(text)]
-    for match in SIMPLE_PLACEHOLDER_RE.finditer(text):
-        # ICU branch braces contain translatable copy, not variable names.
-        if ICU_BRANCH_PREFIX_RE.search(text[:match.start()]):
+def _balanced_end(text, start):
+    depth = 0
+    for index in range(start, len(text)):
+        if text[index] == "{":
+            depth += 1
+        elif text[index] == "}":
+            depth -= 1
+            if depth == 0:
+                return index
+    return -1
+
+
+def _collect_placeholders(text, found):
+    index = 0
+    while index < len(text):
+        if text[index] != "{":
+            index += 1
             continue
-        found.append(match.group(0))
+        end = _balanced_end(text, index)
+        if end == -1:
+            break
+        inner = text[index + 1:end]
+        argument = ICU_ARGUMENT_RE.match(inner)
+        if argument:
+            found.append("{%s,%s}" % (argument.group(1), argument.group(2)))
+            body = inner[argument.end():]
+            offset = 0
+            while offset < len(body):
+                key = ICU_BRANCH_KEY_RE.match(body, offset)
+                if not key:
+                    break
+                offset = key.end()
+                if offset >= len(body) or body[offset] != "{":
+                    break
+                branch_end = _balanced_end(body, offset)
+                if branch_end == -1:
+                    break
+                # Branch copy may contain nested placeholders; branch keys do not count.
+                _collect_placeholders(body[offset + 1:branch_end], found)
+                offset = branch_end + 1
+        else:
+            argument = SIMPLE_ARGUMENT_RE.match(inner)
+            if argument:
+                found.append("{" + argument.group(1) + "}")
+        index = end + 1
+
+
+def placeholders(text):
+    found = []
+    _collect_placeholders(text or "", found)
     return sorted(found)
 
 

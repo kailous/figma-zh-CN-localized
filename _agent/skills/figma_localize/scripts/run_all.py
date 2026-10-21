@@ -62,7 +62,7 @@ def main():
 
         # translate 步骤特殊处理：如果有待翻译字段，需要 Agent 介入
         if name == "translate":
-            cache_dir = os.path.normpath(os.path.join(SCRIPT_DIR, '..', '..', '..', '..', '..', '.cache'))
+            cache_dir = os.path.normpath(os.path.join(SCRIPT_DIR, '..', '..', '..', '..', '.cache'))
             pending = os.path.join(cache_dir, 'pending.json')
             translated = os.path.join(cache_dir, 'translated.json')
 
